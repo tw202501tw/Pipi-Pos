@@ -1356,6 +1356,32 @@
                     </div>
                 </div>
 
+                <!-- 一般管理員專屬登錄的地方 (老闆 / 老闆娘) -->
+                <div class="p-4 sm:p-5 bg-indigo-950/85 border-t-2 border-indigo-500/40 flex items-center justify-between gap-2">
+                    <h2 class="text-sm sm:text-base font-extrabold text-indigo-300">👔 這裡是一般管理員專屬登錄的地方（老闆 / 老闆娘）</h2>
+                    <span class="text-[11px] bg-indigo-500/20 text-indigo-200 border border-indigo-400/30 px-2 py-0.5 rounded font-semibold whitespace-nowrap shrink-0">初始密碼：0000</span>
+                </div>
+
+                <div class="p-4 sm:p-5 space-y-2 bg-slate-900/90">
+                    <label for="manager-login-select" class="block text-xs sm:text-sm font-bold text-slate-200">
+                        📋 選擇一般管理員帳號（老闆 / 老闆娘專屬下拉選單）
+                    </label>
+                    <select id="manager-login-select" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-800 border border-slate-600 text-white text-xs sm:text-sm outline-none focus:border-indigo-400"></select>
+                </div>
+
+                <div class="p-4 sm:p-5 space-y-3 bg-slate-900/90">
+                    <label for="manager-login-pin" class="block text-xs sm:text-sm font-bold text-slate-200">
+                        🔐 這邊是打一般管理員密碼（點入自動鎖定英文輸入）
+                        <span class="block text-[11px] font-normal text-slate-400 mt-0.5">（初始密碼為 <strong class="text-amber-300 font-mono">0000</strong>；首次登入強制修改為 <strong class="text-indigo-300">8 位數含英文大寫、小寫與數字各至少 1 個</strong>）</span>
+                    </label>
+                    <div class="flex flex-col sm:flex-row gap-2.5">
+                        <input id="manager-login-pin" type="password" lang="en" inputmode="latin" autocapitalize="off" autocomplete="off" autocorrect="off" spellcheck="false" maxlength="8" placeholder="請輸入 8 位密碼 (預設 0000)" class="strict-en-pwd flex-1 px-3.5 py-2.5 rounded-xl bg-slate-800 border border-slate-600 text-white font-mono tracking-normal text-center text-sm sm:text-base outline-none focus:border-indigo-400">
+                        <button id="manager-login-submit-btn" type="button" class="bg-indigo-600 hover:bg-indigo-500 text-white font-extrabold px-6 py-2.5 rounded-xl text-sm shadow-lg transition whitespace-nowrap">
+                            👔 一般管理員登入
+                        </button>
+                    </div>
+                </div>
+
                 <!-- 總管理員專屬登入處 -->
                 <div class="p-4 sm:p-5 bg-blue-950/80 border-t-2 border-blue-500/40 flex items-center justify-between">
                     <h2 class="text-base sm:text-lg font-extrabold text-amber-300">🛡️ 這裡是總管理員專屬登入的地方</h2>
@@ -1387,7 +1413,7 @@
     <div id="force-change-pwd-modal" class="fixed inset-0 bg-slate-950/90 backdrop-blur-md z-50 hidden items-center justify-center p-4">
         <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl border-2 border-amber-400 space-y-4">
             <div class="space-y-1 border-b border-slate-100 pb-3">
-                <div class="inline-flex items-center gap-1.5 bg-amber-100 text-amber-800 text-xs font-extrabold px-2.5 py-0.5 rounded-full">🔐 員工帳號 8 位數安全密碼設定</div>
+                <div class="inline-flex items-center gap-1.5 bg-amber-100 text-amber-800 text-xs font-extrabold px-2.5 py-0.5 rounded-full">🔐 帳號 8 位數安全密碼設定（一般管理員 / 員工）</div>
                 <h3 id="force-pwd-title" class="font-extrabold text-slate-900 text-lg">首次登入！請立即設定您的 8 位數專屬密碼</h3>
                 <p id="force-pwd-desc" class="text-xs text-rose-600 font-semibold">
                     您的帳號目前使用的是剛註冊預設密碼 (0000)，必須修改為新的 8 位數密碼（須含英文大寫、英文小寫、數字至少各一，可含符號，總長剛好 8 碼）才能進入系統！
@@ -1395,7 +1421,7 @@
             </div>
             <div class="space-y-3 text-xs sm:text-sm">
                 <div>
-                    <label class="block font-semibold text-slate-700 mb-1">目前登入員工帳號</label>
+                    <label class="block font-semibold text-slate-700 mb-1">目前登入帳號 / 姓名</label>
                     <input id="force-pwd-account" type="text" readonly class="w-full px-3 py-2 rounded-xl border border-slate-200 bg-slate-100 text-slate-700 font-mono font-bold">
                 </div>
                 <div>
@@ -1458,6 +1484,10 @@
             members: [],
             orders: [],
             preorders: [],
+            managers: [
+                { account: 'Chu,Tsung-Shang', name: '朱宗上', title: '老闆 (一般管理員)', pin: '0000', mustChangePwd: true },
+                { account: 'Lin,Ya-Ting', name: '林雅婷', title: '老闆娘 (一般管理員)', pin: '0000', mustChangePwd: true }
+            ],
             staff: [],
             memos: {},
             peers: [],
@@ -1504,6 +1534,19 @@
                         if (!Array.isArray(parsed.orders)) parsed.orders = [];
                         if (!Array.isArray(parsed.preorders)) parsed.preorders = [];
                         if (!Array.isArray(parsed.staff)) parsed.staff = [];
+                        const defMgrs = [
+                            { account: 'Chu,Tsung-Shang', name: '朱宗上', title: '老闆 (一般管理員)', pin: '0000', mustChangePwd: true },
+                            { account: 'Lin,Ya-Ting', name: '林雅婷', title: '老闆娘 (一般管理員)', pin: '0000', mustChangePwd: true }
+                        ];
+                        if (!Array.isArray(parsed.managers)) {
+                            parsed.managers = defMgrs;
+                        } else {
+                            defMgrs.forEach(dm => {
+                                const ex = parsed.managers.find(m => m.account === dm.account);
+                                if (!ex) parsed.managers.push(dm);
+                                else { ex.name = dm.name; ex.title = dm.title; }
+                            });
+                        }
                         if (!Array.isArray(parsed.peers)) parsed.peers = [];
                         if (!Array.isArray(parsed.transfers)) parsed.transfers = [];
                         if (!Array.isArray(parsed.attendance)) parsed.attendance = [];
@@ -2528,10 +2571,22 @@
                 sel.appendChild(opt);
                 return;
             }
+            if (currentSessionUser && currentSessionUser.role === 'manager') {
+                const selfOpt = document.createElement('option');
+                selfOpt.value = `${currentSessionUser.name} (${currentSessionUser.account})`;
+                selfOpt.textContent = `${currentSessionUser.name} - ${currentSessionUser.account} (本人打卡)`;
+                sel.appendChild(selfOpt);
+            }
             const adminOpt = document.createElement('option');
             adminOpt.value = 'tw202501tw@gmail.com';
             adminOpt.textContent = 'tw202501tw@gmail.com (總管理員)';
             sel.appendChild(adminOpt);
+            (appState.managers || []).forEach(m => {
+                const mOpt = document.createElement('option');
+                mOpt.value = `${m.name} (${m.account})`;
+                mOpt.textContent = `${m.name} - ${m.account} (${m.title})`;
+                sel.appendChild(mOpt);
+            });
             appState.staff.forEach(s => {
                 const opt = document.createElement('option');
                 opt.value = s.email;
@@ -2621,7 +2676,41 @@
             setItem('pwd-rule-digit', res.hasDigit, '含至少 1 個數字 (0-9)');
         }
 
+        function ensureManagersList() {
+            if (!Array.isArray(appState.managers)) appState.managers = [];
+            const required = [
+                { account: 'Chu,Tsung-Shang', name: '朱宗上', title: '老闆 (一般管理員)' },
+                { account: 'Lin,Ya-Ting', name: '林雅婷', title: '老闆娘 (一般管理員)' }
+            ];
+            required.forEach(req => {
+                const found = appState.managers.find(m => m.account === req.account);
+                if (!found) {
+                    appState.managers.push({ ...req, pin: '0000', mustChangePwd: true });
+                } else {
+                    found.name = req.name;
+                    found.title = req.title;
+                }
+            });
+        }
+
+        function renderManagerLoginDropdown() {
+            ensureManagersList();
+            const sel = document.getElementById('manager-login-select');
+            if (!sel) return;
+            const cur = sel.value;
+            sel.innerHTML = '';
+            appState.managers.forEach(m => {
+                const opt = document.createElement('option');
+                opt.value = m.account;
+                const isInit = (m.mustChangePwd !== false && (m.pin || '0000') === '0000');
+                opt.textContent = `${m.account} — ${m.name}（${m.title} · ${isInit ? '初始密碼:0000' : '已設8位專屬密碼'}）`;
+                sel.appendChild(opt);
+            });
+            if (cur && appState.managers.some(m => m.account === cur)) sel.value = cur;
+        }
+
         function renderStaffLoginDropdown() {
+            renderManagerLoginDropdown();
             const kw = (document.getElementById('staff-login-keyword').value || '').trim().toLowerCase();
             const sel = document.getElementById('staff-login-select');
             sel.innerHTML = '';
@@ -2665,6 +2754,12 @@
                 cashierEl.textContent = '收銀員：tw202501tw@gmail.com (總管理員)';
                 chgBtn.classList.add('hidden');
                 document.querySelectorAll('.nav-tab').forEach(b => b.classList.remove('hidden'));
+            } else if (currentSessionUser.role === 'manager') {
+                roleEl.textContent = `👔 ${currentSessionUser.title || '一般管理員'}已登入`;
+                accEl.textContent = `${currentSessionUser.name} (${currentSessionUser.account})`;
+                cashierEl.textContent = `收銀員：${currentSessionUser.name} (${currentSessionUser.account})`;
+                chgBtn.classList.remove('hidden');
+                document.querySelectorAll('.nav-tab').forEach(b => b.classList.remove('hidden'));
             } else {
                 roleEl.textContent = '👤 門市員工已登入';
                 accEl.textContent = currentSessionUser.account;
@@ -2677,12 +2772,18 @@
             syncAttendanceStaffSelect();
         }
 
-        function openForcePasswordModal(staffObj, isMandatory = true) {
-            document.getElementById('force-pwd-account').value = staffObj.email;
+        let pendingPwdTarget = null; // { type: 'manager' | 'staff', key: string }
+        function openForcePasswordModal(targetObj, isMandatory = true, targetType = 'staff') {
+            const key = targetType === 'manager' ? targetObj.account : targetObj.email;
+            const displayLabel = targetType === 'manager' ? `${targetObj.name} (${targetObj.account})` : targetObj.email;
+            pendingPwdTarget = { type: targetType, key };
+            document.getElementById('force-pwd-account').value = displayLabel;
             document.getElementById('force-pwd-new1').value = '';
             document.getElementById('force-pwd-new2').value = '';
             updatePasswordChecklistUI('');
-            document.getElementById('force-pwd-title').textContent = isMandatory ? '首次登入！請立即設定您的 8 位數專屬密碼' : '🔑 修改員工專屬 8 位數安全密碼';
+            document.getElementById('force-pwd-title').textContent = isMandatory
+                ? '首次登入！請立即設定您的 8 位數專屬密碼'
+                : '🔑 修改個人專屬 8 位數安全密碼';
             document.getElementById('cancel-voluntary-pwd-btn').classList.toggle('hidden', isMandatory);
             const modal = document.getElementById('force-change-pwd-modal');
             modal.classList.remove('hidden');
@@ -2690,10 +2791,44 @@
         }
 
         function renderStaff() {
+            ensureManagersList();
             const box = document.getElementById('staff-list-container');
             box.innerHTML = '';
+
+            appState.managers.forEach((m, mIdx) => {
+                const isInit = (m.mustChangePwd !== false && (m.pin || '0000') === '0000');
+                const mDiv = document.createElement('div');
+                mDiv.className = 'p-3 rounded-xl bg-indigo-50/70 border border-indigo-200 flex items-center justify-between gap-2 text-xs';
+                mDiv.innerHTML = `
+                    <div>
+                        <div class="font-bold text-slate-900 flex flex-wrap items-center gap-1.5">
+                            <span>👔 ${m.name} (${m.account})</span>
+                            <span class="bg-indigo-600 text-white text-[10px] px-1.5 py-0.5 rounded">${m.title}</span>
+                            <span class="text-[10px] px-2 py-0.5 rounded font-bold ${isInit ? 'bg-amber-100 text-amber-800' : 'bg-emerald-100 text-emerald-700'}">${isInit ? '初始 0000' : '已設 8 碼密碼'}</span>
+                        </div>
+                    </div>
+                    <button type="button" data-reset-mgr="${mIdx}" class="px-2 py-1 bg-amber-50 hover:bg-amber-100 text-amber-700 border border-amber-200 rounded-lg text-[11px] font-semibold shrink-0">重置0000</button>
+                `;
+                box.appendChild(mDiv);
+            });
+
+            box.querySelectorAll('button[data-reset-mgr]').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const mgr = appState.managers[parseInt(btn.getAttribute('data-reset-mgr'), 10)];
+                    if (mgr) {
+                        mgr.pin = '0000';
+                        mgr.mustChangePwd = true;
+                        saveState();
+                        renderStaff();
+                        showToast(`已將【${mgr.name} (${mgr.account})】密碼重置為初始 0000`);
+                    }
+                });
+            });
             if (appState.staff.length === 0) {
-                box.innerHTML = `<div class="p-4 rounded-xl border border-dashed border-slate-200 text-center text-slate-400 text-xs">目前尚無註冊員工帳號，請於下方輸入帳號新增（預設密碼 0000）。</div>`;
+                const emptyDiv = document.createElement('div');
+                emptyDiv.className = 'p-3 rounded-xl border border-dashed border-slate-200 text-center text-slate-400 text-xs';
+                emptyDiv.textContent = '目前尚無新增一般門市員工帳號，可於下方輸入帳號新增（預設密碼 0000）。';
+                box.appendChild(emptyDiv);
                 renderStaffLoginDropdown();
                 return;
             }
@@ -2813,7 +2948,7 @@
 
         function updateCloudStatsUI() {
             const setTxt = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
-            setTxt('cloud-stat-staff', `${(appState.staff || []).length} 筆`);
+            setTxt('cloud-stat-staff', `${(appState.managers || []).length + (appState.staff || []).length} 筆`);
             setTxt('cloud-stat-products', `${(appState.products || []).length} 筆`);
             setTxt('cloud-stat-orders', `${(appState.orders || []).length} 筆`);
             setTxt('cloud-stat-attendance', `${(appState.attendance || []).length} 筆`);
@@ -2828,7 +2963,10 @@
 
         function buildCloudWorkbook() {
             const wb = XLSX.utils.book_new();
-            XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet((appState.staff || []).map((s, i) => ({ '員工編號': `STF-${i + 1}`, '帳號': s.email, '密碼': s.pin || '0000' }))), '1_員工帳號密碼');
+            XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet([
+                ...(appState.managers || []).map((m, i) => ({ '編號': `MGR-${i + 1}`, '帳號': m.account, '姓名': m.name, '職稱': m.title, '密碼': m.pin || '0000' })),
+                ...(appState.staff || []).map((s, i) => ({ '編號': `STF-${i + 1}`, '帳號': s.email, '姓名': s.email, '職稱': s.role || '門市收銀員', '密碼': s.pin || '0000' }))
+            ]), '1_員工帳號密碼');
             XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet((appState.products || []).map(p => ({ '品號': p.code, '商品名稱': p.name, '分類': p.category, '進貨價': p.cost, '市場價': p.marketPrice ?? p.price, '售價': p.price, '庫存': p.stock }))), '2_貨物資料與庫存');
             XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet((appState.orders || []).map(o => ({ '單號': o.orderNo, '時間': o.time, '客戶': o.memberName, '實收總額': o.total, '發票稅': o.invoiceTax || 0, '淨利': o.profit || 0 }))), '3_每日銷售明細');
             XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet((appState.attendance || []).map(a => ({ '日期': a.date, '員工': a.account, '上班': a.clockIn, '下班': a.clockOut || '值勤中', '工時': a.hours || 0 }))), '4_員工打卡紀錄');
@@ -3549,7 +3687,8 @@
                     `  const now = new Date().toLocaleString('zh-TW', { hour12: false });`,
                     `  DriveApp.getFileById(JSON_FILE_ID).setContent(JSON.stringify(state, null, 2));`,
                     `  const ss = SpreadsheetApp.openById(SHEET_ID);`,
-                    `  writeSheetRows(ss, '1_員工帳號密碼', ['員工編號', '帳號', '密碼', '需改密碼', '更新時間'], (state.staff || []).map((s, i) => ['STF-' + (i + 1), s.email, s.pin || '0000', s.mustChangePwd !== false, now]));`,
+                    `  const allAccounts = [...(state.managers || []).map((m, i) => ['MGR-' + (i + 1), m.account, m.name, m.title, m.pin || '0000', m.mustChangePwd !== false, now]), ...(state.staff || []).map((s, i) => ['STF-' + (i + 1), s.email, s.email, s.role || '門市收銀員', s.pin || '0000', s.mustChangePwd !== false, now])];`,
+                    `  writeSheetRows(ss, '1_員工帳號密碼', ['編號', '登入帳號', '姓名', '職稱', '密碼', '需改密碼', '更新時間'], allAccounts);`,
                     `  writeSheetRows(ss, '2_貨物資料與庫存', ['品號', '商品名稱', '分類', '進貨價', '市場價', '售價', '庫存', '更新時間'], (state.products || []).map(p => [p.code, p.name, p.category, p.cost || 0, p.marketPrice ?? p.price, p.price || 0, p.stock || 0, now]));`,
                     `  writeSheetRows(ss, '3_每日銷售明細', ['單號', '時間', '收銀員', '客戶', '付款方式', '發票稅', '實收總額', '扣稅淨利'], (state.orders || []).map(o => [o.orderNo, o.time, o.cashier, o.memberName, o.payMethod, o.invoiceTax || 0, o.total || 0, o.profit || 0]));`,
                     `  writeSheetRows(ss, '4_員工打卡紀錄', ['日期', '員工', '班別', '上班', '下班', '工時'], (state.attendance || []).map(a => [a.date, a.account, a.shift, a.clockIn, a.clockOut || '值勤中', a.hours || 0]));`,
@@ -3588,6 +3727,37 @@
                 else showToast(`歡迎回來，${staffObj.email}！`);
             });
 
+            // 一般管理員登入 (老闆 Chu,Tsung-Shang 朱宗上 / 老闆娘 Lin,Ya-Ting 林雅婷)
+            document.getElementById('manager-login-submit-btn').addEventListener('click', () => {
+                ensureManagersList();
+                const acc = document.getElementById('manager-login-select').value;
+                const pin = document.getElementById('manager-login-pin').value.trim();
+                const mgrObj = appState.managers.find(m => m.account === acc);
+                if (!mgrObj) return;
+                const expected = mgrObj.pin || '0000';
+                const isFirst = (mgrObj.mustChangePwd !== false || expected === '0000');
+                if (isFirst && pin !== '0000') {
+                    showToast('首次登入請輸入初始密碼 0000，進入後再設定 8 位專屬密碼！', 'error');
+                    return;
+                }
+                if (!isFirst && pin !== expected) {
+                    showToast('一般管理員 8 位密碼輸入錯誤（請注意英文大小寫）！', 'error');
+                    return;
+                }
+
+                currentSessionUser = { role: 'manager', account: mgrObj.account, name: mgrObj.name, title: mgrObj.title };
+                document.getElementById('manager-login-pin').value = '';
+                document.getElementById('auth-login-gate').classList.add('hidden');
+                updateSessionUI();
+                switchTab('pos');
+                if (isFirst) {
+                    openForcePasswordModal(mgrObj, true, 'manager');
+                    showToast(`歡迎 ${mgrObj.name} (${mgrObj.title})！首次登入請立即修改您的 8 位數密碼`, 'info');
+                } else {
+                    showToast(`👔 歡迎回來，${mgrObj.name} (${mgrObj.account})！`);
+                }
+            });
+
             document.getElementById('admin-login-submit-btn').addEventListener('click', () => {
                 const pwd = document.getElementById('admin-login-password').value;
                 if (pwd !== 'Chu610221') { showToast('總管理員專屬密碼錯誤！', 'error'); return; }
@@ -3598,29 +3768,48 @@
                 showToast('👑 總管理員登入成功！');
             });
             document.getElementById('admin-login-password').addEventListener('keydown', (e) => { if (e.key === 'Enter') document.getElementById('admin-login-submit-btn').click(); });
+            document.getElementById('manager-login-pin').addEventListener('keydown', (e) => { if (e.key === 'Enter') document.getElementById('manager-login-submit-btn').click(); });
             document.getElementById('staff-login-pin').addEventListener('keydown', (e) => { if (e.key === 'Enter') document.getElementById('staff-login-submit-btn').click(); });
 
             document.getElementById('save-force-pwd-btn').addEventListener('click', () => {
-                const acc = document.getElementById('force-pwd-account').value;
                 const p1 = document.getElementById('force-pwd-new1').value.trim();
                 const p2 = document.getElementById('force-pwd-new2').value.trim();
                 const chk = validateStaffPassword8(p1);
-                if (!chk.valid) { showToast('密碼須剛好 8 位數，且含英文大寫、小寫與數字至少各一！', 'error'); return; }
+                if (!chk.valid) { showToast('密碼須剛好 8 位數，且含英文大寫、小寫與數字各至少 1 個！', 'error'); return; }
                 if (p1 !== p2) { showToast('兩次輸入的 8 位數密碼不一致！', 'error'); return; }
-                const st = appState.staff.find(s => s.email === acc);
-                if (!st) return;
-                st.pin = p1;
-                st.mustChangePwd = false;
-                saveState();
-                renderStaff();
-                document.getElementById('force-change-pwd-modal').classList.add('hidden');
-                document.getElementById('force-change-pwd-modal').classList.remove('flex');
-                showToast(`✅ 帳號【${acc}】的 8 位數密碼已更新完成！`);
+
+                if (pendingPwdTarget && pendingPwdTarget.type === 'manager') {
+                    const mgr = appState.managers.find(m => m.account === pendingPwdTarget.key);
+                    if (!mgr) return;
+                    mgr.pin = p1;
+                    mgr.mustChangePwd = false;
+                    saveState();
+                    renderStaff();
+                    document.getElementById('force-change-pwd-modal').classList.add('hidden');
+                    document.getElementById('force-change-pwd-modal').classList.remove('flex');
+                    showToast(`✅ 【${mgr.name} (${mgr.account})】的 8 位數密碼已設定完成！`);
+                } else {
+                    const key = pendingPwdTarget ? pendingPwdTarget.key : document.getElementById('force-pwd-account').value;
+                    const st = appState.staff.find(s => s.email === key);
+                    if (!st) return;
+                    st.pin = p1;
+                    st.mustChangePwd = false;
+                    saveState();
+                    renderStaff();
+                    document.getElementById('force-change-pwd-modal').classList.add('hidden');
+                    document.getElementById('force-change-pwd-modal').classList.remove('flex');
+                    showToast(`✅ 帳號【${st.email}】的 8 位數密碼已設定完成！`);
+                }
             });
             document.getElementById('voluntary-change-pwd-btn').addEventListener('click', () => {
-                if (!currentSessionUser || currentSessionUser.role !== 'staff') return;
-                const st = appState.staff.find(s => s.email === currentSessionUser.account);
-                if (st) openForcePasswordModal(st, false);
+                if (!currentSessionUser) return;
+                if (currentSessionUser.role === 'manager') {
+                    const mgr = appState.managers.find(m => m.account === currentSessionUser.account);
+                    if (mgr) openForcePasswordModal(mgr, false, 'manager');
+                } else if (currentSessionUser.role === 'staff') {
+                    const st = appState.staff.find(s => s.email === currentSessionUser.account);
+                    if (st) openForcePasswordModal(st, false, 'staff');
+                }
             });
             document.getElementById('cancel-voluntary-pwd-btn').addEventListener('click', () => {
                 document.getElementById('force-change-pwd-modal').classList.add('hidden');
@@ -3630,6 +3819,7 @@
                 currentSessionUser = null;
                 document.getElementById('staff-login-keyword').value = '';
                 document.getElementById('staff-login-pin').value = '';
+                document.getElementById('manager-login-pin').value = '';
                 document.getElementById('admin-login-password').value = '';
                 renderStaffLoginDropdown();
                 document.getElementById('auth-login-gate').classList.remove('hidden');
