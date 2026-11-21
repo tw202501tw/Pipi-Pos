@@ -926,8 +926,8 @@
                     </div>
                 </div>
 
-                <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-2.5 text-xs">
-                    <div class="p-3 rounded-xl bg-slate-50 border border-slate-200"><div class="text-[11px] text-slate-500 font-semibold">1_員工帳號密碼</div><div id="cloud-stat-staff" class="text-base font-extrabold text-slate-900 mt-0.5">0 筆</div></div>
+                <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-9 gap-2.5 text-xs">
+                    <div class="p-3 rounded-xl bg-slate-50 border border-slate-200"><div class="text-[11px] text-slate-500 font-semibold">1_員工帳號密碼</div><div id="cloud-stat-staff" class="text-base font-extrabold text-slate-900 mt-0.5">1 筆</div></div>
                     <div class="p-3 rounded-xl bg-slate-50 border border-slate-200"><div class="text-[11px] text-slate-500 font-semibold">2_貨物資料與庫存</div><div id="cloud-stat-products" class="text-base font-extrabold text-blue-600 mt-0.5">0 筆</div></div>
                     <div class="p-3 rounded-xl bg-slate-50 border border-slate-200"><div class="text-[11px] text-slate-500 font-semibold">3_每日銷售明細</div><div id="cloud-stat-orders" class="text-base font-extrabold text-emerald-600 mt-0.5">0 筆</div></div>
                     <div class="p-3 rounded-xl bg-slate-50 border border-slate-200"><div class="text-[11px] text-slate-500 font-semibold">4_員工打卡紀錄</div><div id="cloud-stat-attendance" class="text-base font-extrabold text-indigo-600 mt-0.5">0 筆</div></div>
@@ -935,6 +935,7 @@
                     <div class="p-3 rounded-xl bg-slate-50 border border-slate-200"><div class="text-[11px] text-slate-500 font-semibold">6_同行調貨紀錄</div><div id="cloud-stat-transfers" class="text-base font-extrabold text-amber-600 mt-0.5">0 筆</div></div>
                     <div class="p-3 rounded-xl bg-slate-50 border border-slate-200"><div class="text-[11px] text-slate-500 font-semibold">7_會員與同行名冊</div><div id="cloud-stat-crm" class="text-base font-extrabold text-slate-800 mt-0.5">0 筆</div></div>
                     <div class="p-3 rounded-xl bg-slate-50 border border-slate-200"><div class="text-[11px] text-slate-500 font-semibold">8_系統設定參數</div><div class="text-base font-extrabold text-emerald-700 mt-0.5">8 項已同步</div></div>
+                    <div class="p-3 rounded-xl bg-indigo-50 border border-indigo-200"><div class="text-[11px] text-indigo-700 font-bold">9_一般管理員帳密</div><div id="cloud-stat-managers" class="text-base font-extrabold text-indigo-700 mt-0.5">2 筆</div></div>
                 </div>
 
                 <div class="grid grid-cols-1 lg:grid-cols-12 gap-4">
@@ -3033,6 +3034,7 @@
                     if (mgr) {
                         mgr.pin = '0000';
                         mgr.mustChangePwd = true;
+                        mgr.pwdUpdatedAt = Date.now();
                         saveState();
                         renderStaff();
                         showToast(`已將【${mgr.name} (${mgr.account})】密碼重置為初始 0000`);
@@ -3185,7 +3187,8 @@
 
         function updateCloudStatsUI() {
             const setTxt = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
-            setTxt('cloud-stat-staff', `${(appState.managers || []).length + (appState.staff || []).length} 筆`);
+            setTxt('cloud-stat-staff', `${(appState.staff || []).length} 筆`);
+            setTxt('cloud-stat-managers', `${(appState.managers || []).length} 筆`);
             setTxt('cloud-stat-products', `${(appState.products || []).length} 筆`);
             setTxt('cloud-stat-orders', `${(appState.orders || []).length} 筆`);
             setTxt('cloud-stat-attendance', `${(appState.attendance || []).length} 筆`);
@@ -3200,10 +3203,9 @@
 
         function buildCloudWorkbook() {
             const wb = XLSX.utils.book_new();
-            XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet([
-                ...(appState.managers || []).map((m, i) => ({ '編號': `MGR-${i + 1}`, '帳號': m.account, '姓名': m.name, '職稱': m.title, '密碼': m.pin || '0000' })),
-                ...(appState.staff || []).map((s, i) => ({ '編號': s.isFixedAccount ? 'STF-FIXED' : `STF-${i + 1}`, '帳號': s.email, '姓名': s.name || s.email, '職稱': s.role || '一般銷售員', '密碼': s.isFixedAccount ? '25508846' : (s.pin || '0000') }))
-            ]), '1_員工帳號密碼');
+            XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(
+                (appState.staff || []).map((s, i) => ({ '員工編號': s.isFixedAccount ? 'STF-FIXED' : `STF-${i + 1}`, '員工登入帳號': s.email, '員工姓名': s.name || s.email, '職稱': s.role || '一般銷售員', '登入密碼': s.isFixedAccount ? '25508846' : String(s.pin || '0000') }))
+            ), '1_員工帳號密碼');
             const prodWs = XLSX.utils.json_to_sheet((appState.products || []).length ? (appState.products || []).map(p => ({ '品號/條碼': /^\d+$/.test(String(p.code)) ? Number(p.code) : p.code, '商品名稱': p.name, '分類': p.category, '進貨價': p.cost, '市場價': p.marketPrice ?? p.price, '售價': p.price, '庫存數量': p.stock })) : [{ '品號/條碼': '', '商品名稱': '', '分類': '', '進貨價': '', '市場價': '', '售價': '', '庫存數量': '' }]);
             prodWs['!cols'] = [{ wpx: 110 }, { wpx: 150 }, { wpx: 110 }, { wpx: 95 }, { wpx: 95 }, { wpx: 95 }, { wpx: 95 }];
             XLSX.utils.book_append_sheet(wb, prodWs, '2_貨物資料與庫存');
@@ -3213,6 +3215,16 @@
             XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet((appState.transfers || []).map(t => ({ '調貨單號': t.transferNo, '方向': t.direction, '同行': t.peerName, '商品': t.prodName, '數量': t.qty, '總額': t.total }))), '6_同行調貨紀錄');
             XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet((appState.members || []).map(m => ({ '編號': m.id, '姓名': m.name, '電話': m.phone, '點數': m.points }))), '7_會員與同行名冊');
             XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet([{ '店名': appState.config.storeName, '統編與電話': appState.config.taxId }]), '8_系統設定');
+            XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(
+                (appState.managers || []).map((m, i) => ({
+                    '管理員編號 (ID)': `MGR-0${i + 1}`,
+                    '一般管理員登入帳號': m.account,
+                    '管理員姓名': m.name,
+                    '職稱': m.title,
+                    '登入密碼': String(m.pin || '0000'),
+                    '需強制改密碼': (m.mustChangePwd !== false && (m.pin || '0000') === '0000') ? 'TRUE' : 'FALSE'
+                }))
+            ), '9_一般管理員帳號密碼');
             return wb;
         }
 
@@ -3315,9 +3327,38 @@
         }
 
         // ==================== INITIALIZATION & EVENT LISTENERS ====================
+        async function syncLatestAccountsFromCloudSilently() {
+            const url = (appState.config && appState.config.cloudWebhookUrl) ? appState.config.cloudWebhookUrl.trim() : '';
+            if (!url) return;
+            try {
+                const target = new URL(url);
+                target.searchParams.set('action', 'getState');
+                const res = await fetch(target.toString());
+                const data = await res.json();
+                if (data && data.state) {
+                    if (Array.isArray(data.state.managers)) {
+                        ensureManagersList();
+                        data.state.managers.forEach(cm => {
+                            const localMgr = appState.managers.find(m => m.account === cm.account);
+                            if (localMgr && cm.pin && (cm.pwdUpdatedAt || 0) >= (localMgr.pwdUpdatedAt || 0)) {
+                                if (cm.pin !== '0000' || cm.pwdUpdatedAt) {
+                                    localMgr.pin = String(cm.pin);
+                                    localMgr.mustChangePwd = Boolean(cm.mustChangePwd);
+                                    localMgr.pwdUpdatedAt = cm.pwdUpdatedAt || Date.now();
+                                }
+                            }
+                        });
+                    }
+                    renderStaffLoginDropdown();
+                    renderStaff();
+                }
+            } catch (e) {}
+        }
+
         window.addEventListener('DOMContentLoaded', () => {
             initCalendarSelectors();
             refreshAllViews();
+            syncLatestAccountsFromCloudSilently();
             updateLiveClockDisplay();
             if (liveClockInterval) clearInterval(liveClockInterval);
             liveClockInterval = setInterval(updateLiveClockDisplay, 1000);
@@ -4000,9 +4041,9 @@
             });
             document.getElementById('copy-gas-code-btn').addEventListener('click', () => {
                 const gasSnippet = [
-                    `const FOLDER_ID = '${CLOUD_DRIVE_FOLDER_ID}';`,
-                    `const SHEET_ID = '${CLOUD_SHEET_DB_ID}';`,
-                    `const JSON_FILE_ID = '${CLOUD_JSON_FILE_ID}';`,
+                    `var FOLDER_ID = '${CLOUD_DRIVE_FOLDER_ID}';`,
+                    `var SHEET_ID = '${CLOUD_SHEET_DB_ID}';`,
+                    `var JSON_FILE_ID = '${CLOUD_JSON_FILE_ID}';`,
                     `function initAndTestCloudSync() { doPost({}); }`,
                     `function writeSheetRows(ss, tabName, headers, rows) {`,
                     `  if (!ss || typeof ss.getSheetByName !== 'function') return initAndTestCloudSync();`,
@@ -4017,8 +4058,9 @@
                     `  const now = new Date().toLocaleString('zh-TW', { hour12: false });`,
                     `  DriveApp.getFileById(JSON_FILE_ID).setContent(JSON.stringify(state, null, 2));`,
                     `  const ss = SpreadsheetApp.openById(SHEET_ID);`,
-                    `  const allAccounts = [...(state.managers || []).map((m, i) => ['MGR-' + (i + 1), m.account, m.name, m.title, m.pin || '0000', m.mustChangePwd !== false, now]), ...(state.staff || []).map((s, i) => [s.isFixedAccount ? 'STF-FIXED' : ('STF-' + (i + 1)), s.email, s.name || s.email, s.role || '一般銷售員', s.isFixedAccount ? '25508846' : (s.pin || '0000'), s.isFixedAccount ? false : (s.mustChangePwd !== false), now])];`,
-                    `  writeSheetRows(ss, '1_員工帳號密碼', ['編號', '登入帳號', '姓名', '職稱', '密碼', '需改密碼', '更新時間'], allAccounts);`,
+                    `  writeSheetRows(ss, '1_員工帳號密碼', ['員工編號', '員工登入帳號', '員工姓名', '職稱', '登入密碼', '需改密碼', '更新時間'], (state.staff || []).map((s, i) => [s.isFixedAccount ? 'STF-FIXED' : ('STF-' + (i + 1)), s.email, s.name || s.email, s.role || '一般銷售員', s.isFixedAccount ? '25508846' : String(s.pin || '0000'), s.isFixedAccount ? 'FALSE' : String(s.mustChangePwd !== false), now]));`,
+                    `  writeSheetRows(ss, '9_一般管理員帳號密碼', ['管理員編號 (ID)', '一般管理員登入帳號', '管理員姓名', '職稱', '登入密碼 (初始0000 / 修改後自動變更)', '需強制改密碼 (mustChangePwd)', '狀態', '最後更新時間'], (state.managers || []).map((m, i) => ['MGR-0' + (i + 1), m.account, m.name, m.title, String(m.pin || '0000'), (m.mustChangePwd !== false && (m.pin || '0000') === '0000') ? 'TRUE' : 'FALSE', '啟用', now]));`,
+                    `  const mSh = ss.getSheetByName('9_一般管理員帳號密碼'); if (mSh && mSh.getLastRow() >= 2) mSh.getRange(2, 5, mSh.getLastRow() - 1, 1).setNumberFormat('@');`,
                     `  writeSheetRows(ss, '2_貨物資料與庫存', ['品號', '商品名稱', '分類', '進貨價', '市場價', '售價', '庫存', '更新時間'], (state.products || []).map(p => [p.code, p.name, p.category, p.cost || 0, p.marketPrice ?? p.price, p.price || 0, p.stock || 0, now]));`,
                     `  writeSheetRows(ss, '3_每日銷售明細', ['單號', '時間', '收銀員', '客戶', '付款方式', '發票稅', '實收總額', '扣稅淨利'], (state.orders || []).map(o => [o.orderNo, o.time, o.cashier, o.memberName, o.payMethod, o.invoiceTax || 0, o.total || 0, o.profit || 0]));`,
                     `  writeSheetRows(ss, '4_員工打卡紀錄', ['日期', '員工', '班別', '上班', '下班', '工時'], (state.attendance || []).map(a => [a.date, a.account, a.shift, a.clockIn, a.clockOut || '值勤中', a.hours || 0]));`,
@@ -4130,11 +4172,13 @@
                     if (!mgr) return;
                     mgr.pin = p1;
                     mgr.mustChangePwd = false;
+                    mgr.pwdUpdatedAt = Date.now();
                     saveState();
+                    pushToGoogleDriveCloud(true);
                     renderStaff();
                     document.getElementById('force-change-pwd-modal').classList.add('hidden');
                     document.getElementById('force-change-pwd-modal').classList.remove('flex');
-                    showToast(`✅ 【${mgr.name} (${mgr.account})】的 8 位數密碼已設定完成！`);
+                    showToast(`✅ 【${mgr.name} (${mgr.account})】的 8 位數密碼已更新並自動同步至 Google 試算表！`);
                 } else {
                     const key = pendingPwdTarget ? pendingPwdTarget.key : document.getElementById('force-pwd-account').value;
                     if (key === '25508846') {
