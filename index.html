@@ -367,8 +367,8 @@
                         </thead>
                         <tbody class="divide-y divide-slate-200 text-slate-600 font-mono">
                             <tr>
-                                <td class="py-1.5 px-3 border-r border-slate-200">ITEM001</td>
-                                <td class="py-1.5 px-3 border-r border-slate-200 font-sans">範例商品 A</td>
+                                <td class="py-1.5 px-3 border-r border-slate-200">47100001</td>
+                                <td class="py-1.5 px-3 border-r border-slate-200 font-sans w-[150px]">範例商品 A</td>
                                 <td class="py-1.5 px-3 border-r border-slate-200 font-sans">自訂分類名稱</td>
                                 <td class="py-1.5 px-3 border-r border-slate-200 text-right">35</td>
                                 <td class="py-1.5 px-3 border-r border-slate-200 text-right">60</td>
@@ -898,11 +898,8 @@
                         </div>
                         <p class="text-[11px] text-slate-500">本系統禁止外部自行註冊。員工首次使用 <strong>0000</strong> 登入時，會強制要求改為 <strong>8 位數密碼（含英文大寫、小寫、數字至少各一，可含符號）</strong>。</p>
                         <div class="flex flex-col sm:flex-row gap-2">
-                            <input id="new-staff-email" type="text" placeholder="員工帳號或姓名 (如：1、一般銷售員)..." class="flex-1 px-3 py-2 rounded-xl border border-slate-300 text-xs outline-none focus:border-blue-500">
-                            <select id="new-staff-init-pwd-mode" class="px-2.5 py-2 rounded-xl border border-slate-300 bg-slate-50 text-xs font-semibold text-slate-700 outline-none">
-                                <option value="0000">預設 0000 (首登強制改密碼)</option>
-                                <option value="25508846">特殊密碼 25508846 (直接可用免改)</option>
-                            </select>
+                            <input id="new-staff-account-input" type="text" placeholder="新增員工帳號 (如：staff01)..." class="flex-1 px-3 py-2 rounded-xl border border-slate-300 text-xs outline-none focus:border-blue-500">
+                            <input id="new-staff-email" type="text" placeholder="員工姓名 (如：王小美)..." class="flex-1 px-3 py-2 rounded-xl border border-slate-300 text-xs outline-none focus:border-blue-500">
                             <button id="add-staff-btn" type="button" class="bg-slate-800 hover:bg-slate-900 text-white text-xs font-bold px-3.5 py-2 rounded-xl whitespace-nowrap transition">
                                 ＋ 新增銷售員
                             </button>
@@ -1047,7 +1044,7 @@
                 <div class="grid grid-cols-2 gap-3">
                     <div>
                         <label class="block font-semibold text-slate-700 mb-1">商品條碼 / 品號</label>
-                        <input id="new-prod-code" type="text" placeholder="如 ITEM001" class="w-full px-3 py-2 rounded-xl border border-slate-300 outline-none focus:border-blue-500">
+                        <input id="new-prod-code" type="text" placeholder="如 47100001 (8位數條碼)" class="w-full px-3 py-2 rounded-xl border border-slate-300 outline-none focus:border-blue-500">
                     </div>
                     <div>
                         <label class="block font-semibold text-slate-700 mb-1">商品分類</label>
@@ -1318,7 +1315,7 @@
                 </div>
                 <div>
                     <label class="block font-semibold text-slate-700 mb-1">商品品號 / 條碼</label>
-                    <input id="trf-prod-code" type="text" placeholder="如 ITEM001" class="w-full px-3 py-2 rounded-xl border border-slate-300 font-mono outline-none">
+                    <input id="trf-prod-code" type="text" placeholder="如 47100001 (8位數條碼)" class="w-full px-3 py-2 rounded-xl border border-slate-300 font-mono outline-none">
                 </div>
                 <div>
                     <label class="block font-semibold text-slate-700 mb-1">商品名稱 *</label>
@@ -1537,7 +1534,7 @@
                 { account: 'Lin,Ya-Ting', name: '林雅婷', title: '老闆娘 (一般管理員)', pin: '0000', mustChangePwd: true }
             ],
             staff: [
-                { email: '1', role: '一般銷售員', status: '啟用 (特殊密碼)', pin: '25508846', mustChangePwd: false }
+                { email: '25508846', name: "PIPI TOY’S", role: '一般銷售員', status: '永久啟用 (不可刪除・密碼不可修改)', pin: '25508846', mustChangePwd: false, isFixedAccount: true }
             ],
             memos: {},
             peers: [],
@@ -1595,15 +1592,30 @@
                         if (!Array.isArray(parsed.orders)) parsed.orders = [];
                         if (!Array.isArray(parsed.preorders)) parsed.preorders = [];
                         if (!Array.isArray(parsed.staff)) parsed.staff = [];
-                        if (!parsed.specialSales25508846Applied) {
-                            if (parsed.staff.length > 0) {
-                                parsed.staff[0].pin = '25508846';
-                                parsed.staff[0].mustChangePwd = false;
-                                parsed.staff[0].role = '一般銷售員';
-                            } else {
-                                parsed.staff.push({ email: '1', role: '一般銷售員', status: '啟用 (特殊密碼)', pin: '25508846', mustChangePwd: false });
-                            }
-                            parsed.specialSales25508846Applied = true;
+                        // 移除先前臨時測試用的 '1' 帳號，並強制鎖定永久帳號 PIPI TOY’S (25508846 / 25508846)
+                        if (!parsed.fixedPipiToys25508846Locked) {
+                            parsed.staff = parsed.staff.filter(s => s.email !== '1');
+                            parsed.fixedPipiToys25508846Locked = true;
+                        }
+                        let fixedSales = parsed.staff.find(s => s.email === '25508846' || s.isFixedAccount);
+                        if (!fixedSales) {
+                            parsed.staff.unshift({
+                                email: '25508846',
+                                name: "PIPI TOY’S",
+                                role: '一般銷售員',
+                                status: '永久啟用 (不可刪除・密碼不可修改)',
+                                pin: '25508846',
+                                mustChangePwd: false,
+                                isFixedAccount: true
+                            });
+                        } else {
+                            fixedSales.email = '25508846';
+                            fixedSales.name = "PIPI TOY’S";
+                            fixedSales.role = '一般銷售員';
+                            fixedSales.status = '永久啟用 (不可刪除・密碼不可修改)';
+                            fixedSales.pin = '25508846';
+                            fixedSales.mustChangePwd = false;
+                            fixedSales.isFixedAccount = true;
                         }
                         const defMgrs = [
                             { account: 'Chu,Tsung-Shang', name: '朱宗上', title: '老闆 (一般管理員)', pin: '0000', mustChangePwd: true },
@@ -2722,8 +2734,11 @@
             sel.innerHTML = '';
             if (currentSessionUser && currentSessionUser.role === 'staff') {
                 const opt = document.createElement('option');
-                opt.value = currentSessionUser.account;
-                opt.textContent = `${currentSessionUser.account} (本人打卡)`;
+                const disp = currentSessionUser.name && currentSessionUser.name !== currentSessionUser.account
+                    ? `${currentSessionUser.name} (${currentSessionUser.account})`
+                    : currentSessionUser.account;
+                opt.value = disp;
+                opt.textContent = `${disp} (本人打卡)`;
                 sel.appendChild(opt);
                 return;
             }
@@ -2743,10 +2758,12 @@
                 mOpt.textContent = `${m.name} - ${m.account} (${m.title})`;
                 sel.appendChild(mOpt);
             });
+            ensureFixedSalesAccount();
             appState.staff.forEach(s => {
                 const opt = document.createElement('option');
-                opt.value = s.email;
-                opt.textContent = `${s.email} (${s.role || '門市員工'})`;
+                const disp = s.name && s.name !== s.email ? `${s.name} (${s.email})` : s.email;
+                opt.value = disp;
+                opt.textContent = `${disp} (${s.role || '一般銷售員'})`;
                 sel.appendChild(opt);
             });
         }
@@ -2805,11 +2822,32 @@
         }
 
         // ==================== STAFF AUTH & 8-CHAR PASSWORD VALIDATION ====================
+        function ensureFixedSalesAccount() {
+            if (!Array.isArray(appState.staff)) appState.staff = [];
+            let fixed = appState.staff.find(s => s.email === '25508846' || s.isFixedAccount);
+            if (!fixed) {
+                appState.staff.unshift({
+                    email: '25508846',
+                    name: "PIPI TOY’S",
+                    role: '一般銷售員',
+                    status: '永久啟用 (不可刪除・密碼不可修改)',
+                    pin: '25508846',
+                    mustChangePwd: false,
+                    isFixedAccount: true
+                });
+            } else {
+                fixed.email = '25508846';
+                fixed.name = "PIPI TOY’S";
+                fixed.role = '一般銷售員';
+                fixed.status = '永久啟用 (不可刪除・密碼不可修改)';
+                fixed.pin = '25508846';
+                fixed.mustChangePwd = false;
+                fixed.isFixedAccount = true;
+            }
+        }
+
         function validateStaffPassword8(pwd) {
             const s = String(pwd || '');
-            if (s === '25508846') {
-                return { valid: true, hasLen8: true, hasUpper: true, hasLower: true, hasDigit: true };
-            }
             const hasLen8 = s.length === 8;
             const hasUpper = /[A-Z]/.test(s);
             const hasLower = /[a-z]/.test(s);
@@ -2870,19 +2908,17 @@
 
         function renderStaffLoginDropdown() {
             renderManagerLoginDropdown();
+            ensureFixedSalesAccount();
             const kw = (document.getElementById('staff-login-keyword').value || '').trim().toLowerCase();
             const sel = document.getElementById('staff-login-select');
             sel.innerHTML = '';
 
-            if (appState.staff.length === 0) {
-                const opt = document.createElement('option');
-                opt.value = '';
-                opt.textContent = '-- 尚無員工帳號 (請先由總管理員登入後台新增員工) --';
-                sel.appendChild(opt);
-                return;
-            }
+            const matched = appState.staff.filter(s => {
+                const acc = String(s.email || '').toLowerCase();
+                const nm = String(s.name || '').toLowerCase();
+                return !kw || acc.includes(kw) || nm.includes(kw);
+            });
 
-            const matched = appState.staff.filter(s => !kw || String(s.email || '').toLowerCase().includes(kw));
             if (matched.length === 0) {
                 const opt = document.createElement('option');
                 opt.value = '';
@@ -2894,8 +2930,13 @@
             matched.forEach(s => {
                 const opt = document.createElement('option');
                 opt.value = s.email;
-                const isInit = (s.mustChangePwd !== false && (s.pin || '0000') === '0000');
-                opt.textContent = `${s.email} (${isInit ? '初始密碼:0000 待改密碼' : '已設定8位專屬密碼'})`;
+                const dispName = s.name && s.name !== s.email ? `${s.email} — ${s.name}` : s.email;
+                if (s.isFixedAccount || s.email === '25508846') {
+                    opt.textContent = `${dispName}（一般銷售員 · 固定密碼不可修改）`;
+                } else {
+                    const isInit = (s.mustChangePwd !== false && (s.pin || '0000') === '0000');
+                    opt.textContent = `${dispName}（${isInit ? '初始密碼:0000 待改密碼' : '已設8位專屬密碼'}）`;
+                }
                 sel.appendChild(opt);
             });
         }
@@ -2928,11 +2969,15 @@
                 if (togglePortalBtn) togglePortalBtn.classList.remove('hidden');
                 document.querySelectorAll('.nav-tab').forEach(b => b.classList.remove('hidden'));
             } else {
-                roleEl.textContent = '👤 門市員工已登入';
-                accEl.textContent = currentSessionUser.account;
-                cashierEl.textContent = `收銀員：${currentSessionUser.account} (門市員工)`;
-                chgBtn.classList.remove('hidden');
-                // 員工登入時隱藏官網介紹頁的「管理員中心」入口並強制收起介紹頁，杜絕越權進入後台設定
+                const isFixed = currentSessionUser.account === '25508846' || Boolean(currentSessionUser.isFixedAccount);
+                const disp = currentSessionUser.name && currentSessionUser.name !== currentSessionUser.account
+                    ? `${currentSessionUser.name} (${currentSessionUser.account})`
+                    : currentSessionUser.account;
+                roleEl.textContent = isFixed ? '🛍️ 一般銷售員 (固定帳號)' : '👤 門市員工已登入';
+                accEl.textContent = disp;
+                cashierEl.textContent = `收銀員：${disp}`;
+                // PIPI TOY’S (25508846) 密碼永遠不可修改，自動隱藏「修改密碼」按鈕
+                chgBtn.classList.toggle('hidden', isFixed);
                 if (portalAdminBtn) portalAdminBtn.classList.add('hidden');
                 if (portalSec) portalSec.classList.add('hidden');
                 document.querySelectorAll('.nav-tab').forEach(b => {
@@ -3002,52 +3047,61 @@
                 renderStaffLoginDropdown();
                 return;
             }
+            ensureFixedSalesAccount();
             appState.staff.forEach((s, idx) => {
-                const isInit = (s.mustChangePwd !== false && (s.pin || '0000') === '0000');
+                const isFixed = s.email === '25508846' || Boolean(s.isFixedAccount);
+                const isInit = !isFixed && (s.mustChangePwd !== false && (s.pin || '0000') === '0000');
+                const dispTitle = s.name && s.name !== s.email ? `${s.name}（帳號：${s.email}）` : s.email;
                 const div = document.createElement('div');
-                div.className = 'p-3 rounded-xl bg-slate-50 border border-slate-200 flex items-center justify-between gap-2 text-xs';
-                div.innerHTML = `
+                div.className = isFixed
+                    ? 'p-3 rounded-xl bg-emerald-50/70 border-2 border-emerald-300 flex flex-wrap items-center justify-between gap-2 text-xs'
+                    : 'p-3 rounded-xl bg-slate-50 border border-slate-200 flex flex-wrap items-center justify-between gap-2 text-xs';
+                div.innerHTML = isFixed ? `
                     <div>
-                        <div class="font-bold text-slate-900 flex items-center gap-1.5">
-                            <span>👤 ${s.email}</span>
+                        <div class="font-extrabold text-slate-900 flex flex-wrap items-center gap-1.5">
+                            <span>🛍️ ${dispTitle}</span>
+                            <span class="bg-emerald-600 text-white text-[10px] px-2 py-0.5 rounded font-bold">一般銷售員永久帳號</span>
+                        </div>
+                        <div class="text-[11px] text-emerald-800 font-semibold mt-0.5">🔒 固定密碼：25508846（系統鎖定：永遠不可刪除・密碼永遠不可修改）</div>
+                    </div>
+                    <span class="px-2.5 py-1 bg-white text-emerald-700 border border-emerald-300 rounded-lg text-[11px] font-extrabold shrink-0">🔒 永久保護中</span>
+                ` : `
+                    <div>
+                        <div class="font-bold text-slate-900 flex flex-wrap items-center gap-1.5">
+                            <span>👤 ${dispTitle}</span>
                             <span class="text-[10px] px-2 py-0.5 rounded font-bold ${isInit ? 'bg-amber-100 text-amber-800' : 'bg-emerald-100 text-emerald-700'}">${isInit ? '初始 0000' : '已設 8 碼密碼'}</span>
                         </div>
                     </div>
-                    <div class="flex flex-wrap gap-1">
-                        <button type="button" data-special-pwd-staff="${idx}" class="px-2 py-1 bg-blue-50 hover:bg-blue-100 text-blue-700 border border-blue-200 rounded-lg text-[11px] font-bold">設特殊密碼25508846</button>
+                    <div class="flex gap-1.5 shrink-0">
                         <button type="button" data-reset-staff="${idx}" class="px-2 py-1 bg-amber-50 hover:bg-amber-100 text-amber-700 border border-amber-200 rounded-lg text-[11px] font-semibold">重置0000</button>
                         <button type="button" data-del-staff="${idx}" class="px-2 py-1 bg-rose-50 hover:bg-rose-100 text-rose-600 rounded-lg text-[11px] font-semibold">移除</button>
                     </div>
                 `;
                 box.appendChild(div);
             });
-            box.querySelectorAll('button[data-special-pwd-staff]').forEach(btn => {
-                btn.addEventListener('click', () => {
-                    const st = appState.staff[parseInt(btn.getAttribute('data-special-pwd-staff'), 10)];
-                    if (st) {
-                        st.pin = '25508846';
-                        st.mustChangePwd = false;
-                        saveState();
-                        renderStaff();
-                        showToast(`✅ 已將【${st.email}】密碼設為特殊密碼 25508846（免強制改密碼）！`);
-                    }
-                });
-            });
             box.querySelectorAll('button[data-reset-staff]').forEach(btn => {
                 btn.addEventListener('click', () => {
                     const st = appState.staff[parseInt(btn.getAttribute('data-reset-staff'), 10)];
-                    if (st) {
-                        st.pin = '0000';
-                        st.mustChangePwd = true;
-                        saveState();
-                        renderStaff();
-                        showToast(`已將【${st.email}】重置為初始密碼 0000`);
+                    if (!st || st.email === '25508846' || st.isFixedAccount) {
+                        showToast('🔒 【PIPI TOY’S (25508846)】密碼永遠不可修改！', 'error');
+                        return;
                     }
+                    st.pin = '0000';
+                    st.mustChangePwd = true;
+                    saveState();
+                    renderStaff();
+                    showToast(`已將【${st.name || st.email}】重置為初始密碼 0000`);
                 });
             });
             box.querySelectorAll('button[data-del-staff]').forEach(btn => {
                 btn.addEventListener('click', () => {
-                    appState.staff.splice(parseInt(btn.getAttribute('data-del-staff'), 10), 1);
+                    const idx = parseInt(btn.getAttribute('data-del-staff'), 10);
+                    const st = appState.staff[idx];
+                    if (!st || st.email === '25508846' || st.isFixedAccount) {
+                        showToast('🔒 【PIPI TOY’S (25508846)】為永久固定銷售員帳號，無法刪除！', 'error');
+                        return;
+                    }
+                    appState.staff.splice(idx, 1);
                     saveState();
                     renderStaff();
                     showToast('已移除員工帳號', 'info');
@@ -3148,9 +3202,11 @@
             const wb = XLSX.utils.book_new();
             XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet([
                 ...(appState.managers || []).map((m, i) => ({ '編號': `MGR-${i + 1}`, '帳號': m.account, '姓名': m.name, '職稱': m.title, '密碼': m.pin || '0000' })),
-                ...(appState.staff || []).map((s, i) => ({ '編號': `STF-${i + 1}`, '帳號': s.email, '姓名': s.email, '職稱': s.role || '門市收銀員', '密碼': s.pin || '0000' }))
+                ...(appState.staff || []).map((s, i) => ({ '編號': s.isFixedAccount ? 'STF-FIXED' : `STF-${i + 1}`, '帳號': s.email, '姓名': s.name || s.email, '職稱': s.role || '一般銷售員', '密碼': s.isFixedAccount ? '25508846' : (s.pin || '0000') }))
             ]), '1_員工帳號密碼');
-            XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet((appState.products || []).map(p => ({ '品號': p.code, '商品名稱': p.name, '分類': p.category, '進貨價': p.cost, '市場價': p.marketPrice ?? p.price, '售價': p.price, '庫存': p.stock }))), '2_貨物資料與庫存');
+            const prodWs = XLSX.utils.json_to_sheet((appState.products || []).length ? (appState.products || []).map(p => ({ '品號/條碼': /^\d+$/.test(String(p.code)) ? Number(p.code) : p.code, '商品名稱': p.name, '分類': p.category, '進貨價': p.cost, '市場價': p.marketPrice ?? p.price, '售價': p.price, '庫存數量': p.stock })) : [{ '品號/條碼': '', '商品名稱': '', '分類': '', '進貨價': '', '市場價': '', '售價': '', '庫存數量': '' }]);
+            prodWs['!cols'] = [{ wpx: 110 }, { wpx: 150 }, { wpx: 110 }, { wpx: 95 }, { wpx: 95 }, { wpx: 95 }, { wpx: 95 }];
+            XLSX.utils.book_append_sheet(wb, prodWs, '2_貨物資料與庫存');
             XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet((appState.orders || []).map(o => ({ '單號': o.orderNo, '時間': o.time, '客戶': o.memberName, '實收總額': o.total, '發票稅': o.invoiceTax || 0, '淨利': o.profit || 0 }))), '3_每日銷售明細');
             XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet((appState.attendance || []).map(a => ({ '日期': a.date, '員工': a.account, '上班': a.clockIn, '下班': a.clockOut || '值勤中', '工時': a.hours || 0 }))), '4_員工打卡紀錄');
             XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet((appState.preorders || []).map(p => ({ '預購單號': p.preorderNo, '客人': p.customerName, '電話': p.phone, '商品': p.itemName, '進貨價': p.unitCost, '市場價': p.marketPrice ?? p.unitPrice, '預購售價': p.unitPrice, '已收訂金': p.depositPaid, '待補尾款': p.balanceDue, '狀態': p.status }))), '5_預購商品紀錄');
@@ -3200,6 +3256,7 @@
                         appState.purgedLegacyPokemonYugioh = true;
                     }
                     ensureManagersList();
+                    ensureFixedSalesAccount();
                     saveState();
                     refreshAllViews();
                     showToast('☁️ 已從 Google Drive 拉取最新資料庫！');
@@ -3533,13 +3590,24 @@
             document.getElementById('download-excel-template-btn').addEventListener('click', () => {
                 const sample = [
                     ['品號/條碼', '商品名稱', '分類', '進貨價', '市場價', '售價', '進貨數量'],
-                    ['ITEM001', '範例商品 A', '自訂分類A', 35, 60, 50, 100],
-                    ['ITEM002', '範例商品 B', '自訂分類B', 40, 70, 60, 100]
+                    [47100001, '[範例] 商品名稱', '自訂分類', 35, 60, 50, 100]
                 ];
+                const ws = XLSX.utils.aoa_to_sheet(sample);
+                // 條碼欄設為可完整容納 8 位數全數字之寬度且格式為 00000000；商品名稱欄寬固定設為 150px；其餘欄位設為塞得下標題與數值之寬度
+                ws['!cols'] = [
+                    { wpx: 110 }, // 品號/條碼 (8位數全數字寬度)
+                    { wpx: 150 }, // 商品名稱 (固定 150)
+                    { wpx: 110 }, // 分類
+                    { wpx: 95 },  // 進貨價
+                    { wpx: 95 },  // 市場價
+                    { wpx: 95 },  // 售價
+                    { wpx: 95 }   // 進貨數量
+                ];
+                if (ws['A2']) ws['A2'].z = '00000000';
                 const wb = XLSX.utils.book_new();
-                XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet(sample), '進貨範本');
-                XLSX.writeFile(wb, 'PIPI結帳系統_進貨範例Excel表.xlsx');
-                showToast('📄 已下載進貨範例 Excel 表');
+                XLSX.utils.book_append_sheet(wb, ws, '商品進貨清單');
+                XLSX.writeFile(wb, 'PIPI結帳系統_預設商品進貨Excel表.xlsx');
+                showToast('📄 已下載預設商品進貨 Excel 表（8位數純數字條碼欄＋商品名稱寬 150）');
             });
             document.getElementById('toggle-sample-preview-btn').addEventListener('click', () => {
                 document.getElementById('excel-sample-preview-box').classList.toggle('hidden');
@@ -3552,18 +3620,21 @@
                 reader.onload = (ev) => {
                     try {
                         const wb = XLSX.read(new Uint8Array(ev.target.result), { type: 'array' });
-                        const rows = XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]], { header: 1, defval: '' });
+                        const rows = XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]], { header: 1, raw: false, defval: '' });
                         let added = 0;
+                        const cleanNum = (v) => parseFloat(String(v || '0').replace(/,/g, '').trim()) || 0;
                         for (let i = 1; i < rows.length; i++) {
                             const r = rows[i];
-                            if (!r || (!r[0] && !r[1])) continue;
-                            const code = String(r[0] || `ITEM${Date.now()}_${i}`).trim();
-                            const name = String(r[1] || code).trim();
+                            if (!r || (!String(r[0] || '').trim() && !String(r[1] || '').trim())) continue;
+                            const name = String(r[1] || r[0] || '').trim();
+                            if (name.startsWith('[範例')) continue;
+                            const rawCode = String(r[0] || '').replace(/,/g, '').trim();
+                            const code = rawCode || String(10000000 + appState.products.length + i);
                             const cat = String(r[2] || '未分類').trim();
-                            const cost = Math.max(0, parseFloat(r[3]) || 0);
-                            const mkt = Math.max(0, parseFloat(r[4]) || 0);
-                            const price = Math.max(0, parseFloat(r[5]) || mkt || 50);
-                            const qty = Math.max(0, parseInt(r[6], 10) || 0);
+                            const cost = Math.max(0, cleanNum(r[3]));
+                            const mkt = Math.max(0, cleanNum(r[4]));
+                            const price = Math.max(0, cleanNum(r[5]) || mkt || 50);
+                            const qty = Math.max(0, Math.round(cleanNum(r[6])));
                             if (!appState.categories.includes(cat)) appState.categories.push(cat);
                             const ex = appState.products.find(p => p.code === code);
                             if (ex) { ex.stock += qty; ex.cost = cost; ex.marketPrice = mkt || price; ex.price = price; }
@@ -3863,25 +3934,29 @@
             });
 
             document.getElementById('add-staff-btn').addEventListener('click', () => {
-                const email = document.getElementById('new-staff-email').value.trim();
-                if (!email) { showToast('請輸入員工帳號或姓名', 'error'); return; }
-                if (appState.staff.some(s => s.email.toLowerCase() === email.toLowerCase())) {
-                    showToast('此員工帳號已存在！', 'error'); return;
+                const accRaw = document.getElementById('new-staff-account-input').value.trim();
+                const nameRaw = document.getElementById('new-staff-email').value.trim();
+                const email = accRaw || nameRaw;
+                const staffName = nameRaw || accRaw;
+                if (!email) { showToast('請輸入要新增的員工帳號或姓名', 'error'); return; }
+                if (email === '25508846' || appState.staff.some(s => s.email.toLowerCase() === email.toLowerCase())) {
+                    showToast('此員工帳號已經存在！', 'error'); return;
                 }
-                const initMode = document.getElementById('new-staff-init-pwd-mode').value;
-                const isSpecial = initMode === '25508846';
                 appState.staff.push({
                     email,
+                    name: staffName,
                     role: '一般銷售員',
                     status: '啟用',
-                    pin: isSpecial ? '25508846' : '0000',
-                    mustChangePwd: !isSpecial
+                    pin: '0000',
+                    mustChangePwd: true,
+                    isFixedAccount: false
                 });
+                document.getElementById('new-staff-account-input').value = '';
                 document.getElementById('new-staff-email').value = '';
                 saveState();
                 renderStaff();
                 renderAttendance();
-                showToast(isSpecial ? `已註冊銷售員【${email}】（特殊密碼 25508846，可直接登入免改密碼）` : `已註冊銷售員【${email}】（初始密碼 0000，首次登入強制改密碼）`);
+                showToast(`已註冊銷售員【${staffName} (${email})】（初始密碼 0000，首次登入強制改 8 碼密碼）`);
             });
 
             document.getElementById('header-cloud-status-btn').addEventListener('click', () => {
@@ -3942,7 +4017,7 @@
                     `  const now = new Date().toLocaleString('zh-TW', { hour12: false });`,
                     `  DriveApp.getFileById(JSON_FILE_ID).setContent(JSON.stringify(state, null, 2));`,
                     `  const ss = SpreadsheetApp.openById(SHEET_ID);`,
-                    `  const allAccounts = [...(state.managers || []).map((m, i) => ['MGR-' + (i + 1), m.account, m.name, m.title, m.pin || '0000', m.mustChangePwd !== false, now]), ...(state.staff || []).map((s, i) => ['STF-' + (i + 1), s.email, s.email, s.role || '門市收銀員', s.pin || '0000', s.mustChangePwd !== false, now])];`,
+                    `  const allAccounts = [...(state.managers || []).map((m, i) => ['MGR-' + (i + 1), m.account, m.name, m.title, m.pin || '0000', m.mustChangePwd !== false, now]), ...(state.staff || []).map((s, i) => [s.isFixedAccount ? 'STF-FIXED' : ('STF-' + (i + 1)), s.email, s.name || s.email, s.role || '一般銷售員', s.isFixedAccount ? '25508846' : (s.pin || '0000'), s.isFixedAccount ? false : (s.mustChangePwd !== false), now])];`,
                     `  writeSheetRows(ss, '1_員工帳號密碼', ['編號', '登入帳號', '姓名', '職稱', '密碼', '需改密碼', '更新時間'], allAccounts);`,
                     `  writeSheetRows(ss, '2_貨物資料與庫存', ['品號', '商品名稱', '分類', '進貨價', '市場價', '售價', '庫存', '更新時間'], (state.products || []).map(p => [p.code, p.name, p.category, p.cost || 0, p.marketPrice ?? p.price, p.price || 0, p.stock || 0, now]));`,
                     `  writeSheetRows(ss, '3_每日銷售明細', ['單號', '時間', '收銀員', '客戶', '付款方式', '發票稅', '實收總額', '扣稅淨利'], (state.orders || []).map(o => [o.orderNo, o.time, o.cashier, o.memberName, o.payMethod, o.invoiceTax || 0, o.total || 0, o.profit || 0]));`,
@@ -3963,23 +4038,40 @@
             // ==================== AUTH GATE & STRICT ENGLISH PASSWORD LOCK ====================
             document.getElementById('staff-login-keyword').addEventListener('input', renderStaffLoginDropdown);
             document.getElementById('staff-login-submit-btn').addEventListener('click', () => {
+                ensureFixedSalesAccount();
                 const acc = document.getElementById('staff-login-select').value;
                 const pin = document.getElementById('staff-login-pin').value.trim();
-                if (!acc) { showToast('請先選擇員工帳號（若無帳號請先由總管理員登入後台新增）', 'error'); return; }
+                if (!acc) { showToast('請先選擇員工帳號', 'error'); return; }
                 const staffObj = appState.staff.find(s => s.email === acc);
                 if (!staffObj) return;
+
+                const isFixed = staffObj.email === '25508846' || Boolean(staffObj.isFixedAccount);
+                if (isFixed) {
+                    if (pin !== '25508846') {
+                        showToast('【PIPI TOY’S (25508846)】專屬密碼輸入錯誤！', 'error');
+                        return;
+                    }
+                    currentSessionUser = { role: 'staff', account: '25508846', name: "PIPI TOY’S", isFixedAccount: true };
+                    document.getElementById('staff-login-pin').value = '';
+                    document.getElementById('auth-login-gate').classList.add('hidden');
+                    updateSessionUI();
+                    switchTab('pos');
+                    showToast("🛍️ 歡迎登入，PIPI TOY’S (25508846)！");
+                    return;
+                }
+
                 const expected = staffObj.pin || '0000';
                 const isFirst = (staffObj.mustChangePwd !== false || expected === '0000');
                 if (isFirst && pin !== '0000') { showToast('剛註冊員工首次登入請輸入預設密碼 0000', 'error'); return; }
                 if (!isFirst && pin !== expected) { showToast('員工 8 位密碼輸入錯誤（請確認英文大小寫）！', 'error'); return; }
 
-                currentSessionUser = { role: 'staff', account: staffObj.email };
+                currentSessionUser = { role: 'staff', account: staffObj.email, name: staffObj.name || staffObj.email, isFixedAccount: false };
                 document.getElementById('staff-login-pin').value = '';
                 document.getElementById('auth-login-gate').classList.add('hidden');
                 updateSessionUI();
                 switchTab('pos');
-                if (isFirst) openForcePasswordModal(staffObj, true);
-                else showToast(`歡迎回來，${staffObj.email}！`);
+                if (isFirst) openForcePasswordModal(staffObj, true, 'staff');
+                else showToast(`歡迎回來，${staffObj.name || staffObj.email}！`);
             });
 
             // 一般管理員登入 (老闆 Chu,Tsung-Shang 朱宗上 / 老闆娘 Lin,Ya-Ting 林雅婷)
@@ -4045,8 +4137,12 @@
                     showToast(`✅ 【${mgr.name} (${mgr.account})】的 8 位數密碼已設定完成！`);
                 } else {
                     const key = pendingPwdTarget ? pendingPwdTarget.key : document.getElementById('force-pwd-account').value;
+                    if (key === '25508846') {
+                        showToast('🔒 【PIPI TOY’S (25508846)】密碼永遠不可修改！', 'error');
+                        return;
+                    }
                     const st = appState.staff.find(s => s.email === key);
-                    if (!st) return;
+                    if (!st || st.isFixedAccount) return;
                     st.pin = p1;
                     st.mustChangePwd = false;
                     saveState();
@@ -4062,6 +4158,10 @@
                     const mgr = appState.managers.find(m => m.account === currentSessionUser.account);
                     if (mgr) openForcePasswordModal(mgr, false, 'manager');
                 } else if (currentSessionUser.role === 'staff') {
+                    if (currentSessionUser.account === '25508846' || currentSessionUser.isFixedAccount) {
+                        showToast('🔒 【PIPI TOY’S (25508846)】密碼永遠不可修改！', 'error');
+                        return;
+                    }
                     const st = appState.staff.find(s => s.email === currentSessionUser.account);
                     if (st) openForcePasswordModal(st, false, 'staff');
                 }
