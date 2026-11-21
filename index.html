@@ -153,7 +153,7 @@
                 <div class="lg:col-span-5 bg-gradient-to-br from-blue-50 to-indigo-50 p-6 rounded-2xl border border-blue-100 space-y-3 text-xs sm:text-sm">
                     <div class="font-bold text-slate-900 text-base border-b border-blue-200 pb-2">系統核心規格</div>
                     <div class="flex justify-between bg-white p-2.5 rounded-lg border border-slate-200"><span>統編與門市電話</span><span class="font-mono font-bold text-blue-700">統編 48676299 / 02-2550-8846</span></div>
-                    <div class="flex justify-between bg-white p-2.5 rounded-lg border border-slate-200"><span>初始免稅分類</span><span class="font-bold text-emerald-700">寶可夢、遊戲王 (可自訂新增)</span></div>
+                    <div class="flex justify-between bg-white p-2.5 rounded-lg border border-slate-200"><span>分類與免稅設定</span><span class="font-bold text-emerald-700">全自訂分類 (可設預設免稅/應稅並隨時調整)</span></div>
                     <div class="flex justify-between bg-white p-2.5 rounded-lg border border-slate-200"><span>雲端自動存檔速度</span><span class="font-bold text-indigo-700">變動後 0.3 秒內自動同步</span></div>
                     <div class="flex justify-between bg-white p-2.5 rounded-lg border border-slate-200"><span>最高總管理員</span><span class="font-mono font-bold text-slate-800">tw202501tw@gmail.com</span></div>
                 </div>
@@ -183,13 +183,21 @@
                     </div>
                 </div>
 
-                <!-- Category Filter Pills & Add Category Control -->
+                <!-- Category Filter Pills & Custom Category + Tax Rule Controls -->
                 <div class="flex flex-wrap items-center justify-between gap-2 bg-white p-3 rounded-2xl border border-slate-200 shadow-2xs">
                     <div id="pos-category-bar" class="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-0.5"></div>
-                    <div class="flex items-center gap-1.5 ml-auto">
-                        <input id="quick-new-cat-input" type="text" placeholder="自訂新分類名稱..." class="w-32 sm:w-36 px-2.5 py-1.5 rounded-xl border border-slate-300 text-xs outline-none focus:border-blue-500">
-                        <button id="quick-add-cat-btn" type="button" class="px-3 py-1.5 bg-blue-50 hover:bg-blue-100 text-blue-700 border border-blue-200 rounded-xl text-xs font-bold whitespace-nowrap transition">
+                    <div class="flex flex-wrap items-center gap-1.5 ml-auto">
+                        <input id="quick-new-cat-input" type="text" placeholder="輸入新分類名稱..." class="w-28 sm:w-36 px-2.5 py-1.5 rounded-xl border border-slate-300 text-xs outline-none focus:border-blue-500">
+                        <div class="inline-flex items-center gap-1 bg-slate-50 px-2 py-1 rounded-xl border border-slate-200 text-xs">
+                            <span class="font-bold text-slate-700 whitespace-nowrap">是否開啟發票稅？</span>
+                            <button id="quick-tax-yes-btn" type="button" class="px-2.5 py-0.5 rounded-lg font-extrabold bg-emerald-600 text-white transition">是</button>
+                            <button id="quick-tax-no-btn" type="button" class="px-2.5 py-0.5 rounded-lg font-bold bg-white text-slate-600 border border-slate-300 transition">否</button>
+                        </div>
+                        <button id="quick-add-cat-btn" type="button" class="px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-xs font-bold whitespace-nowrap transition">
                             ＋ 新增分類
+                        </button>
+                        <button id="open-cat-manage-btn" type="button" class="px-2.5 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-300 rounded-xl text-xs font-bold whitespace-nowrap transition">
+                            ⚙️ 調整分類/發票稅
                         </button>
                     </div>
                 </div>
@@ -359,9 +367,9 @@
                         </thead>
                         <tbody class="divide-y divide-slate-200 text-slate-600 font-mono">
                             <tr>
-                                <td class="py-1.5 px-3 border-r border-slate-200">PKM001</td>
-                                <td class="py-1.5 px-3 border-r border-slate-200 font-sans">寶可夢集換式卡牌 擴充包</td>
-                                <td class="py-1.5 px-3 border-r border-slate-200 font-sans">寶可夢</td>
+                                <td class="py-1.5 px-3 border-r border-slate-200">ITEM001</td>
+                                <td class="py-1.5 px-3 border-r border-slate-200 font-sans">範例商品 A</td>
+                                <td class="py-1.5 px-3 border-r border-slate-200 font-sans">自訂分類名稱</td>
                                 <td class="py-1.5 px-3 border-r border-slate-200 text-right">35</td>
                                 <td class="py-1.5 px-3 border-r border-slate-200 text-right">60</td>
                                 <td class="py-1.5 px-3 border-r border-slate-200 text-right font-bold text-blue-600">50</td>
@@ -889,10 +897,14 @@
                             <span class="text-[11px] text-amber-700 bg-amber-50 border border-amber-200 px-2 py-0.5 rounded font-semibold">首登強制改 8 碼英數密碼</span>
                         </div>
                         <p class="text-[11px] text-slate-500">本系統禁止外部自行註冊。員工首次使用 <strong>0000</strong> 登入時，會強制要求改為 <strong>8 位數密碼（含英文大寫、小寫、數字至少各一，可含符號）</strong>。</p>
-                        <div class="flex gap-2">
-                            <input id="new-staff-email" type="text" placeholder="自訂員工帳號或姓名 (如：staff01、王小美)..." class="flex-1 px-3 py-2 rounded-xl border border-slate-300 text-xs outline-none focus:border-blue-500">
+                        <div class="flex flex-col sm:flex-row gap-2">
+                            <input id="new-staff-email" type="text" placeholder="員工帳號或姓名 (如：1、一般銷售員)..." class="flex-1 px-3 py-2 rounded-xl border border-slate-300 text-xs outline-none focus:border-blue-500">
+                            <select id="new-staff-init-pwd-mode" class="px-2.5 py-2 rounded-xl border border-slate-300 bg-slate-50 text-xs font-semibold text-slate-700 outline-none">
+                                <option value="0000">預設 0000 (首登強制改密碼)</option>
+                                <option value="25508846">特殊密碼 25508846 (直接可用免改)</option>
+                            </select>
                             <button id="add-staff-btn" type="button" class="bg-slate-800 hover:bg-slate-900 text-white text-xs font-bold px-3.5 py-2 rounded-xl whitespace-nowrap transition">
-                                ＋ 新增收銀員
+                                ＋ 新增銷售員
                             </button>
                         </div>
                     </div>
@@ -1035,15 +1047,20 @@
                 <div class="grid grid-cols-2 gap-3">
                     <div>
                         <label class="block font-semibold text-slate-700 mb-1">商品條碼 / 品號</label>
-                        <input id="new-prod-code" type="text" placeholder="如 PKM001" class="w-full px-3 py-2 rounded-xl border border-slate-300 outline-none focus:border-blue-500">
+                        <input id="new-prod-code" type="text" placeholder="如 ITEM001" class="w-full px-3 py-2 rounded-xl border border-slate-300 outline-none focus:border-blue-500">
                     </div>
                     <div>
                         <label class="block font-semibold text-slate-700 mb-1">商品分類</label>
                         <select id="new-prod-cat" class="w-full px-3 py-2 rounded-xl border border-slate-300 bg-white outline-none focus:border-blue-500"></select>
                     </div>
                 </div>
-                <div class="flex items-center gap-2 bg-slate-50 p-2.5 rounded-xl border border-slate-200">
-                    <input id="modal-custom-cat-input" type="text" placeholder="或在此輸入新分類名稱..." class="flex-1 px-3 py-1.5 rounded-lg border border-slate-300 text-xs outline-none bg-white">
+                <div class="flex flex-wrap items-center gap-1.5 bg-slate-50 p-2.5 rounded-xl border border-slate-200">
+                    <input id="modal-custom-cat-input" type="text" placeholder="在此輸入新分類名稱..." class="flex-1 min-w-[110px] px-2.5 py-1.5 rounded-lg border border-slate-300 text-xs outline-none bg-white">
+                    <div class="inline-flex items-center gap-1 bg-white px-2 py-1 rounded-lg border border-slate-300 text-xs">
+                        <span class="font-bold text-slate-700 whitespace-nowrap">開啟發票稅？</span>
+                        <button id="modal-tax-yes-btn" type="button" class="px-2 py-0.5 rounded font-extrabold bg-emerald-600 text-white">是</button>
+                        <button id="modal-tax-no-btn" type="button" class="px-2 py-0.5 rounded font-bold bg-slate-100 text-slate-600">否</button>
+                    </div>
                     <button id="modal-add-cat-btn" type="button" class="px-3 py-1.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg text-xs font-bold whitespace-nowrap">＋ 新增分類</button>
                 </div>
                 <div>
@@ -1072,6 +1089,35 @@
             <div class="flex gap-2 pt-2">
                 <button id="save-new-product-btn" type="button" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-bold py-2.5 rounded-xl text-xs sm:text-sm transition">確認新增品項</button>
                 <button id="cancel-product-modal-btn" type="button" class="px-4 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold py-2.5 rounded-xl text-xs sm:text-sm transition">取消</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== MODAL: 管理商品分類與預設免稅/應稅設定 ==================== -->
+    <div id="category-manage-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-xs z-50 hidden items-center justify-center p-4 overflow-y-auto">
+        <div class="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl border border-slate-200 my-auto space-y-4">
+            <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+                <div>
+                    <h3 class="font-extrabold text-slate-900 text-base">🏷️ 商品分類與「預設免稅 / 應稅」隨時調整</h3>
+                    <p class="text-xs text-slate-500 mt-0.5">新增分類時可選以後是否免稅；設定完成後仍可隨時於下方一鍵切換免稅或應稅，或刪除分類。</p>
+                </div>
+                <button id="close-cat-manage-modal-btn" type="button" class="text-slate-400 hover:text-slate-600 font-bold">✕</button>
+            </div>
+
+            <div class="flex flex-wrap items-center gap-2 bg-blue-50/70 p-3 rounded-xl border border-blue-200">
+                <input id="mgr-new-cat-input" type="text" placeholder="輸入要新增的分類名稱..." class="flex-1 min-w-[130px] px-3 py-2 rounded-xl border border-slate-300 bg-white text-xs outline-none focus:border-blue-500">
+                <div class="inline-flex items-center gap-1 bg-white px-2.5 py-1.5 rounded-xl border border-slate-300 text-xs">
+                    <span class="font-bold text-slate-700 whitespace-nowrap">是否要開啟發票稅？</span>
+                    <button id="mgr-tax-yes-btn" type="button" class="px-2.5 py-0.5 rounded-lg font-extrabold bg-emerald-600 text-white transition">是</button>
+                    <button id="mgr-tax-no-btn" type="button" class="px-2.5 py-0.5 rounded-lg font-bold bg-slate-100 text-slate-600 transition">否</button>
+                </div>
+                <button id="mgr-add-cat-btn" type="button" class="px-3.5 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-xs font-bold whitespace-nowrap transition">＋ 新增分類</button>
+            </div>
+
+            <div id="category-manage-list" class="space-y-2 max-h-72 overflow-y-auto"></div>
+
+            <div class="flex justify-end pt-2 border-t border-slate-100">
+                <button id="done-cat-manage-btn" type="button" class="px-5 py-2 bg-slate-800 hover:bg-slate-900 text-white font-bold rounded-xl text-xs sm:text-sm transition">完成並關閉</button>
             </div>
         </div>
     </div>
@@ -1133,7 +1179,7 @@
                 </div>
                 <div class="sm:col-span-2">
                     <label class="block font-semibold text-slate-700 mb-1">預購商品名稱 *</label>
-                    <input id="pre-item-name" type="text" placeholder="如：寶可夢擴充包原盒" class="w-full px-3 py-2 rounded-xl border border-slate-300 outline-none">
+                    <input id="pre-item-name" type="text" placeholder="請輸入預購商品名稱" class="w-full px-3 py-2 rounded-xl border border-slate-300 outline-none">
                 </div>
                 <div>
                     <label class="block font-semibold text-slate-700 mb-1">商品分類</label>
@@ -1272,7 +1318,7 @@
                 </div>
                 <div>
                     <label class="block font-semibold text-slate-700 mb-1">商品品號 / 條碼</label>
-                    <input id="trf-prod-code" type="text" placeholder="如 PKM001" class="w-full px-3 py-2 rounded-xl border border-slate-300 font-mono outline-none">
+                    <input id="trf-prod-code" type="text" placeholder="如 ITEM001" class="w-full px-3 py-2 rounded-xl border border-slate-300 font-mono outline-none">
                 </div>
                 <div>
                     <label class="block font-semibold text-slate-700 mb-1">商品名稱 *</label>
@@ -1460,7 +1506,6 @@
         const CLOUD_DRIVE_FOLDER_ID = '1-ZXsXnlhzm7YTg5gQG5bh4vMNmr6HO8C';
         const CLOUD_SHEET_DB_ID = '1Ma9LwRPU1uj3Bf_Qehz4PBcpr7CFbpa1aSXa8vhrWx0';
         const CLOUD_JSON_FILE_ID = '13Y7BriAsKt3sOckPW0m5MCIGA1cptBEX';
-        const TAX_EXEMPT_CATEGORIES = ['寶可夢', '遊戲王'];
         const STAFF_ALLOWED_TABS = ['pos', 'inventory', 'preorders', 'transfer', 'attendance'];
         const MONTHLY_PARKING_FEE = 5500;
 
@@ -1475,11 +1520,14 @@
                 driveFolderId: CLOUD_DRIVE_FOLDER_ID,
                 cloudSheetId: CLOUD_SHEET_DB_ID,
                 cloudJsonFileId: CLOUD_JSON_FILE_ID,
-                cloudWebhookUrl: '',
+                cloudWebhookUrl: 'https://script.google.com/macros/s/AKfycbwmzc8qa_fu5mSVININaezcEHgNpRDiTO4au3DKrD8osK9kX-67dCRDNPV8tMWydJ6d/exec',
                 autoCloudSync: true,
                 lastCloudSync: ''
             },
-            categories: ['寶可夢', '遊戲王'],
+            categories: [],
+            categoryTaxExempt: {},
+            userCustomizedCategories: true,
+            specialSales25508846Applied: true,
             products: [],
             members: [],
             orders: [],
@@ -1488,7 +1536,9 @@
                 { account: 'Chu,Tsung-Shang', name: '朱宗上', title: '老闆 (一般管理員)', pin: '0000', mustChangePwd: true },
                 { account: 'Lin,Ya-Ting', name: '林雅婷', title: '老闆娘 (一般管理員)', pin: '0000', mustChangePwd: true }
             ],
-            staff: [],
+            staff: [
+                { email: '1', role: '一般銷售員', status: '啟用 (特殊密碼)', pin: '25508846', mustChangePwd: false }
+            ],
             memos: {},
             peers: [],
             transfers: [],
@@ -1528,12 +1578,33 @@
                         if (!parsed.config.taxId || parsed.config.taxId.includes('88990011')) {
                             parsed.config.taxId = '統編 48676299 / 02-2550-8846';
                         }
-                        if (!Array.isArray(parsed.categories) || parsed.categories.length === 0) parsed.categories = ['寶可夢', '遊戲王'];
+                        if (!parsed.config.cloudWebhookUrl) {
+                            parsed.config.cloudWebhookUrl = 'https://script.google.com/macros/s/AKfycbwmzc8qa_fu5mSVININaezcEHgNpRDiTO4au3DKrD8osK9kX-67dCRDNPV8tMWydJ6d/exec';
+                        }
+                        if (!Array.isArray(parsed.categories)) parsed.categories = [];
+                        if (!parsed.categoryTaxExempt || typeof parsed.categoryTaxExempt !== 'object') parsed.categoryTaxExempt = {};
+                        if (!parsed.purgedLegacyPokemonYugioh) {
+                            parsed.categories = parsed.categories.filter(c => c !== '寶可夢' && c !== '遊戲王');
+                            delete parsed.categoryTaxExempt['寶可夢'];
+                            delete parsed.categoryTaxExempt['遊戲王'];
+                            parsed.purgedLegacyPokemonYugioh = true;
+                            parsed.userCustomizedCategories = true;
+                        }
                         if (!Array.isArray(parsed.products)) parsed.products = [];
                         if (!Array.isArray(parsed.members)) parsed.members = [];
                         if (!Array.isArray(parsed.orders)) parsed.orders = [];
                         if (!Array.isArray(parsed.preorders)) parsed.preorders = [];
                         if (!Array.isArray(parsed.staff)) parsed.staff = [];
+                        if (!parsed.specialSales25508846Applied) {
+                            if (parsed.staff.length > 0) {
+                                parsed.staff[0].pin = '25508846';
+                                parsed.staff[0].mustChangePwd = false;
+                                parsed.staff[0].role = '一般銷售員';
+                            } else {
+                                parsed.staff.push({ email: '1', role: '一般銷售員', status: '啟用 (特殊密碼)', pin: '25508846', mustChangePwd: false });
+                            }
+                            parsed.specialSales25508846Applied = true;
+                        }
                         const defMgrs = [
                             { account: 'Chu,Tsung-Shang', name: '朱宗上', title: '老闆 (一般管理員)', pin: '0000', mustChangePwd: true },
                             { account: 'Lin,Ya-Ting', name: '林雅婷', title: '老闆娘 (一般管理員)', pin: '0000', mustChangePwd: true }
@@ -1626,14 +1697,16 @@
         }
 
         function isTaxExemptCategory(catName) {
-            return TAX_EXEMPT_CATEGORIES.includes(String(catName || '').trim());
+            const key = String(catName || '').trim();
+            if (!key || !appState.categoryTaxExempt) return false;
+            return Boolean(appState.categoryTaxExempt[key]);
         }
 
         function ensureCategoriesList() {
             if (!Array.isArray(appState.categories)) appState.categories = [];
-            TAX_EXEMPT_CATEGORIES.forEach(c => {
-                if (!appState.categories.includes(c)) appState.categories.push(c);
-            });
+            if (!appState.categoryTaxExempt || typeof appState.categoryTaxExempt !== 'object') {
+                appState.categoryTaxExempt = {};
+            }
         }
 
         function syncCategorySelects() {
@@ -1641,19 +1714,26 @@
             ['new-prod-cat', 'pre-item-cat'].forEach(selId => {
                 const sel = document.getElementById(selId);
                 if (!sel) return;
-                const cur = sel.value || '寶可夢';
+                const cur = sel.value;
                 sel.innerHTML = '';
+                if (appState.categories.length === 0) {
+                    const opt = document.createElement('option');
+                    opt.value = '未分類';
+                    opt.textContent = '未分類 (可先新增自訂分類)';
+                    sel.appendChild(opt);
+                    return;
+                }
                 appState.categories.forEach(c => {
                     const opt = document.createElement('option');
                     opt.value = c;
-                    opt.textContent = isTaxExemptCategory(c) ? `${c} (預設關閉5%發票稅)` : `${c} (預設打開5%發票稅)`;
+                    opt.textContent = isTaxExemptCategory(c) ? `${c} (開啟發票稅：否)` : `${c} (開啟發票稅：是)`;
                     sel.appendChild(opt);
                 });
                 sel.value = appState.categories.includes(cur) ? cur : appState.categories[0];
             });
         }
 
-        function addCustomCategory(rawName) {
+        function addCustomCategory(rawName, isExempt = true) {
             const name = String(rawName || '').trim();
             if (!name) {
                 showToast('請輸入要新增的分類名稱', 'error');
@@ -1661,14 +1741,90 @@
             }
             ensureCategoriesList();
             if (appState.categories.includes(name)) {
-                showToast(`分類【${name}】已經存在！`, 'info');
+                showToast(`分類【${name}】已經存在！可點「⚙️ 調整分類/免稅」修改設定`, 'info');
                 return false;
             }
             appState.categories.push(name);
+            appState.categoryTaxExempt[name] = Boolean(isExempt);
+            appState.userCustomizedCategories = true;
             saveState();
             renderCategories();
-            showToast(`已新增自訂分類【${name}】（結帳時預設自動打開發票稅）`);
+            renderCategoryManageList();
+            showToast(`已新增分類【${name}】— 預設為${isExempt ? '「免稅（自動關閉5%發票稅）」' : '「應稅（自動打開5%發票稅）」'}，日後隨時可調整！`);
             return true;
+        }
+
+        function renderCategoryManageList() {
+            ensureCategoriesList();
+            const box = document.getElementById('category-manage-list');
+            if (!box) return;
+            box.innerHTML = '';
+            if (appState.categories.length === 0) {
+                box.innerHTML = `<div class="p-6 rounded-xl border border-dashed border-slate-200 text-center text-slate-400 text-xs">目前尚無任何商品分類（寶可夢與遊戲王已刪除），請於上方輸入名稱並按「是」或「否」決定是否開啟發票稅！</div>`;
+                return;
+            }
+            appState.categories.forEach((cat, idx) => {
+                const taxOn = !isTaxExemptCategory(cat);
+                const row = document.createElement('div');
+                row.className = 'p-3 rounded-xl bg-slate-50 border border-slate-200 flex flex-wrap items-center justify-between gap-2 text-xs';
+                row.innerHTML = `
+                    <div class="flex items-center gap-2">
+                        <span class="font-extrabold text-slate-900 text-sm">${cat}</span>
+                        <span class="px-2 py-0.5 rounded-full font-bold text-[11px] ${taxOn ? 'bg-emerald-100 text-emerald-800' : 'bg-slate-200 text-slate-700'}">
+                            開啟發票稅：${taxOn ? '是 (5%)' : '否 (不開稅)'}
+                        </span>
+                    </div>
+                    <div class="flex items-center gap-1.5">
+                        <span class="text-[11px] text-slate-500 font-semibold">開啟發票稅？</span>
+                        <button type="button" data-cat-tax-yes="${idx}" class="px-2.5 py-1 rounded-lg font-extrabold text-[11px] transition ${taxOn ? 'bg-emerald-600 text-white' : 'bg-white text-slate-600 border border-slate-300'}">是</button>
+                        <button type="button" data-cat-tax-no="${idx}" class="px-2.5 py-1 rounded-lg font-extrabold text-[11px] transition ${!taxOn ? 'bg-rose-600 text-white' : 'bg-white text-slate-600 border border-slate-300'}">否</button>
+                        <button type="button" data-cat-del="${idx}" class="px-2.5 py-1 bg-rose-50 hover:bg-rose-100 text-rose-600 rounded-lg font-semibold text-[11px] transition ml-1">刪除</button>
+                    </div>
+                `;
+                box.appendChild(row);
+            });
+
+            box.querySelectorAll('button[data-cat-tax-yes]').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const c = appState.categories[parseInt(btn.getAttribute('data-cat-tax-yes'), 10)];
+                    if (!c) return;
+                    appState.categoryTaxExempt[c] = false;
+                    if (selectedCategory === c) { invoiceTaxEnabled = true; renderCart(); }
+                    saveState();
+                    renderCategories();
+                    renderCategoryManageList();
+                    showToast(`已設定分類【${c}】開啟發票稅：是 (5%)`);
+                });
+            });
+
+            box.querySelectorAll('button[data-cat-tax-no]').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const c = appState.categories[parseInt(btn.getAttribute('data-cat-tax-no'), 10)];
+                    if (!c) return;
+                    appState.categoryTaxExempt[c] = true;
+                    if (selectedCategory === c) { invoiceTaxEnabled = false; renderCart(); }
+                    saveState();
+                    renderCategories();
+                    renderCategoryManageList();
+                    showToast(`已設定分類【${c}】開啟發票稅：否 (不開稅)`);
+                });
+            });
+
+            box.querySelectorAll('button[data-cat-del]').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const idx = parseInt(btn.getAttribute('data-cat-del'), 10);
+                    const c = appState.categories[idx];
+                    if (!c) return;
+                    appState.categories.splice(idx, 1);
+                    delete appState.categoryTaxExempt[c];
+                    if (selectedCategory === c) selectedCategory = '全部';
+                    saveState();
+                    renderCategories();
+                    renderCategoryManageList();
+                    renderProductGrid();
+                    showToast(`已刪除分類【${c}】`, 'info');
+                });
+            });
         }
 
         function renderCategories() {
@@ -1683,7 +1839,7 @@
                 btn.className = active
                     ? 'px-3.5 py-1.5 rounded-xl bg-blue-600 text-white text-xs font-bold whitespace-nowrap shadow-xs transition'
                     : 'px-3.5 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold whitespace-nowrap transition';
-                btn.textContent = cat === '全部' ? '全部商品' : `${cat}${isTaxExemptCategory(cat) ? ' (免稅)' : ''}`;
+                btn.textContent = cat === '全部' ? '全部商品' : `${cat}${isTaxExemptCategory(cat) ? ' (發票稅:否)' : ' (發票稅:是)'}`;
                 btn.addEventListener('click', () => {
                     selectedCategory = cat;
                     if (cat !== '全部') {
@@ -2651,6 +2807,9 @@
         // ==================== STAFF AUTH & 8-CHAR PASSWORD VALIDATION ====================
         function validateStaffPassword8(pwd) {
             const s = String(pwd || '');
+            if (s === '25508846') {
+                return { valid: true, hasLen8: true, hasUpper: true, hasLower: true, hasDigit: true };
+            }
             const hasLen8 = s.length === 8;
             const hasUpper = /[A-Z]/.test(s);
             const hasLower = /[a-z]/.test(s);
@@ -2748,23 +2907,34 @@
             const cashierEl = document.getElementById('pos-cashier-label');
             const chgBtn = document.getElementById('voluntary-change-pwd-btn');
 
+            const portalAdminBtn = document.getElementById('enter-admin-from-portal');
+            const togglePortalBtn = document.getElementById('toggle-portal-btn');
+            const portalSec = document.getElementById('portal-view');
+
             if (currentSessionUser.role === 'admin') {
                 roleEl.textContent = '👑 最高總管理員已登入';
                 accEl.textContent = 'tw202501tw@gmail.com';
                 cashierEl.textContent = '收銀員：tw202501tw@gmail.com (總管理員)';
                 chgBtn.classList.add('hidden');
+                if (portalAdminBtn) portalAdminBtn.classList.remove('hidden');
+                if (togglePortalBtn) togglePortalBtn.classList.remove('hidden');
                 document.querySelectorAll('.nav-tab').forEach(b => b.classList.remove('hidden'));
             } else if (currentSessionUser.role === 'manager') {
                 roleEl.textContent = `👔 ${currentSessionUser.title || '一般管理員'}已登入`;
                 accEl.textContent = `${currentSessionUser.name} (${currentSessionUser.account})`;
                 cashierEl.textContent = `收銀員：${currentSessionUser.name} (${currentSessionUser.account})`;
                 chgBtn.classList.remove('hidden');
+                if (portalAdminBtn) portalAdminBtn.classList.remove('hidden');
+                if (togglePortalBtn) togglePortalBtn.classList.remove('hidden');
                 document.querySelectorAll('.nav-tab').forEach(b => b.classList.remove('hidden'));
             } else {
                 roleEl.textContent = '👤 門市員工已登入';
                 accEl.textContent = currentSessionUser.account;
                 cashierEl.textContent = `收銀員：${currentSessionUser.account} (門市員工)`;
                 chgBtn.classList.remove('hidden');
+                // 員工登入時隱藏官網介紹頁的「管理員中心」入口並強制收起介紹頁，杜絕越權進入後台設定
+                if (portalAdminBtn) portalAdminBtn.classList.add('hidden');
+                if (portalSec) portalSec.classList.add('hidden');
                 document.querySelectorAll('.nav-tab').forEach(b => {
                     b.classList.toggle('hidden', !STAFF_ALLOWED_TABS.includes(b.getAttribute('data-tab')));
                 });
@@ -2843,12 +3013,25 @@
                             <span class="text-[10px] px-2 py-0.5 rounded font-bold ${isInit ? 'bg-amber-100 text-amber-800' : 'bg-emerald-100 text-emerald-700'}">${isInit ? '初始 0000' : '已設 8 碼密碼'}</span>
                         </div>
                     </div>
-                    <div class="flex gap-1.5">
+                    <div class="flex flex-wrap gap-1">
+                        <button type="button" data-special-pwd-staff="${idx}" class="px-2 py-1 bg-blue-50 hover:bg-blue-100 text-blue-700 border border-blue-200 rounded-lg text-[11px] font-bold">設特殊密碼25508846</button>
                         <button type="button" data-reset-staff="${idx}" class="px-2 py-1 bg-amber-50 hover:bg-amber-100 text-amber-700 border border-amber-200 rounded-lg text-[11px] font-semibold">重置0000</button>
                         <button type="button" data-del-staff="${idx}" class="px-2 py-1 bg-rose-50 hover:bg-rose-100 text-rose-600 rounded-lg text-[11px] font-semibold">移除</button>
                     </div>
                 `;
                 box.appendChild(div);
+            });
+            box.querySelectorAll('button[data-special-pwd-staff]').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const st = appState.staff[parseInt(btn.getAttribute('data-special-pwd-staff'), 10)];
+                    if (st) {
+                        st.pin = '25508846';
+                        st.mustChangePwd = false;
+                        saveState();
+                        renderStaff();
+                        showToast(`✅ 已將【${st.email}】密碼設為特殊密碼 25508846（免強制改密碼）！`);
+                    }
+                });
             });
             box.querySelectorAll('button[data-reset-staff]').forEach(btn => {
                 btn.addEventListener('click', () => {
@@ -3012,6 +3195,11 @@
                 const data = await res.json();
                 if (data && data.state && data.state.config) {
                     appState = data.state;
+                    if (!appState.purgedLegacyPokemonYugioh && Array.isArray(appState.categories)) {
+                        appState.categories = appState.categories.filter(c => c !== '寶可夢' && c !== '遊戲王');
+                        appState.purgedLegacyPokemonYugioh = true;
+                    }
+                    ensureManagersList();
                     saveState();
                     refreshAllViews();
                     showToast('☁️ 已從 Google Drive 拉取最新資料庫！');
@@ -3038,8 +3226,15 @@
         }
 
         function switchTab(tabId) {
-            if (currentSessionUser && currentSessionUser.role === 'staff' && !STAFF_ALLOWED_TABS.includes(tabId)) {
-                showToast('一般員工僅開放使用：POS收銀、庫存管理、預購系統、同行調貨與打卡系統', 'error');
+            if (!currentSessionUser) {
+                if (tabId !== 'pos') {
+                    document.getElementById('auth-login-gate').classList.remove('hidden');
+                    showToast('🔒 請先登入管理員或員工帳號！', 'error');
+                    return;
+                }
+            } else if (currentSessionUser.role === 'staff' && !STAFF_ALLOWED_TABS.includes(tabId)) {
+                document.getElementById('tab-admin').classList.add('hidden');
+                showToast('🔒 權限不足：一般員工無法進入管理員後台與財務報表設定！', 'error');
                 return;
             }
             document.querySelectorAll('.nav-tab').forEach(btn => {
@@ -3081,7 +3276,15 @@
                 togglePortalBtn.textContent = portalView.classList.contains('hidden') ? '切換至官網介紹頁' : '收起官網介紹頁';
             });
             document.getElementById('enter-pos-from-portal').addEventListener('click', () => { portalView.classList.add('hidden'); switchTab('pos'); });
-            document.getElementById('enter-admin-from-portal').addEventListener('click', () => { portalView.classList.add('hidden'); switchTab('admin'); });
+            document.getElementById('enter-admin-from-portal').addEventListener('click', () => {
+                if (!currentSessionUser || currentSessionUser.role === 'staff') {
+                    showToast('🔒 權限不足：僅限「總管理員」或「一般管理員（老闆/老闆娘）」可進入管理員中心！', 'error');
+                    return;
+                }
+                portalView.classList.add('hidden');
+                togglePortalBtn.textContent = '切換至官網介紹頁';
+                switchTab('admin');
+            });
 
             // POS Controls
             const posSearch = document.getElementById('pos-search-input');
@@ -3106,14 +3309,58 @@
                 document.getElementById('product-modal').classList.remove('hidden');
                 document.getElementById('product-modal').classList.add('flex');
             });
+            // 每次創分類旁邊的「是否要開啟發票稅？【是】/【否】」狀態切換
+            let quickCatTaxOn = true;
+            let modalCatTaxOn = true;
+            let mgrCatTaxOn = true;
+
+            const styleYesNoPair = (yesId, noId, isYes) => {
+                const yBtn = document.getElementById(yesId);
+                const nBtn = document.getElementById(noId);
+                if (!yBtn || !nBtn) return;
+                yBtn.className = isYes
+                    ? 'px-2.5 py-0.5 rounded-lg font-extrabold bg-emerald-600 text-white transition'
+                    : 'px-2.5 py-0.5 rounded-lg font-bold bg-white text-slate-600 border border-slate-300 transition';
+                nBtn.className = !isYes
+                    ? 'px-2.5 py-0.5 rounded-lg font-extrabold bg-rose-600 text-white transition'
+                    : 'px-2.5 py-0.5 rounded-lg font-bold bg-white text-slate-600 border border-slate-300 transition';
+            };
+
+            document.getElementById('quick-tax-yes-btn').addEventListener('click', () => { quickCatTaxOn = true; styleYesNoPair('quick-tax-yes-btn', 'quick-tax-no-btn', true); });
+            document.getElementById('quick-tax-no-btn').addEventListener('click', () => { quickCatTaxOn = false; styleYesNoPair('quick-tax-yes-btn', 'quick-tax-no-btn', false); });
+            document.getElementById('modal-tax-yes-btn').addEventListener('click', () => { modalCatTaxOn = true; styleYesNoPair('modal-tax-yes-btn', 'modal-tax-no-btn', true); });
+            document.getElementById('modal-tax-no-btn').addEventListener('click', () => { modalCatTaxOn = false; styleYesNoPair('modal-tax-yes-btn', 'modal-tax-no-btn', false); });
+            document.getElementById('mgr-tax-yes-btn').addEventListener('click', () => { mgrCatTaxOn = true; styleYesNoPair('mgr-tax-yes-btn', 'mgr-tax-no-btn', true); });
+            document.getElementById('mgr-tax-no-btn').addEventListener('click', () => { mgrCatTaxOn = false; styleYesNoPair('mgr-tax-yes-btn', 'mgr-tax-no-btn', false); });
+
             document.getElementById('quick-add-cat-btn').addEventListener('click', () => {
                 const inp = document.getElementById('quick-new-cat-input');
-                if (addCustomCategory(inp.value)) inp.value = '';
+                if (addCustomCategory(inp.value, !quickCatTaxOn)) inp.value = '';
+            });
+            document.getElementById('quick-new-cat-input').addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') document.getElementById('quick-add-cat-btn').click();
             });
             document.getElementById('modal-add-cat-btn').addEventListener('click', () => {
                 const inp = document.getElementById('modal-custom-cat-input');
                 const v = inp.value.trim();
-                if (addCustomCategory(v)) { document.getElementById('new-prod-cat').value = v; inp.value = ''; }
+                if (addCustomCategory(v, !modalCatTaxOn)) { document.getElementById('new-prod-cat').value = v; inp.value = ''; }
+            });
+
+            // Category & Tax Rule Management Modal Listeners
+            const closeCatManage = () => {
+                document.getElementById('category-manage-modal').classList.add('hidden');
+                document.getElementById('category-manage-modal').classList.remove('flex');
+            };
+            document.getElementById('open-cat-manage-btn').addEventListener('click', () => {
+                renderCategoryManageList();
+                document.getElementById('category-manage-modal').classList.remove('hidden');
+                document.getElementById('category-manage-modal').classList.add('flex');
+            });
+            document.getElementById('close-cat-manage-modal-btn').addEventListener('click', closeCatManage);
+            document.getElementById('done-cat-manage-btn').addEventListener('click', closeCatManage);
+            document.getElementById('mgr-add-cat-btn').addEventListener('click', () => {
+                const inp = document.getElementById('mgr-new-cat-input');
+                if (addCustomCategory(inp.value, !mgrCatTaxOn)) inp.value = '';
             });
             document.getElementById('pos-discount-select').addEventListener('change', renderCart);
             document.querySelectorAll('.pay-method-btn').forEach(btn => {
@@ -3230,7 +3477,7 @@
                 const name = document.getElementById('new-prod-name').value.trim();
                 if (!name) { showToast('請輸入商品名稱', 'error'); return; }
                 const code = document.getElementById('new-prod-code').value.trim() || `ITEM${appState.products.length + 101}`;
-                const cat = document.getElementById('new-prod-cat').value || '寶可夢';
+                const cat = document.getElementById('new-prod-cat').value || '未分類';
                 const cost = Math.max(0, parseFloat(document.getElementById('new-prod-cost').value) || 0);
                 const marketPrice = Math.max(0, parseFloat(document.getElementById('new-prod-market-price').value) || 0);
                 const price = Math.max(0, parseFloat(document.getElementById('new-prod-price').value) || 0);
@@ -3286,8 +3533,8 @@
             document.getElementById('download-excel-template-btn').addEventListener('click', () => {
                 const sample = [
                     ['品號/條碼', '商品名稱', '分類', '進貨價', '市場價', '售價', '進貨數量'],
-                    ['PKM001', '寶可夢集換式卡牌 擴充包', '寶可夢', 35, 60, 50, 100],
-                    ['YGO001', '遊戲王 基本補充包', '遊戲王', 40, 70, 60, 100]
+                    ['ITEM001', '範例商品 A', '自訂分類A', 35, 60, 50, 100],
+                    ['ITEM002', '範例商品 B', '自訂分類B', 40, 70, 60, 100]
                 ];
                 const wb = XLSX.utils.book_new();
                 XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet(sample), '進貨範本');
@@ -3312,7 +3559,7 @@
                             if (!r || (!r[0] && !r[1])) continue;
                             const code = String(r[0] || `ITEM${Date.now()}_${i}`).trim();
                             const name = String(r[1] || code).trim();
-                            const cat = String(r[2] || '寶可夢').trim();
+                            const cat = String(r[2] || '未分類').trim();
                             const cost = Math.max(0, parseFloat(r[3]) || 0);
                             const mkt = Math.max(0, parseFloat(r[4]) || 0);
                             const price = Math.max(0, parseFloat(r[5]) || mkt || 50);
@@ -3350,7 +3597,7 @@
                 const phone = document.getElementById('pre-cust-phone').value.trim();
                 const itemName = document.getElementById('pre-item-name').value.trim();
                 if (!customerName || !phone || !itemName) { showToast('請填寫客人姓名、電話與預購商品名稱！', 'error'); return; }
-                const category = document.getElementById('pre-item-cat').value || '寶可夢';
+                const category = document.getElementById('pre-item-cat').value || '未分類';
                 const qty = Math.max(1, parseInt(document.getElementById('pre-item-qty').value, 10) || 1);
                 const unitCost = Math.max(0, parseFloat(document.getElementById('pre-item-cost').value) || 0);
                 const marketPrice = Math.max(0, parseFloat(document.getElementById('pre-item-market-price').value) || 0);
@@ -3449,7 +3696,7 @@
                     if (prod) prod.stock = Math.max(0, prod.stock - qty);
                 } else {
                     if (prod) prod.stock += qty;
-                    else appState.products.push({ id: `P${Date.now()}`, code: prodCode, name: prodName, category: '寶可夢', cost: unitPrice, marketPrice: retailPrice, price: retailPrice, stock: qty, icon: '🤝' });
+                    else appState.products.push({ id: `P${Date.now()}`, code: prodCode, name: prodName, category: appState.categories[0] || '未分類', cost: unitPrice, marketPrice: retailPrice, price: retailPrice, stock: qty, icon: '🤝' });
                 }
 
                 const trfObj = {
@@ -3621,12 +3868,20 @@
                 if (appState.staff.some(s => s.email.toLowerCase() === email.toLowerCase())) {
                     showToast('此員工帳號已存在！', 'error'); return;
                 }
-                appState.staff.push({ email, role: '門市收銀員', status: '啟用', pin: '0000', mustChangePwd: true });
+                const initMode = document.getElementById('new-staff-init-pwd-mode').value;
+                const isSpecial = initMode === '25508846';
+                appState.staff.push({
+                    email,
+                    role: '一般銷售員',
+                    status: '啟用',
+                    pin: isSpecial ? '25508846' : '0000',
+                    mustChangePwd: !isSpecial
+                });
                 document.getElementById('new-staff-email').value = '';
                 saveState();
                 renderStaff();
                 renderAttendance();
-                showToast(`已註冊員工【${email}】（初始密碼 0000）`);
+                showToast(isSpecial ? `已註冊銷售員【${email}】（特殊密碼 25508846，可直接登入免改密碼）` : `已註冊銷售員【${email}】（初始密碼 0000，首次登入強制改密碼）`);
             });
 
             document.getElementById('header-cloud-status-btn').addEventListener('click', () => {
