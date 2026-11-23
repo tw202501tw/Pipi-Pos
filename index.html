@@ -1418,11 +1418,19 @@
                         🔐 這邊是打一般管理員密碼（點入自動鎖定英文輸入）
                         <span class="block text-[11px] font-normal text-slate-400 mt-0.5">（初始密碼為 <strong class="text-amber-300 font-mono">0000</strong>；首次登入強制修改為 <strong class="text-indigo-300">8 位數含英文大寫、小寫與數字各至少 1 個</strong>）</span>
                     </label>
-                    <div class="flex flex-col sm:flex-row gap-2.5">
-                        <input id="manager-login-pin" type="password" lang="en" inputmode="latin" autocapitalize="off" autocomplete="off" autocorrect="off" spellcheck="false" maxlength="8" placeholder="請輸入 8 位密碼 (預設 0000)" class="strict-en-pwd flex-1 px-3.5 py-2.5 rounded-xl bg-slate-800 border border-slate-600 text-white font-mono tracking-normal text-center text-sm sm:text-base outline-none focus:border-indigo-400">
-                        <button id="manager-login-submit-btn" type="button" class="bg-indigo-600 hover:bg-indigo-500 text-white font-extrabold px-6 py-2.5 rounded-xl text-sm shadow-lg transition whitespace-nowrap">
-                            👔 一般管理員登入
-                        </button>
+                    <div class="flex flex-col sm:flex-row gap-2">
+                        <div class="relative flex-1 flex items-center">
+                            <input id="manager-login-pin" type="password" lang="en" inputmode="latin" autocapitalize="off" autocomplete="off" autocorrect="off" spellcheck="false" maxlength="16" placeholder="請輸入 8 位密碼 (初始 0000)" class="strict-en-pwd w-full pl-3.5 pr-10 py-2.5 rounded-xl bg-slate-800 border border-slate-600 text-white font-mono tracking-normal text-center text-sm sm:text-base outline-none focus:border-indigo-400">
+                            <button id="toggle-mgr-login-pwd-vis" type="button" class="absolute right-2.5 text-slate-400 hover:text-white text-xs px-1.5 py-1 rounded" title="顯示或隱藏密碼">👁️</button>
+                        </div>
+                        <div class="flex gap-2">
+                            <button id="manager-login-submit-btn" type="button" class="flex-1 sm:flex-none bg-indigo-600 hover:bg-indigo-500 text-white font-extrabold px-5 py-2.5 rounded-xl text-sm shadow-lg transition whitespace-nowrap">
+                                👔 一般管理員登入
+                            </button>
+                            <button id="manager-gate-change-pwd-btn" type="button" class="bg-slate-800 hover:bg-slate-700 text-indigo-200 border border-indigo-400/50 font-bold px-3.5 py-2.5 rounded-xl text-xs sm:text-sm transition whitespace-nowrap" title="直接修改上方所選一般管理員的密碼">
+                                🔑 修改密碼
+                            </button>
+                        </div>
                     </div>
                 </div>
 
@@ -1464,13 +1472,21 @@
                 </p>
             </div>
             <div class="space-y-3 text-xs sm:text-sm">
-                <div>
-                    <label class="block font-semibold text-slate-700 mb-1">目前登入帳號 / 姓名</label>
-                    <input id="force-pwd-account" type="text" readonly class="w-full px-3 py-2 rounded-xl border border-slate-200 bg-slate-100 text-slate-700 font-mono font-bold">
+                <div class="flex items-center justify-between gap-2">
+                    <label class="font-semibold text-slate-700">目標帳號 / 姓名</label>
+                    <button id="toggle-force-pwd-vis-btn" type="button" class="text-xs font-bold text-indigo-600 hover:text-indigo-800 bg-indigo-50 hover:bg-indigo-100 border border-indigo-200 px-2.5 py-1 rounded-lg transition">👁️ 顯示密碼文字</button>
+                </div>
+                <input id="force-pwd-account" type="text" readonly class="w-full px-3 py-2 rounded-xl border border-slate-200 bg-slate-100 text-slate-700 font-mono font-bold">
+                <div id="force-pwd-old-wrap" class="hidden">
+                    <label class="block font-semibold text-slate-700 mb-1">請輸入目前密碼（若尚未改過請輸入 0000）</label>
+                    <input id="force-pwd-old" type="password" lang="en" inputmode="latin" autocapitalize="off" autocomplete="off" autocorrect="off" spellcheck="false" maxlength="16" placeholder="請輸入目前密碼或初始 0000" class="strict-en-pwd w-full px-3 py-2 rounded-xl border border-slate-300 font-mono text-center text-base tracking-wider outline-none focus:border-indigo-500">
                 </div>
                 <div>
-                    <label class="block font-semibold text-slate-700 mb-1">請輸入新的 8 位數密碼（自動鎖定英文輸入）</label>
-                    <input id="force-pwd-new1" type="password" lang="en" inputmode="latin" autocapitalize="off" autocomplete="off" autocorrect="off" spellcheck="false" maxlength="8" placeholder="例如：Abc12345 或 Pipi#888" class="strict-en-pwd w-full px-3 py-2.5 rounded-xl border border-slate-300 font-mono text-center text-base tracking-wider outline-none focus:border-blue-500">
+                    <div class="flex items-center justify-between mb-1">
+                        <label class="font-semibold text-slate-700">請輸入新的 8 位數密碼（鎖定英文輸入）</label>
+                        <span id="pwd-len-counter" class="text-[11px] font-mono font-bold text-slate-500">目前 0 / 8 碼</span>
+                    </div>
+                    <input id="force-pwd-new1" type="password" lang="en" inputmode="latin" autocapitalize="off" autocomplete="off" autocorrect="off" spellcheck="false" maxlength="16" placeholder="剛好 8 碼，例如：Chu61022 或 Pipi#888" class="strict-en-pwd w-full px-3 py-2.5 rounded-xl border border-slate-300 font-mono text-center text-base tracking-wider outline-none focus:border-blue-500">
                 </div>
                 <div class="p-3 rounded-xl bg-slate-50 border border-slate-200 grid grid-cols-2 gap-1.5 text-[11px]">
                     <div id="pwd-rule-len" class="text-slate-500 font-semibold">○ 總長度剛好 8 位數</div>
@@ -1480,7 +1496,7 @@
                 </div>
                 <div>
                     <label class="block font-semibold text-slate-700 mb-1">再次確認新的 8 位數密碼</label>
-                    <input id="force-pwd-new2" type="password" lang="en" inputmode="latin" autocapitalize="off" autocomplete="off" autocorrect="off" spellcheck="false" maxlength="8" placeholder="請再次輸入相同的 8 位數密碼" class="strict-en-pwd w-full px-3 py-2.5 rounded-xl border border-slate-300 font-mono text-center text-base tracking-wider outline-none focus:border-blue-500">
+                    <input id="force-pwd-new2" type="password" lang="en" inputmode="latin" autocapitalize="off" autocomplete="off" autocorrect="off" spellcheck="false" maxlength="16" placeholder="請再次輸入相同的 8 位數密碼" class="strict-en-pwd w-full px-3 py-2.5 rounded-xl border border-slate-300 font-mono text-center text-base tracking-wider outline-none focus:border-blue-500">
                 </div>
             </div>
             <div class="flex gap-2 pt-2">
@@ -1556,6 +1572,55 @@
         let cloudSyncTimer = null;
         let resetConfirmArmed = false;
         let liveClockInterval = null;
+        let cloudHydrated = false;
+        let isHydratingCloud = false;
+        let isPushingCloud = false;
+        let pendingAllowEmptyOverwrite = false;
+        let lastFocusHydrateTs = 0;
+
+        function computeClientDigests(st) {
+            const s = st || {};
+            return {
+                staff: JSON.stringify(s.staff || []),
+                managers: JSON.stringify(s.managers || []),
+                products: JSON.stringify(s.products || []),
+                orders: JSON.stringify(s.orders || []),
+                attendance: JSON.stringify(s.attendance || []),
+                preorders: JSON.stringify(s.preorders || []),
+                transfers: JSON.stringify(s.transfers || []),
+                members: JSON.stringify(s.members || []),
+                peers: JSON.stringify(s.peers || []),
+                categories: JSON.stringify([s.categories || [], s.categoryTaxExempt || {}]),
+                config: JSON.stringify({
+                    systemName: s.config && s.config.systemName,
+                    storeName: s.config && s.config.storeName,
+                    taxId: s.config && s.config.taxId,
+                    announcement: s.config && s.config.announcement,
+                    receiptFooter: s.config && s.config.receiptFooter
+                }),
+                memos: JSON.stringify(s.memos || {})
+            };
+        }
+        let lastSyncedClientDigests = computeClientDigests(appState);
+
+        function getDirtyClientCollections() {
+            const cur = computeClientDigests(appState);
+            return Object.keys(cur).filter(k => cur[k] !== lastSyncedClientDigests[k]);
+        }
+
+        function mergeUniqueByKey(localArr, cloudArr, keyField) {
+            const out = Array.isArray(localArr) ? localArr.slice() : [];
+            const seen = new Set(out.map(x => x && x[keyField] !== undefined ? String(x[keyField]).trim() : ''));
+            (cloudArr || []).forEach(item => {
+                if (!item) return;
+                const k = item[keyField] !== undefined ? String(item[keyField]).trim() : '';
+                if (k && !seen.has(k)) {
+                    seen.add(k);
+                    out.push(item);
+                }
+            });
+            return out;
+        }
 
         const todayDate = new Date();
         let calYear = todayDate.getFullYear();
@@ -2591,7 +2656,8 @@
 
             appState.orders.filter(o => o.status !== '已退貨').forEach(o => {
                 const fin = getOrderFinancials(o);
-                const datePart = String(o.time || '').slice(0, 10).replace(/\//g, '-');
+                const dm = String(o.time || '').match(/(\d{4})[\/\-](\d{1,2})[\/\-](\d{1,2})/);
+                const datePart = dm ? `${dm[1]}-${dm[2].padStart(2, '0')}-${dm[3].padStart(2, '0')}` : String(o.time || '').slice(0, 10).replace(/\//g, '-');
                 if (datePart === targetDay) {
                     dayRev += fin.total;
                     dayTax += fin.tax;
@@ -2868,10 +2934,18 @@
                 el.textContent = `${ok ? '✓' : '○'} ${label}`;
                 el.className = ok ? 'text-emerald-600 font-extrabold' : 'text-slate-500 font-semibold';
             };
-            setItem('pwd-rule-len', res.hasLen8, '總長度剛好 8 位數');
+            const len = String(val || '').length;
+            setItem('pwd-rule-len', res.hasLen8, len > 8 ? `總長度須剛好 8 碼 (目前已打 ${len} 碼，多了 ${len - 8} 碼)` : '總長度剛好 8 位數');
             setItem('pwd-rule-upper', res.hasUpper, '含至少 1 個英文大寫 (A-Z)');
             setItem('pwd-rule-lower', res.hasLower, '含至少 1 個英文小寫 (a-z)');
             setItem('pwd-rule-digit', res.hasDigit, '含至少 1 個數字 (0-9)');
+            const cntEl = document.getElementById('pwd-len-counter');
+            if (cntEl) {
+                cntEl.textContent = len > 8 ? `⚠️ 已輸入 ${len} 碼（超過 8 碼！）` : `目前 ${len} / 8 碼`;
+                cntEl.className = len === 8
+                    ? 'text-[11px] font-mono font-extrabold text-emerald-600'
+                    : (len > 8 ? 'text-[11px] font-mono font-extrabold text-rose-600' : 'text-[11px] font-mono font-bold text-slate-500');
+            }
         }
 
         function ensureManagersList() {
@@ -2988,22 +3062,55 @@
             syncAttendanceStaffSelect();
         }
 
-        let pendingPwdTarget = null; // { type: 'manager' | 'staff', key: string }
-        function openForcePasswordModal(targetObj, isMandatory = true, targetType = 'staff') {
+        let pendingPwdTarget = null; // { type: 'manager' | 'staff', key: string, requireOldPin: boolean, loginAfterSave: boolean }
+        function setPasswordModalInputsVisible(visible) {
+            ['force-pwd-old', 'force-pwd-new1', 'force-pwd-new2'].forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.type = visible ? 'text' : 'password';
+            });
+            const visBtn = document.getElementById('toggle-force-pwd-vis-btn');
+            if (visBtn) visBtn.textContent = visible ? '🙈 隱藏密碼文字' : '👁️ 顯示密碼文字';
+        }
+
+        function openForcePasswordModal(targetObj, isMandatory = true, targetType = 'staff', requireOldPin = false, loginAfterSave = false) {
             const key = targetType === 'manager' ? targetObj.account : targetObj.email;
-            const displayLabel = targetType === 'manager' ? `${targetObj.name} (${targetObj.account})` : targetObj.email;
-            pendingPwdTarget = { type: targetType, key };
+            const displayLabel = targetType === 'manager'
+                ? `${targetObj.name} (${targetObj.account})`
+                : (targetObj.name && targetObj.name !== targetObj.email ? `${targetObj.name} (${targetObj.email})` : targetObj.email);
+            pendingPwdTarget = { type: targetType, key, requireOldPin, loginAfterSave };
             document.getElementById('force-pwd-account').value = displayLabel;
+            const oldWrap = document.getElementById('force-pwd-old-wrap');
+            const oldInp = document.getElementById('force-pwd-old');
+            if (oldWrap) oldWrap.classList.toggle('hidden', !requireOldPin);
+            if (oldInp) oldInp.value = '';
             document.getElementById('force-pwd-new1').value = '';
             document.getElementById('force-pwd-new2').value = '';
+            setPasswordModalInputsVisible(false);
             updatePasswordChecklistUI('');
             document.getElementById('force-pwd-title').textContent = isMandatory
                 ? '首次登入！請立即設定您的 8 位數專屬密碼'
-                : '🔑 修改個人專屬 8 位數安全密碼';
+                : (targetType === 'manager' ? '🔑 修改一般管理員 8 位數專屬密碼' : '🔑 修改個人專屬 8 位數安全密碼');
+            const descEl = document.getElementById('force-pwd-desc');
+            if (descEl) {
+                if (isMandatory) {
+                    descEl.className = 'text-xs text-rose-600 font-semibold';
+                    descEl.textContent = '您的帳號目前使用的是初始密碼 (0000)，請設定新的 8 位數密碼（須含英文大寫、英文小寫、數字各至少 1 個，總長剛好 8 碼）！';
+                } else {
+                    descEl.className = 'text-xs text-indigo-700 font-semibold';
+                    descEl.textContent = '請輸入新的 8 位數密碼（須含英文大寫、英文小寫、數字各至少 1 個，可含符號，總長剛好 8 碼），儲存後自動同步至雲端試算表！';
+                }
+            }
+            document.getElementById('save-force-pwd-btn').textContent = (isMandatory || loginAfterSave)
+                ? '✅ 確認儲存新密碼並進入系統'
+                : '✅ 確認修改密碼並同步雲端';
             document.getElementById('cancel-voluntary-pwd-btn').classList.toggle('hidden', isMandatory);
             const modal = document.getElementById('force-change-pwd-modal');
             modal.classList.remove('hidden');
             modal.classList.add('flex');
+            setTimeout(() => {
+                const focusTarget = requireOldPin ? document.getElementById('force-pwd-old') : document.getElementById('force-pwd-new1');
+                if (focusTarget) focusTarget.focus();
+            }, 60);
         }
 
         function renderStaff() {
@@ -3014,7 +3121,7 @@
             appState.managers.forEach((m, mIdx) => {
                 const isInit = (m.mustChangePwd !== false && (m.pin || '0000') === '0000');
                 const mDiv = document.createElement('div');
-                mDiv.className = 'p-3 rounded-xl bg-indigo-50/70 border border-indigo-200 flex items-center justify-between gap-2 text-xs';
+                mDiv.className = 'p-3 rounded-xl bg-indigo-50/70 border border-indigo-200 flex flex-wrap items-center justify-between gap-2 text-xs';
                 mDiv.innerHTML = `
                     <div>
                         <div class="font-bold text-slate-900 flex flex-wrap items-center gap-1.5">
@@ -3023,9 +3130,19 @@
                             <span class="text-[10px] px-2 py-0.5 rounded font-bold ${isInit ? 'bg-amber-100 text-amber-800' : 'bg-emerald-100 text-emerald-700'}">${isInit ? '初始 0000' : '已設 8 碼密碼'}</span>
                         </div>
                     </div>
-                    <button type="button" data-reset-mgr="${mIdx}" class="px-2 py-1 bg-amber-50 hover:bg-amber-100 text-amber-700 border border-amber-200 rounded-lg text-[11px] font-semibold shrink-0">重置0000</button>
+                    <div class="flex items-center gap-1.5 shrink-0">
+                        <button type="button" data-edit-mgr="${mIdx}" class="px-2.5 py-1 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg text-[11px] font-bold shadow-2xs transition">🔑 修改密碼</button>
+                        <button type="button" data-reset-mgr="${mIdx}" class="px-2 py-1 bg-amber-50 hover:bg-amber-100 text-amber-700 border border-amber-200 rounded-lg text-[11px] font-semibold transition">重置0000</button>
+                    </div>
                 `;
                 box.appendChild(mDiv);
+            });
+
+            box.querySelectorAll('button[data-edit-mgr]').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const mgr = appState.managers[parseInt(btn.getAttribute('data-edit-mgr'), 10)];
+                    if (mgr) openForcePasswordModal(mgr, false, 'manager', false, false);
+                });
             });
 
             box.querySelectorAll('button[data-reset-mgr]').forEach(btn => {
@@ -3035,6 +3152,7 @@
                         mgr.pin = '0000';
                         mgr.mustChangePwd = true;
                         mgr.pwdUpdatedAt = Date.now();
+                        clearTimeout(cloudSyncTimer);
                         saveState();
                         renderStaff();
                         showToast(`已將【${mgr.name} (${mgr.account})】密碼重置為初始 0000`);
@@ -3075,11 +3193,22 @@
                         </div>
                     </div>
                     <div class="flex gap-1.5 shrink-0">
+                        <button type="button" data-edit-staff="${idx}" class="px-2.5 py-1 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-[11px] font-bold">🔑 修改密碼</button>
                         <button type="button" data-reset-staff="${idx}" class="px-2 py-1 bg-amber-50 hover:bg-amber-100 text-amber-700 border border-amber-200 rounded-lg text-[11px] font-semibold">重置0000</button>
                         <button type="button" data-del-staff="${idx}" class="px-2 py-1 bg-rose-50 hover:bg-rose-100 text-rose-600 rounded-lg text-[11px] font-semibold">移除</button>
                     </div>
                 `;
                 box.appendChild(div);
+            });
+            box.querySelectorAll('button[data-edit-staff]').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const st = appState.staff[parseInt(btn.getAttribute('data-edit-staff'), 10)];
+                    if (!st || st.email === '25508846' || st.isFixedAccount) {
+                        showToast('🔒 【PIPI TOY’S (25508846)】密碼永遠不可修改！', 'error');
+                        return;
+                    }
+                    openForcePasswordModal(st, false, 'staff', false, false);
+                });
             });
             box.querySelectorAll('button[data-reset-staff]').forEach(btn => {
                 btn.addEventListener('click', () => {
@@ -3213,7 +3342,10 @@
             XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet((appState.attendance || []).map(a => ({ '日期': a.date, '員工': a.account, '上班': a.clockIn, '下班': a.clockOut || '值勤中', '工時': a.hours || 0 }))), '4_員工打卡紀錄');
             XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet((appState.preorders || []).map(p => ({ '預購單號': p.preorderNo, '客人': p.customerName, '電話': p.phone, '商品': p.itemName, '進貨價': p.unitCost, '市場價': p.marketPrice ?? p.unitPrice, '預購售價': p.unitPrice, '已收訂金': p.depositPaid, '待補尾款': p.balanceDue, '狀態': p.status }))), '5_預購商品紀錄');
             XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet((appState.transfers || []).map(t => ({ '調貨單號': t.transferNo, '方向': t.direction, '同行': t.peerName, '商品': t.prodName, '數量': t.qty, '總額': t.total }))), '6_同行調貨紀錄');
-            XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet((appState.members || []).map(m => ({ '編號': m.id, '姓名': m.name, '電話': m.phone, '點數': m.points }))), '7_會員與同行名冊');
+            XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet([
+                ...(appState.members || []).map(m => ({ '編號': m.id, '名稱/店名': m.name, '身份類別': m.tier || '一般會員', '聯絡電話': m.phone, '聯絡人/LINE': '', '累積消費': m.spent || 0, '目前點數': m.points || 0, '備註': '門市會員' })),
+                ...(appState.peers || []).map(p => ({ '編號': p.id, '名稱/店名': p.name, '身份類別': '合作同行', '聯絡電話': p.phone || '', '聯絡人/LINE': p.contact || '', '累積消費': 0, '目前點數': 0, '備註': p.note || '同行店家' }))
+            ]), '7_會員與同行名冊');
             XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet([{ '店名': appState.config.storeName, '統編與電話': appState.config.taxId }]), '8_系統設定');
             XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(
                 (appState.managers || []).map((m, i) => ({
@@ -3228,7 +3360,97 @@
             return wb;
         }
 
-        async function pushToGoogleDriveCloud(silent = false) {
+        let warnedOldGasDeployment = false;
+
+        function applyMergedServerState(cs, preserveLocalDirtyCols = []) {
+            if (!cs || typeof cs !== 'object') return;
+            const dirtySet = new Set(preserveLocalDirtyCols || []);
+            const currentWebhook = (appState.config && appState.config.cloudWebhookUrl) ? appState.config.cloudWebhookUrl : '';
+
+            const syncArrayField = (col, keyField) => {
+                if (!Array.isArray(cs[col])) return;
+                if (!dirtySet.has(col)) {
+                    appState[col] = cs[col];
+                } else if (!cloudHydrated) {
+                    appState[col] = mergeUniqueByKey(appState[col], cs[col], keyField);
+                }
+            };
+
+            syncArrayField('staff', 'email');
+            syncArrayField('products', 'code');
+            syncArrayField('orders', 'orderNo');
+            syncArrayField('attendance', 'id');
+            syncArrayField('preorders', 'preorderNo');
+            syncArrayField('transfers', 'transferNo');
+            syncArrayField('members', 'id');
+            syncArrayField('peers', 'id');
+
+            if (Array.isArray(cs.managers) && !dirtySet.has('managers')) {
+                appState.managers = cs.managers;
+            }
+            if (!dirtySet.has('categories')) {
+                if (Array.isArray(cs.categories)) appState.categories = cs.categories;
+                if (cs.categoryTaxExempt && typeof cs.categoryTaxExempt === 'object') appState.categoryTaxExempt = cs.categoryTaxExempt;
+            } else if (!cloudHydrated && Array.isArray(cs.categories)) {
+                cs.categories.forEach(c => {
+                    if (c && c !== '寶可夢' && c !== '遊戲王' && !appState.categories.includes(c)) appState.categories.push(c);
+                });
+                appState.categoryTaxExempt = Object.assign({}, cs.categoryTaxExempt || {}, appState.categoryTaxExempt || {});
+            }
+            if (cs.config && !dirtySet.has('config')) {
+                appState.config = Object.assign({}, appState.config, cs.config);
+                if (currentWebhook && !appState.config.cloudWebhookUrl) {
+                    appState.config.cloudWebhookUrl = currentWebhook;
+                }
+            }
+            if (cs.memos && typeof cs.memos === 'object') {
+                appState.memos = dirtySet.has('memos') ? Object.assign({}, cs.memos, appState.memos) : cs.memos;
+            }
+
+            ensureManagersList();
+            ensureFixedSalesAccount();
+            cloudHydrated = true;
+            try { localStorage.setItem(STORAGE_KEY, JSON.stringify(appState)); } catch (e) {}
+            if (dirtySet.size === 0) {
+                lastSyncedClientDigests = computeClientDigests(appState);
+            }
+        }
+
+        async function hydrateFullStateFromCloud(silent = true, forceOverwriteLocal = false) {
+            const url = (appState.config && appState.config.cloudWebhookUrl) ? appState.config.cloudWebhookUrl.trim() : '';
+            if (!url) {
+                if (!silent) showToast('請先貼上 Google Apps Script Web App 網址，或使用右側「匯入 JSON 檔」！', 'info');
+                return false;
+            }
+            if (isHydratingCloud) return false;
+            isHydratingCloud = true;
+            try {
+                const target = new URL(url);
+                target.searchParams.set('action', 'getState');
+                target.searchParams.set('_t', String(Date.now()));
+                const res = await fetch(target.toString());
+                const data = await res.json();
+                if (data && data.state) {
+                    const dirtyCols = forceOverwriteLocal ? [] : getDirtyClientCollections();
+                    applyMergedServerState(data.state, dirtyCols);
+                    if (forceOverwriteLocal) {
+                        lastSyncedClientDigests = computeClientDigests(appState);
+                    }
+                    refreshAllViews();
+                    const hdrStatus = document.getElementById('header-cloud-status-text');
+                    if (hdrStatus) hdrStatus.textContent = '雲端與試算表已即時同步';
+                    if (!silent) showToast('☁️ 已從 Google 試算表與雲端拉取最新全部資料！');
+                    return true;
+                }
+            } catch (err) {
+                if (!silent) showToast('無法從網址讀取，請確認 Apps Script 存取權限設為「所有人」', 'error');
+            } finally {
+                isHydratingCloud = false;
+            }
+            return false;
+        }
+
+        async function pushToGoogleDriveCloud(silent = false, checkMgrSync = false) {
             const url = (appState.config && appState.config.cloudWebhookUrl) ? appState.config.cloudWebhookUrl.trim() : '';
             const nowStr = new Date().toLocaleString('zh-TW', { hour12: false });
             appState.config.lastCloudSync = nowStr;
@@ -3237,45 +3459,71 @@
                 if (!silent) showToast('請先貼上部署後的 Google Apps Script Web App 網址，即可啟用跨裝置雲端寫入！', 'info');
                 return;
             }
+
+            const allowWipe = pendingAllowEmptyOverwrite;
+            pendingAllowEmptyOverwrite = false;
+            const mutatedBeforeHydrate = getDirtyClientCollections();
+
+            // 【GitHub / 新裝置防洗白鎖】：尚未從雲端載入前，先拉取並合併雲端與試算表既有資料，絕不用空陣列覆蓋！
+            if (!cloudHydrated && !allowWipe) {
+                await hydrateFullStateFromCloud(true, false);
+            }
+
+            const mutatedNow = allowWipe ? Object.keys(lastSyncedClientDigests) : Array.from(new Set([...mutatedBeforeHydrate, ...getDirtyClientCollections()]));
+            const payloadStr = JSON.stringify({
+                action: 'syncAll',
+                clientHydrated: cloudHydrated,
+                allowEmptyOverwrite: allowWipe,
+                mutatedCollections: mutatedNow,
+                state: appState,
+                timestamp: nowStr
+            });
+
+            isPushingCloud = true;
             try {
-                await fetch(url, {
+                const res = await fetch(url, {
                     method: 'POST',
-                    mode: 'no-cors',
+                    redirect: 'follow',
                     headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-                    body: JSON.stringify({ action: 'syncAll', state: appState, timestamp: nowStr })
+                    body: payloadStr
                 });
-                if (!silent) showToast(`☁️ 已成功推送全站資料至 Google Drive (${nowStr})！`);
+                const data = await res.json().catch(() => null);
+                if (data && data.ok) {
+                    if ((!data.schemaVersion || data.schemaVersion < 10) && (checkMgrSync || !warnedOldGasDeployment)) {
+                        warnedOldGasDeployment = true;
+                        showToast('⚠️ 請至 Apps Script 貼上最新 Code.gs 並點「部署 → 管理部署作業 → 鉛筆編輯 → 建立新版本 → 部署」，以啟用試算表全分頁雙向保護！', 'info');
+                    } else {
+                        if (data.state) {
+                            const stillDirty = getDirtyClientCollections().filter(k => !mutatedNow.includes(k));
+                            applyMergedServerState(data.state, stillDirty);
+                            lastSyncedClientDigests = computeClientDigests(appState);
+                            refreshAllViews();
+                        } else {
+                            lastSyncedClientDigests = computeClientDigests(appState);
+                        }
+                        if (!silent) showToast(`☁️ 已雙向同步至 Google 試算表與雲端 (${nowStr})！`);
+                    }
+                }
             } catch (err) {
-                if (!silent) showToast('雲端推送連線失敗，請確認 Apps Script 網址是否正確', 'error');
+                try {
+                    await fetch(url, {
+                        method: 'POST',
+                        mode: 'no-cors',
+                        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                        body: payloadStr
+                    });
+                    lastSyncedClientDigests = computeClientDigests(appState);
+                    if (!silent) showToast(`☁️ 已推送資料至 Google Drive (${nowStr})！`);
+                } catch (err2) {
+                    if (!silent) showToast('雲端推送連線失敗，請確認 Apps Script 網址是否正確', 'error');
+                }
+            } finally {
+                isPushingCloud = false;
             }
         }
 
         async function pullFromGoogleDriveCloud() {
-            const url = (appState.config && appState.config.cloudWebhookUrl) ? appState.config.cloudWebhookUrl.trim() : '';
-            if (!url) {
-                showToast('請先貼上 Google Apps Script Web App 網址，或使用右側「匯入 JSON 檔」！', 'info');
-                return;
-            }
-            try {
-                const target = new URL(url);
-                target.searchParams.set('action', 'getState');
-                const res = await fetch(target.toString());
-                const data = await res.json();
-                if (data && data.state && data.state.config) {
-                    appState = data.state;
-                    if (!appState.purgedLegacyPokemonYugioh && Array.isArray(appState.categories)) {
-                        appState.categories = appState.categories.filter(c => c !== '寶可夢' && c !== '遊戲王');
-                        appState.purgedLegacyPokemonYugioh = true;
-                    }
-                    ensureManagersList();
-                    ensureFixedSalesAccount();
-                    saveState();
-                    refreshAllViews();
-                    showToast('☁️ 已從 Google Drive 拉取最新資料庫！');
-                }
-            } catch (err) {
-                showToast('無法從網址讀取，請確認 Apps Script 存取權限設為「所有人」', 'error');
-            }
+            await hydrateFullStateFromCloud(false, true);
         }
 
         function refreshAllViews() {
@@ -3327,38 +3575,22 @@
         }
 
         // ==================== INITIALIZATION & EVENT LISTENERS ====================
-        async function syncLatestAccountsFromCloudSilently() {
-            const url = (appState.config && appState.config.cloudWebhookUrl) ? appState.config.cloudWebhookUrl.trim() : '';
-            if (!url) return;
-            try {
-                const target = new URL(url);
-                target.searchParams.set('action', 'getState');
-                const res = await fetch(target.toString());
-                const data = await res.json();
-                if (data && data.state) {
-                    if (Array.isArray(data.state.managers)) {
-                        ensureManagersList();
-                        data.state.managers.forEach(cm => {
-                            const localMgr = appState.managers.find(m => m.account === cm.account);
-                            if (localMgr && cm.pin && (cm.pwdUpdatedAt || 0) >= (localMgr.pwdUpdatedAt || 0)) {
-                                if (cm.pin !== '0000' || cm.pwdUpdatedAt) {
-                                    localMgr.pin = String(cm.pin);
-                                    localMgr.mustChangePwd = Boolean(cm.mustChangePwd);
-                                    localMgr.pwdUpdatedAt = cm.pwdUpdatedAt || Date.now();
-                                }
-                            }
-                        });
-                    }
-                    renderStaffLoginDropdown();
-                    renderStaff();
-                }
-            } catch (e) {}
-        }
-
         window.addEventListener('DOMContentLoaded', () => {
             initCalendarSelectors();
             refreshAllViews();
-            syncLatestAccountsFromCloudSilently();
+            // 網站開啟時立即從雲端與 Google 試算表載入全部 9 大分頁資料（GitHub 更新程式碼或換裝置也絕不丟失資料）
+            hydrateFullStateFromCloud(true, false);
+
+            // 當在 Google 試算表改完資料切回本網頁分頁時，自動拉取試算表最新修改
+            const autoPullOnFocus = () => {
+                if (document.visibilityState === 'hidden') return;
+                if (isPushingCloud || cloudSyncTimer) return;
+                if (Date.now() - lastFocusHydrateTs < 2500) return;
+                lastFocusHydrateTs = Date.now();
+                hydrateFullStateFromCloud(true, false);
+            };
+            window.addEventListener('focus', autoPullOnFocus);
+            document.addEventListener('visibilitychange', autoPullOnFocus);
             updateLiveClockDisplay();
             if (liveClockInterval) clearInterval(liveClockInterval);
             liveClockInterval = setInterval(updateLiveClockDisplay, 1000);
@@ -3958,6 +4190,7 @@
                     return;
                 }
                 resetConfirmArmed = false;
+                pendingAllowEmptyOverwrite = true;
                 appState = JSON.parse(JSON.stringify(defaultState));
                 currentCart = [];
                 heldCarts = [];
@@ -4160,12 +4393,50 @@
             document.getElementById('manager-login-pin').addEventListener('keydown', (e) => { if (e.key === 'Enter') document.getElementById('manager-login-submit-btn').click(); });
             document.getElementById('staff-login-pin').addEventListener('keydown', (e) => { if (e.key === 'Enter') document.getElementById('staff-login-submit-btn').click(); });
 
+            document.getElementById('toggle-mgr-login-pwd-vis').addEventListener('click', () => {
+                const inp = document.getElementById('manager-login-pin');
+                inp.type = inp.type === 'password' ? 'text' : 'password';
+            });
+
+            document.getElementById('toggle-force-pwd-vis-btn').addEventListener('click', () => {
+                const isHidden = document.getElementById('force-pwd-new1').type === 'password';
+                setPasswordModalInputsVisible(isHidden);
+            });
+
+            document.getElementById('manager-gate-change-pwd-btn').addEventListener('click', () => {
+                ensureManagersList();
+                const acc = document.getElementById('manager-login-select').value;
+                const mgrObj = appState.managers.find(m => m.account === acc);
+                if (!mgrObj) return;
+                const typedPin = document.getElementById('manager-login-pin').value.trim();
+                openForcePasswordModal(mgrObj, false, 'manager', true, true);
+                if (typedPin) {
+                    const oldInp = document.getElementById('force-pwd-old');
+                    if (oldInp) oldInp.value = typedPin;
+                }
+            });
+
             document.getElementById('save-force-pwd-btn').addEventListener('click', () => {
                 const p1 = document.getElementById('force-pwd-new1').value.trim();
                 const p2 = document.getElementById('force-pwd-new2').value.trim();
+                if (pendingPwdTarget && pendingPwdTarget.requireOldPin) {
+                    const oldVal = (document.getElementById('force-pwd-old').value || '').trim();
+                    if (pendingPwdTarget.type === 'manager') {
+                        const mgrCheck = appState.managers.find(m => m.account === pendingPwdTarget.key);
+                        const expectedOld = (mgrCheck && mgrCheck.mustChangePwd === false && mgrCheck.pin) ? mgrCheck.pin : '0000';
+                        if (oldVal !== expectedOld) {
+                            showToast('目前密碼輸入錯誤（若未改過請輸入 0000，已改過請輸入舊的 8 位密碼）！', 'error');
+                            return;
+                        }
+                    }
+                }
+                if (p1.length !== 8) {
+                    showToast(`密碼總長度必須「剛好 8 位數」（目前輸入了 ${p1.length} 位數）！`, 'error');
+                    return;
+                }
                 const chk = validateStaffPassword8(p1);
-                if (!chk.valid) { showToast('密碼須剛好 8 位數，且含英文大寫、小寫與數字各至少 1 個！', 'error'); return; }
-                if (p1 !== p2) { showToast('兩次輸入的 8 位數密碼不一致！', 'error'); return; }
+                if (!chk.valid) { showToast('密碼須剛好 8 位數，且含英文大寫、英文小寫與數字各至少 1 個！', 'error'); return; }
+                if (p1 !== p2) { showToast('兩次輸入的 8 位數密碼不一致，可點右上角「👁️ 顯示密碼文字」檢查！', 'error'); return; }
 
                 if (pendingPwdTarget && pendingPwdTarget.type === 'manager') {
                     const mgr = appState.managers.find(m => m.account === pendingPwdTarget.key);
@@ -4173,12 +4444,20 @@
                     mgr.pin = p1;
                     mgr.mustChangePwd = false;
                     mgr.pwdUpdatedAt = Date.now();
-                    saveState();
-                    pushToGoogleDriveCloud(true);
+                    clearTimeout(cloudSyncTimer);
+                    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(appState)); } catch (e) {}
+                    pushToGoogleDriveCloud(true, true);
                     renderStaff();
                     document.getElementById('force-change-pwd-modal').classList.add('hidden');
                     document.getElementById('force-change-pwd-modal').classList.remove('flex');
-                    showToast(`✅ 【${mgr.name} (${mgr.account})】的 8 位數密碼已更新並自動同步至 Google 試算表！`);
+                    if (pendingPwdTarget.loginAfterSave) {
+                        currentSessionUser = { role: 'manager', account: mgr.account, name: mgr.name, title: mgr.title };
+                        document.getElementById('manager-login-pin').value = '';
+                        document.getElementById('auth-login-gate').classList.add('hidden');
+                        updateSessionUI();
+                        switchTab('pos');
+                    }
+                    showToast(`✅ 【${mgr.name} (${mgr.account})】8 位數新密碼已儲存並同步雲端！`);
                 } else {
                     const key = pendingPwdTarget ? pendingPwdTarget.key : document.getElementById('force-pwd-account').value;
                     if (key === '25508846') {
@@ -4189,6 +4468,8 @@
                     if (!st || st.isFixedAccount) return;
                     st.pin = p1;
                     st.mustChangePwd = false;
+                    st.pwdUpdatedAt = Date.now();
+                    clearTimeout(cloudSyncTimer);
                     saveState();
                     renderStaff();
                     document.getElementById('force-change-pwd-modal').classList.add('hidden');
@@ -4245,20 +4526,17 @@
                         }
                     }, 80);
                 });
-                const blockIme = () => {
+                inp.addEventListener('compositionend', () => {
                     const cleaned = toHalfAscii(inp.value);
-                    inp.value = cleaned;
-                    inp.blur();
-                    inp.focus();
-                    if (inp.id === 'force-pwd-new1') updatePasswordChecklistUI(cleaned);
-                    if (Date.now() - warnTime > 1800) {
-                        warnTime = Date.now();
-                        showToast('🔤 密碼欄強制鎖定英文/數字輸入，無法輸入中文或其他語言！', 'info');
+                    if (inp.value !== cleaned) {
+                        inp.value = cleaned;
+                        if (Date.now() - warnTime > 1800) {
+                            warnTime = Date.now();
+                            showToast('🔤 密碼欄僅限英文/數字/符號，已自動過濾中文注音！', 'info');
+                        }
                     }
-                };
-                inp.addEventListener('compositionstart', blockIme);
-                inp.addEventListener('compositionupdate', blockIme);
-                inp.addEventListener('compositionend', blockIme);
+                    if (inp.id === 'force-pwd-new1') updatePasswordChecklistUI(cleaned);
+                });
                 inp.addEventListener('beforeinput', (e) => {
                     if (e.data && /[^\x21-\x7E\uFF01-\uFF5E]/.test(e.data)) {
                         e.preventDefault();
