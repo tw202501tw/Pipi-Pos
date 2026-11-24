@@ -881,27 +881,38 @@
                     </div>
                 </div>
 
-                <!-- Staff Registration & Management -->
+                <!-- Staff & General Manager Registration & Management -->
                 <div class="lg:col-span-5 bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex flex-col justify-between space-y-4">
                     <div class="space-y-3">
                         <div class="flex items-center justify-between border-b border-slate-100 pb-3">
-                            <h3 class="font-bold text-slate-900 text-base">🔑 系統員工帳號管理</h3>
+                            <h3 class="font-bold text-slate-900 text-base">🔑 系統帳號管理（一般管理員 / 普通銷售員）</h3>
                             <span class="text-xs bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded font-bold">人數無上限</span>
                         </div>
-                        <div id="staff-list-container" class="space-y-2 max-h-60 overflow-y-auto"></div>
+                        <div id="staff-list-container" class="space-y-2 max-h-64 overflow-y-auto"></div>
                     </div>
 
-                    <div class="pt-3 border-t border-slate-100 space-y-2">
-                        <div class="flex items-center justify-between">
-                            <label class="block text-xs font-bold text-slate-800">➕ 註冊新員工帳號 (初始密碼 0000)</label>
-                            <span class="text-[11px] text-amber-700 bg-amber-50 border border-amber-200 px-2 py-0.5 rounded font-semibold">首登強制改 8 字以上英數密碼</span>
+                    <div id="account-reg-section" class="pt-3 border-t border-slate-100 space-y-2.5">
+                        <div class="flex flex-wrap items-center justify-between gap-1">
+                            <label class="block text-xs font-bold text-slate-800">➕ 新增系統帳號（初始密碼統一為 0000）</label>
+                            <span class="text-[11px] text-amber-700 bg-amber-50 border border-amber-200 px-2 py-0.5 rounded font-semibold">首登打 0000 進入即強制改 ≥8 位密碼</span>
                         </div>
-                        <p class="text-[11px] text-slate-500">本系統禁止外部自行註冊。員工首次使用 <strong>0000</strong> 登入時，會強制要求改為 <strong>8 個字以上密碼（含英文大寫、小寫、數字至少各一，可含符號）</strong>。</p>
+                        <div id="account-reg-perm-hint" class="text-[11px] font-semibold text-indigo-700 bg-indigo-50/80 border border-indigo-200 px-2.5 py-1.5 rounded-lg">
+                            👑 總管理員／老闆／老闆娘權限：可自由選擇新增「一般管理員」或「普通銷售員」（初始密碼皆為 0000）
+                        </div>
+                        <div class="flex flex-wrap items-center gap-2">
+                            <span class="text-xs font-bold text-slate-700">選擇新增身份：</span>
+                            <button id="role-pick-staff-btn" type="button" class="px-3 py-1.5 rounded-xl text-xs font-extrabold bg-emerald-600 text-white shadow-2xs transition">
+                                👤 普通銷售員 (初始 0000)
+                            </button>
+                            <button id="role-pick-manager-btn" type="button" class="px-3 py-1.5 rounded-xl text-xs font-bold bg-white text-slate-600 border border-slate-300 hover:bg-slate-50 transition">
+                                👔 一般管理員 (初始 0000)
+                            </button>
+                        </div>
                         <div class="flex flex-col sm:flex-row gap-2">
-                            <input id="new-staff-account-input" type="text" placeholder="新增員工帳號 (如：staff01)..." class="flex-1 px-3 py-2 rounded-xl border border-slate-300 text-xs outline-none focus:border-blue-500">
-                            <input id="new-staff-email" type="text" placeholder="員工姓名 (如：王小美)..." class="flex-1 px-3 py-2 rounded-xl border border-slate-300 text-xs outline-none focus:border-blue-500">
-                            <button id="add-staff-btn" type="button" class="bg-slate-800 hover:bg-slate-900 text-white text-xs font-bold px-3.5 py-2 rounded-xl whitespace-nowrap transition">
-                                ＋ 新增銷售員
+                            <input id="new-staff-account-input" type="text" placeholder="登入帳號 (如：mgr01 或 staff01)..." class="flex-1 px-3 py-2 rounded-xl border border-slate-300 text-xs outline-none focus:border-blue-500">
+                            <input id="new-staff-email" type="text" placeholder="真實姓名 (如：陳小明)..." class="flex-1 px-3 py-2 rounded-xl border border-slate-300 text-xs outline-none focus:border-blue-500">
+                            <button id="add-staff-btn" type="button" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-extrabold px-3.5 py-2 rounded-xl whitespace-nowrap shadow-2xs transition">
+                                ＋ 新增普通銷售員
                             </button>
                         </div>
                     </div>
@@ -1389,26 +1400,26 @@
 
                 <div class="p-4 sm:p-5 space-y-3 bg-slate-900/90">
                     <label for="staff-login-pin" class="block text-xs sm:text-sm font-bold text-slate-200">
-                        🔐 這邊是打員工專屬密碼（點入自動鎖定英文輸入）
-                        <span class="block text-[11px] font-normal text-slate-400 mt-0.5">（剛註冊預設為 <strong class="text-amber-300 font-mono">0000</strong>；首次登入後強制改為 <strong class="text-emerald-300">8 個字以上含大小寫英文與數字密碼</strong>）</span>
+                        🔐 這邊是打普通銷售員密碼（點入自動鎖定英文輸入）
+                        <span class="block text-[11px] font-normal text-slate-400 mt-0.5">（除固定帳號 <strong class="text-emerald-300 font-mono">25508846</strong> 永久不可改密碼外，新帳號首次請先打 <strong class="text-amber-300 font-mono">0000</strong> 登入，進入後即自動跳出修改密碼畫面）</span>
                     </label>
                     <div class="flex flex-col sm:flex-row gap-2.5">
-                        <input id="staff-login-pin" type="password" lang="en" inputmode="latin" autocapitalize="off" autocomplete="off" autocorrect="off" spellcheck="false" maxlength="64" placeholder="請輸入密碼 (預設 0000 / 8字以上)" class="strict-en-pwd flex-1 px-3.5 py-2.5 rounded-xl bg-slate-800 border border-slate-600 text-white font-mono tracking-normal text-center text-sm sm:text-base outline-none focus:border-emerald-400">
+                        <input id="staff-login-pin" type="password" lang="en" inputmode="latin" autocapitalize="off" autocomplete="off" autocorrect="off" spellcheck="false" maxlength="64" placeholder="請輸入密碼（初始 0000）" class="strict-en-pwd flex-1 px-3.5 py-2.5 rounded-xl bg-slate-800 border border-slate-600 text-white font-mono tracking-normal text-center text-sm sm:text-base outline-none focus:border-emerald-400">
                         <button id="staff-login-submit-btn" type="button" class="bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold px-6 py-2.5 rounded-xl text-sm shadow-lg transition whitespace-nowrap">
-                            👤 員工登入系統
+                            👤 銷售員登入系統
                         </button>
                     </div>
                 </div>
 
-                <!-- 一般管理員專屬登錄的地方 (老闆 / 老闆娘) -->
+                <!-- 一般管理員專屬登錄的地方 (老闆 / 老闆娘 / 一般管理員) -->
                 <div class="p-4 sm:p-5 bg-indigo-950/85 border-t-2 border-indigo-500/40 flex items-center justify-between gap-2">
-                    <h2 class="text-sm sm:text-base font-extrabold text-indigo-300">👔 這裡是一般管理員專屬登錄的地方（老闆 / 老闆娘）</h2>
-                    <span class="text-[11px] bg-indigo-500/20 text-indigo-200 border border-indigo-400/30 px-2 py-0.5 rounded font-semibold whitespace-nowrap shrink-0">專屬權限登入</span>
+                    <h2 class="text-sm sm:text-base font-extrabold text-indigo-300">👔 這裡是一般管理員專屬登錄的地方（老闆 / 老闆娘 / 一般管理員）</h2>
+                    <span class="text-[11px] bg-indigo-500/20 text-indigo-200 border border-indigo-400/30 px-2 py-0.5 rounded font-semibold whitespace-nowrap shrink-0">一般管理員登入</span>
                 </div>
 
                 <div class="p-4 sm:p-5 space-y-2 bg-slate-900/90">
                     <label for="manager-login-select" class="block text-xs sm:text-sm font-bold text-slate-200">
-                        📋 選擇一般管理員帳號（老闆 / 老闆娘專屬下拉選單）
+                        📋 選擇一般管理員帳號（下拉選單）
                     </label>
                     <select id="manager-login-select" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-800 border border-slate-600 text-white text-xs sm:text-sm outline-none focus:border-indigo-400"></select>
                 </div>
@@ -1416,7 +1427,7 @@
                 <div class="p-4 sm:p-5 space-y-3 bg-slate-900/90">
                     <label for="manager-login-pin" class="block text-xs sm:text-sm font-bold text-slate-200">
                         🔐 這邊是打一般管理員密碼（點入自動鎖定英文輸入）
-                        <span class="block text-[11px] font-normal text-slate-400 mt-0.5">（老闆已預設專屬密碼；初始 <strong class="text-amber-300 font-mono">0000</strong> 之帳號首次登入請改為 <strong class="text-indigo-300">8 個字以上含英文大寫、小寫與數字各至少 1 個</strong>）</span>
+                        <span class="block text-[11px] font-normal text-slate-400 mt-0.5">（老闆初始密碼已設好且登入後可修改；其餘帳號首次請先打 <strong class="text-amber-300 font-mono">0000</strong> 登入，進入後即自動跳出修改為 <strong class="text-indigo-300">≥8 位數含大小寫英文與數字</strong> 的畫面）</span>
                     </label>
                     <div class="flex flex-col sm:flex-row gap-2.5">
                         <div class="relative flex-1 flex items-center">
@@ -1478,13 +1489,13 @@
                 </div>
                 <div>
                     <div class="flex items-center justify-between mb-1">
-                        <label class="font-semibold text-slate-700">請輸入新密碼（8 個字或以上・鎖定英文輸入）</label>
-                        <span id="pwd-len-counter" class="text-[11px] font-mono font-bold text-slate-500">目前 0 個字（至少 8 字）</span>
+                        <label class="font-semibold text-slate-700">請輸入新密碼（總長度 ≥ 8 位數・鎖定英文輸入）</label>
+                        <span id="pwd-len-counter" class="text-[11px] font-mono font-bold text-slate-500">目前 0 位數（需 ≥ 8 位數）</span>
                     </div>
-                    <input id="force-pwd-new1" type="password" lang="en" inputmode="latin" autocapitalize="off" autocomplete="off" autocorrect="off" spellcheck="false" maxlength="64" placeholder="8 個字或以上，如：Chu610221" class="strict-en-pwd w-full px-3 py-2.5 rounded-xl border border-slate-300 font-mono text-center text-base tracking-wider outline-none focus:border-blue-500">
+                    <input id="force-pwd-new1" type="password" lang="en" inputmode="latin" autocapitalize="off" autocomplete="off" autocorrect="off" spellcheck="false" maxlength="64" placeholder="總長大於等於 8 位數，如：Chu610221" class="strict-en-pwd w-full px-3 py-2.5 rounded-xl border border-slate-300 font-mono text-center text-base tracking-wider outline-none focus:border-blue-500">
                 </div>
                 <div class="p-3 rounded-xl bg-slate-50 border border-slate-200 grid grid-cols-2 gap-1.5 text-[11px]">
-                    <div id="pwd-rule-len" class="text-slate-500 font-semibold">○ 長度 8 個字或以上</div>
+                    <div id="pwd-rule-len" class="text-slate-500 font-semibold">○ 總長度大於等於 8 位數</div>
                     <div id="pwd-rule-upper" class="text-slate-500 font-semibold">○ 含至少 1 個英文大寫 (A-Z)</div>
                     <div id="pwd-rule-lower" class="text-slate-500 font-semibold">○ 含至少 1 個英文小寫 (a-z)</div>
                     <div id="pwd-rule-digit" class="text-slate-500 font-semibold">○ 含至少 1 個數字 (0-9)</div>
@@ -1494,9 +1505,10 @@
                     <input id="force-pwd-new2" type="password" lang="en" inputmode="latin" autocapitalize="off" autocomplete="off" autocorrect="off" spellcheck="false" maxlength="64" placeholder="請再次輸入相同的新密碼" class="strict-en-pwd w-full px-3 py-2.5 rounded-xl border border-slate-300 font-mono text-center text-base tracking-wider outline-none focus:border-blue-500">
                 </div>
             </div>
-            <div class="flex gap-2 pt-2">
+            <div class="flex flex-wrap gap-2 pt-2">
                 <button id="save-force-pwd-btn" type="button" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-extrabold py-2.5 rounded-xl text-xs sm:text-sm shadow transition">✅ 確認修改密碼並進入系統</button>
                 <button id="cancel-voluntary-pwd-btn" type="button" class="hidden px-4 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold py-2.5 rounded-xl text-xs sm:text-sm transition">取消</button>
+                <button id="abort-mandatory-logout-btn" type="button" class="hidden px-3.5 bg-rose-50 hover:bg-rose-100 text-rose-600 border border-rose-200 font-bold py-2.5 rounded-xl text-xs transition" title="若選錯帳號可退回登入畫面（未改密碼無法進入系統）">🚪 退回登入頁</button>
             </div>
         </div>
     </div>
@@ -1547,7 +1559,7 @@
                 { account: 'Lin,Ya-Ting', name: '林雅婷', title: '老闆娘 (一般管理員)', pin: '0000', mustChangePwd: true }
             ],
             staff: [
-                { email: '25508846', name: "PIPI TOY’S", role: '一般銷售員', status: '永久啟用 (不可刪除・密碼不可修改)', pin: '25508846', mustChangePwd: false, isFixedAccount: true }
+                { email: '25508846', name: "PIPI TOY’S", role: '普通銷售員', status: '永久啟用 (不可刪除・密碼不可修改)', pin: '25508846', mustChangePwd: false, isFixedAccount: true }
             ],
             memos: {},
             peers: [],
@@ -1573,6 +1585,8 @@
         let isPushingCloud = false;
         let pendingAllowEmptyOverwrite = false;
         let lastFocusHydrateTs = 0;
+        let selectedNewAccountRole = 'staff'; // 'staff' (普通銷售員) | 'manager' (一般管理員)
+        let isMandatoryPwdLockActive = false;
 
         function computeClientDigests(st) {
             const s = st || {};
@@ -1673,7 +1687,7 @@
                         } else {
                             fixedSales.email = '25508846';
                             fixedSales.name = "PIPI TOY’S";
-                            fixedSales.role = '一般銷售員';
+                            fixedSales.role = '普通銷售員';
                             fixedSales.status = '永久啟用 (不可刪除・密碼不可修改)';
                             fixedSales.pin = '25508846';
                             fixedSales.mustChangePwd = false;
@@ -2842,6 +2856,7 @@
 
         function renderAttendance() {
             syncAttendanceStaffSelect();
+            syncNewAccountRolePickerUI();
             const tbody = document.getElementById('attendance-table-body');
             const q = (document.getElementById('att-search-input').value || '').trim().toLowerCase();
             const st = document.getElementById('att-filter-status').value;
@@ -2901,7 +2916,7 @@
                 appState.staff.unshift({
                     email: '25508846',
                     name: "PIPI TOY’S",
-                    role: '一般銷售員',
+                    role: '普通銷售員',
                     status: '永久啟用 (不可刪除・密碼不可修改)',
                     pin: '25508846',
                     mustChangePwd: false,
@@ -2910,7 +2925,7 @@
             } else {
                 fixed.email = '25508846';
                 fixed.name = "PIPI TOY’S";
-                fixed.role = '一般銷售員';
+                fixed.role = '普通銷售員';
                 fixed.status = '永久啟用 (不可刪除・密碼不可修改)';
                 fixed.pin = '25508846';
                 fixed.mustChangePwd = false;
@@ -2940,16 +2955,73 @@
                 el.className = ok ? 'text-emerald-600 font-extrabold' : 'text-slate-500 font-semibold';
             };
             const len = String(val || '').length;
-            setItem('pwd-rule-len', res.hasLen8, '長度 8 個字或以上');
+            setItem('pwd-rule-len', res.hasLen8, '總長度大於等於 8 位數');
             setItem('pwd-rule-upper', res.hasUpper, '含至少 1 個英文大寫 (A-Z)');
             setItem('pwd-rule-lower', res.hasLower, '含至少 1 個英文小寫 (a-z)');
             setItem('pwd-rule-digit', res.hasDigit, '含至少 1 個數字 (0-9)');
             const cntEl = document.getElementById('pwd-len-counter');
             if (cntEl) {
-                cntEl.textContent = `目前 ${len} 個字（至少 8 字）`;
+                cntEl.textContent = `目前 ${len} 位數（需 ≥ 8 位數）`;
                 cntEl.className = len >= 8
                     ? 'text-[11px] font-mono font-extrabold text-emerald-600'
                     : 'text-[11px] font-mono font-bold text-slate-500';
+            }
+        }
+
+        function canCurrentUserAddManager() {
+            if (!currentSessionUser) return false;
+            if (currentSessionUser.role === 'admin') return true;
+            if (currentSessionUser.role === 'manager' && (currentSessionUser.account === 'Chu,Tsung-Shang' || currentSessionUser.account === 'Lin,Ya-Ting')) {
+                return true;
+            }
+            return false;
+        }
+
+        function syncNewAccountRolePickerUI() {
+            const regSec = document.getElementById('account-reg-section');
+            const hintEl = document.getElementById('account-reg-perm-hint');
+            const btnStaff = document.getElementById('role-pick-staff-btn');
+            const btnMgr = document.getElementById('role-pick-manager-btn');
+            const submitBtn = document.getElementById('add-staff-btn');
+            const accInp = document.getElementById('new-staff-account-input');
+            if (!regSec || !btnStaff || !btnMgr || !submitBtn) return;
+
+            if (currentSessionUser && currentSessionUser.role === 'staff') {
+                // 普通銷售員則不新增任何帳號
+                regSec.classList.add('hidden');
+                return;
+            }
+            regSec.classList.remove('hidden');
+
+            const allowAddMgr = canCurrentUserAddManager();
+            if (!allowAddMgr) {
+                selectedNewAccountRole = 'staff';
+                btnMgr.classList.add('hidden');
+                if (hintEl) {
+                    hintEl.className = 'text-[11px] font-semibold text-emerald-800 bg-emerald-50 border border-emerald-200 px-2.5 py-1.5 rounded-lg';
+                    hintEl.textContent = '👔 一般管理員權限（非老闆／老闆娘）：僅限新增「普通銷售員」（初始密碼為 0000，首登強制改密碼）';
+                }
+            } else {
+                btnMgr.classList.remove('hidden');
+                if (hintEl) {
+                    hintEl.className = 'text-[11px] font-semibold text-indigo-700 bg-indigo-50/80 border border-indigo-200 px-2.5 py-1.5 rounded-lg';
+                    hintEl.textContent = '👑 總管理員／老闆／老闆娘權限：可選擇新增「一般管理員」或「普通銷售員」（初始密碼皆為 0000）';
+                }
+            }
+
+            if (selectedNewAccountRole === 'manager' && allowAddMgr) {
+                btnMgr.className = 'px-3 py-1.5 rounded-xl text-xs font-extrabold bg-indigo-600 text-white shadow-2xs transition';
+                btnStaff.className = 'px-3 py-1.5 rounded-xl text-xs font-bold bg-white text-slate-600 border border-slate-300 hover:bg-slate-50 transition';
+                submitBtn.textContent = '＋ 新增一般管理員';
+                submitBtn.className = 'bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-extrabold px-3.5 py-2 rounded-xl whitespace-nowrap shadow-2xs transition';
+                if (accInp) accInp.placeholder = '新增一般管理員帳號 (如：mgr01)...';
+            } else {
+                selectedNewAccountRole = 'staff';
+                btnStaff.className = 'px-3 py-1.5 rounded-xl text-xs font-extrabold bg-emerald-600 text-white shadow-2xs transition';
+                btnMgr.className = 'px-3 py-1.5 rounded-xl text-xs font-bold bg-white text-slate-600 border border-slate-300 hover:bg-slate-50 transition';
+                submitBtn.textContent = '＋ 新增普通銷售員';
+                submitBtn.className = 'bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-extrabold px-3.5 py-2 rounded-xl whitespace-nowrap shadow-2xs transition';
+                if (accInp) accInp.placeholder = '新增普通銷售員帳號 (如：staff01)...';
             }
         }
 
@@ -2983,8 +3055,9 @@
             appState.managers.forEach(m => {
                 const opt = document.createElement('option');
                 opt.value = m.account;
-                const isInit = (m.mustChangePwd !== false && (m.pin || '0000') === '0000');
-                opt.textContent = `${m.account} — ${m.name}（${m.title} · ${isInit ? '初始密碼:0000' : '已設專屬密碼'}）`;
+                const rawP = String(m.pin || '0000');
+                const needsChg = Boolean(m.mustChangePwd) || rawP === '0000' || !validateStaffPassword8(rawP).valid;
+                opt.textContent = `${m.account} — ${m.name}（${m.title || '一般管理員'} · ${rawP === '0000' ? '初始密碼:0000' : (needsChg ? '待修改密碼' : '已設專屬密碼')}）`;
                 sel.appendChild(opt);
             });
             if (cur && appState.managers.some(m => m.account === cur)) sel.value = cur;
@@ -3016,10 +3089,11 @@
                 opt.value = s.email;
                 const dispName = s.name && s.name !== s.email ? `${s.email} — ${s.name}` : s.email;
                 if (s.isFixedAccount || s.email === '25508846') {
-                    opt.textContent = `${dispName}（一般銷售員 · 固定密碼不可修改）`;
+                    opt.textContent = `${dispName}（普通銷售員 · 永久固定密碼不可修改）`;
                 } else {
-                    const isInit = (s.mustChangePwd !== false && (s.pin || '0000') === '0000');
-                    opt.textContent = `${dispName}（${isInit ? '初始密碼:0000 待改密碼' : '已設專屬密碼'}）`;
+                    const rawP = String(s.pin || '0000');
+                    const needsChg = Boolean(s.mustChangePwd) || rawP === '0000' || !validateStaffPassword8(rawP).valid;
+                    opt.textContent = `${dispName}（普通銷售員 · ${rawP === '0000' ? '初始密碼:0000' : (needsChg ? '密碼不符規範待改' : '已設專屬密碼')}）`;
                 }
                 sel.appendChild(opt);
             });
@@ -3057,7 +3131,7 @@
                 const disp = currentSessionUser.name && currentSessionUser.name !== currentSessionUser.account
                     ? `${currentSessionUser.name} (${currentSessionUser.account})`
                     : currentSessionUser.account;
-                roleEl.textContent = isFixed ? '🛍️ 一般銷售員 (固定帳號)' : '👤 門市員工已登入';
+                roleEl.textContent = isFixed ? '🛍️ 普通銷售員 (永久固定帳號)' : '👤 普通銷售員已登入';
                 accEl.textContent = disp;
                 cashierEl.textContent = `收銀員：${disp}`;
                 // PIPI TOY’S (25508846) 密碼永遠不可修改，自動隱藏「修改密碼」按鈕
@@ -3069,6 +3143,7 @@
                 });
             }
             syncAttendanceStaffSelect();
+            syncNewAccountRolePickerUI();
         }
 
         let pendingPwdTarget = null; // { type: 'manager' | 'staff', key: string, requireOldPin: boolean, loginAfterSave: boolean }
@@ -3081,12 +3156,17 @@
             if (visBtn) visBtn.textContent = visible ? '🙈 隱藏密碼文字' : '👁️ 顯示密碼文字';
         }
 
-        function openForcePasswordModal(targetObj, isMandatory = true, targetType = 'staff', requireOldPin = false, loginAfterSave = false) {
+        function openForcePasswordModal(targetObj, isMandatory = true, targetType = 'staff', requireOldPin = false) {
             const key = targetType === 'manager' ? targetObj.account : targetObj.email;
+            if (targetType === 'staff' && (key === '25508846' || targetObj.isFixedAccount)) {
+                showToast('🔒 【25508846 (PIPI TOY’S)】此帳號永久不能改密碼！', 'error');
+                return;
+            }
             const displayLabel = targetType === 'manager'
                 ? `${targetObj.name} (${targetObj.account})`
                 : (targetObj.name && targetObj.name !== targetObj.email ? `${targetObj.name} (${targetObj.email})` : targetObj.email);
-            pendingPwdTarget = { type: targetType, key, requireOldPin, loginAfterSave };
+            isMandatoryPwdLockActive = Boolean(isMandatory);
+            pendingPwdTarget = { type: targetType, key, requireOldPin, isMandatory: Boolean(isMandatory) };
             document.getElementById('force-pwd-account').value = displayLabel;
             const oldWrap = document.getElementById('force-pwd-old-wrap');
             const oldInp = document.getElementById('force-pwd-old');
@@ -3097,22 +3177,24 @@
             setPasswordModalInputsVisible(false);
             updatePasswordChecklistUI('');
             document.getElementById('force-pwd-title').textContent = isMandatory
-                ? '首次登入！請立即設定您的專屬密碼'
-                : (targetType === 'manager' ? '🔑 驗證舊密碼並修改一般管理員密碼' : '🔑 驗證舊密碼並修改個人密碼');
+                ? '🔐 請立即設定符合規範的專屬密碼'
+                : (targetType === 'manager' ? '🔑 修改一般管理員密碼' : '🔑 修改個人專屬密碼');
             const descEl = document.getElementById('force-pwd-desc');
             if (descEl) {
                 if (isMandatory) {
                     descEl.className = 'text-xs text-rose-600 font-semibold';
-                    descEl.textContent = '您的帳號目前使用的是初始密碼 (0000)，請設定 8 個字以上的新密碼（須含英文大寫、英文小寫、數字各至少 1 個，可含符號）！';
+                    descEl.textContent = '您的帳號目前為初始密碼 (0000) 或尚未符合安全規範，必須設定「總長度大於等於 8 位數、且含英文大寫、英文小寫、數字各至少 1 個」的新密碼才能使用系統！';
                 } else {
                     descEl.className = 'text-xs text-indigo-700 font-semibold';
-                    descEl.textContent = '請先輸入目前的舊密碼，再輸入 8 個字以上的新密碼（須含英文大寫、英文小寫、數字各至少 1 個，可含符號），儲存後自動同步至雲端試算表！';
+                    descEl.textContent = '請輸入新密碼（總長度大於等於 8 位數，含英文大寫、英文小寫、數字各至少 1 個，可含符號），儲存後自動同步至雲端試算表！';
                 }
             }
-            document.getElementById('save-force-pwd-btn').textContent = (isMandatory || loginAfterSave)
-                ? '✅ 確認儲存新密碼並進入系統'
-                : '✅ 驗證並儲存新密碼';
+            document.getElementById('save-force-pwd-btn').textContent = isMandatory
+                ? '✅ 確認修改密碼並進入系統'
+                : '✅ 確認儲存新密碼並同步雲端';
             document.getElementById('cancel-voluntary-pwd-btn').classList.toggle('hidden', isMandatory);
+            const abortBtn = document.getElementById('abort-mandatory-logout-btn');
+            if (abortBtn) abortBtn.classList.toggle('hidden', !isMandatory);
             const modal = document.getElementById('force-change-pwd-modal');
             modal.classList.remove('hidden');
             modal.classList.add('flex');
@@ -3124,44 +3206,68 @@
 
         function renderStaff() {
             ensureManagersList();
+            syncNewAccountRolePickerUI();
             const box = document.getElementById('staff-list-container');
             box.innerHTML = '';
+            const canManageMgrs = canCurrentUserAddManager();
+            const isSuperAdmin = Boolean(currentSessionUser && currentSessionUser.role === 'admin');
 
             appState.managers.forEach((m, mIdx) => {
                 const isBoss = m.account === 'Chu,Tsung-Shang';
-                const isInit = !isBoss && (m.mustChangePwd !== false && (m.pin || '0000') === '0000');
+                const isBossLady = m.account === 'Lin,Ya-Ting';
+                const isCoreFounder = isBoss || isBossLady;
+                const rawP = String(m.pin || '0000');
+                const needsChg = Boolean(m.mustChangePwd) || rawP === '0000' || !validateStaffPassword8(rawP).valid;
+                const isSelf = Boolean(currentSessionUser && currentSessionUser.role === 'manager' && currentSessionUser.account === m.account);
+                const canEditThisMgr = isSuperAdmin || isSelf || (canManageMgrs && !isCoreFounder);
+                const canResetThisMgr = canManageMgrs && (!isBoss || isSuperAdmin || isSelf);
+                const canDeleteThisMgr = canManageMgrs && !isCoreFounder;
+
                 const mDiv = document.createElement('div');
                 mDiv.className = 'p-3 rounded-xl bg-indigo-50/70 border border-indigo-200 flex flex-wrap items-center justify-between gap-2 text-xs';
-                mDiv.innerHTML = isBoss ? `
+                mDiv.innerHTML = `
                     <div>
                         <div class="font-bold text-slate-900 flex flex-wrap items-center gap-1.5">
                             <span>👔 ${m.name} (${m.account})</span>
-                            <span class="bg-indigo-600 text-white text-[10px] px-1.5 py-0.5 rounded">${m.title}</span>
-                            <span class="text-[10px] px-2 py-0.5 rounded font-bold bg-emerald-100 text-emerald-700">已設專屬密碼</span>
+                            <span class="bg-indigo-600 text-white text-[10px] px-1.5 py-0.5 rounded">${m.title || '一般管理員'}</span>
+                            <span class="text-[10px] px-2 py-0.5 rounded font-bold ${needsChg ? 'bg-amber-100 text-amber-800' : 'bg-emerald-100 text-emerald-700'}">${rawP === '0000' ? '初始 0000' : (needsChg ? '待修改密碼' : '已設專屬密碼')}</span>
                         </div>
-                        <div class="text-[11px] text-indigo-800 font-semibold mt-0.5">🛡️ 老闆帳號受保護：不可於後台直接修改或重置密碼（僅限本人登入後驗證舊密碼修改）</div>
-                    </div>
-                    <span class="px-2.5 py-1 bg-white text-indigo-700 border border-indigo-300 rounded-lg text-[11px] font-extrabold shrink-0">🛡️ 密碼受保護</span>
-                ` : `
-                    <div>
-                        <div class="font-bold text-slate-900 flex flex-wrap items-center gap-1.5">
-                            <span>👔 ${m.name} (${m.account})</span>
-                            <span class="bg-indigo-600 text-white text-[10px] px-1.5 py-0.5 rounded">${m.title}</span>
-                            <span class="text-[10px] px-2 py-0.5 rounded font-bold ${isInit ? 'bg-amber-100 text-amber-800' : 'bg-emerald-100 text-emerald-700'}">${isInit ? '初始 0000' : '已設專屬密碼'}</span>
-                        </div>
+                        ${isBoss ? '<div class="text-[11px] text-indigo-700 font-semibold mt-0.5">✨ 老闆專屬帳號（初始密碼 Chu610221，可隨時修改密碼）</div>' : ''}
                     </div>
                     <div class="flex items-center gap-1.5 shrink-0">
-                        <button type="button" data-reset-mgr="${mIdx}" class="px-2 py-1 bg-amber-50 hover:bg-amber-100 text-amber-700 border border-amber-200 rounded-lg text-[11px] font-semibold transition">重置0000</button>
+                        ${canEditThisMgr ? `<button type="button" data-edit-mgr="${mIdx}" class="px-2.5 py-1 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg text-[11px] font-bold transition">🔑 修改密碼</button>` : ''}
+                        ${canResetThisMgr ? `<button type="button" data-reset-mgr="${mIdx}" class="px-2 py-1 bg-amber-50 hover:bg-amber-100 text-amber-700 border border-amber-200 rounded-lg text-[11px] font-semibold transition">${isBoss ? '重置初始密碼' : '重置0000'}</button>` : ''}
+                        ${canDeleteThisMgr ? `<button type="button" data-del-mgr="${mIdx}" class="px-2 py-1 bg-rose-50 hover:bg-rose-100 text-rose-600 rounded-lg text-[11px] font-semibold transition">移除</button>` : ''}
                     </div>
                 `;
                 box.appendChild(mDiv);
             });
 
+            box.querySelectorAll('button[data-edit-mgr]').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const mgr = appState.managers[parseInt(btn.getAttribute('data-edit-mgr'), 10)];
+                    if (!mgr) return;
+                    const needOld = !(currentSessionUser && currentSessionUser.role === 'admin');
+                    openForcePasswordModal(mgr, false, 'manager', needOld);
+                });
+            });
+
             box.querySelectorAll('button[data-reset-mgr]').forEach(btn => {
                 btn.addEventListener('click', () => {
+                    if (!canCurrentUserAddManager()) {
+                        showToast('權限不足：僅總管理員、老闆與老闆娘可管理一般管理員帳號！', 'error');
+                        return;
+                    }
                     const mgr = appState.managers[parseInt(btn.getAttribute('data-reset-mgr'), 10)];
-                    if (!mgr || mgr.account === 'Chu,Tsung-Shang') {
-                        showToast('🛡️ 老闆帳號受保護，不可直接重置或修改密碼！', 'error');
+                    if (!mgr) return;
+                    if (mgr.account === 'Chu,Tsung-Shang') {
+                        mgr.pin = 'Chu610221';
+                        mgr.mustChangePwd = false;
+                        mgr.pwdUpdatedAt = Date.now();
+                        clearTimeout(cloudSyncTimer);
+                        saveState();
+                        renderStaff();
+                        showToast('已將老闆【朱宗上 (Chu,Tsung-Shang)】重置為初始密碼 Chu610221');
                         return;
                     }
                     mgr.pin = '0000';
@@ -3170,7 +3276,28 @@
                     clearTimeout(cloudSyncTimer);
                     saveState();
                     renderStaff();
-                    showToast(`已將【${mgr.name} (${mgr.account})】密碼重置為初始 0000`);
+                    showToast(`已將【${mgr.name} (${mgr.account})】密碼重置為初始 0000（下次登入將強制改密碼）`);
+                });
+            });
+
+            box.querySelectorAll('button[data-del-mgr]').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    if (!canCurrentUserAddManager()) {
+                        showToast('權限不足：僅總管理員、老闆與老闆娘可移除一般管理員！', 'error');
+                        return;
+                    }
+                    const idx = parseInt(btn.getAttribute('data-del-mgr'), 10);
+                    const mgr = appState.managers[idx];
+                    if (!mgr || mgr.account === 'Chu,Tsung-Shang' || mgr.account === 'Lin,Ya-Ting') {
+                        showToast('老闆與老闆娘核心帳號不可刪除！', 'error');
+                        return;
+                    }
+                    appState.managers.splice(idx, 1);
+                    clearTimeout(cloudSyncTimer);
+                    saveState();
+                    renderStaff();
+                    renderAttendance();
+                    showToast(`已移除一般管理員【${mgr.name} (${mgr.account})】`, 'info');
                 });
             });
             if (appState.staff.length === 0) {
@@ -3184,7 +3311,7 @@
             ensureFixedSalesAccount();
             appState.staff.forEach((s, idx) => {
                 const isFixed = s.email === '25508846' || Boolean(s.isFixedAccount);
-                const isInit = !isFixed && (s.mustChangePwd !== false && (s.pin || '0000') === '0000');
+                const isInit = !isFixed && (Boolean(s.mustChangePwd) || (s.pin || '0000') === '0000' || !validateStaffPassword8(s.pin || '0000').valid);
                 const dispTitle = s.name && s.name !== s.email ? `${s.name}（帳號：${s.email}）` : s.email;
                 const div = document.createElement('div');
                 div.className = isFixed
@@ -3194,7 +3321,7 @@
                     <div>
                         <div class="font-extrabold text-slate-900 flex flex-wrap items-center gap-1.5">
                             <span>🛍️ ${dispTitle}</span>
-                            <span class="bg-emerald-600 text-white text-[10px] px-2 py-0.5 rounded font-bold">一般銷售員永久帳號</span>
+                            <span class="bg-emerald-600 text-white text-[10px] px-2 py-0.5 rounded font-bold">普通銷售員永久帳號</span>
                         </div>
                         <div class="text-[11px] text-emerald-800 font-semibold mt-0.5">🔒 固定密碼：25508846（系統鎖定：永遠不可刪除・密碼永遠不可修改）</div>
                     </div>
@@ -3203,7 +3330,7 @@
                     <div>
                         <div class="font-bold text-slate-900 flex flex-wrap items-center gap-1.5">
                             <span>👤 ${dispTitle}</span>
-                            <span class="text-[10px] px-2 py-0.5 rounded font-bold ${isInit ? 'bg-amber-100 text-amber-800' : 'bg-emerald-100 text-emerald-700'}">${isInit ? '初始 0000' : '已設專屬密碼'}</span>
+                            <span class="text-[10px] px-2 py-0.5 rounded font-bold ${isInit ? 'bg-amber-100 text-amber-800' : 'bg-emerald-100 text-emerald-700'}">${(s.pin || '0000') === '0000' ? '初始 0000' : (isInit ? '待改密碼' : '已設專屬密碼')}</span>
                         </div>
                     </div>
                     <div class="flex gap-1.5 shrink-0">
@@ -3388,13 +3515,18 @@
             syncArrayField('members', 'id');
             syncArrayField('peers', 'id');
 
-            if (Array.isArray(cs.managers) && !dirtySet.has('managers')) {
-                appState.managers = cs.managers.map(cm => {
+            if (Array.isArray(cs.managers)) {
+                const normalizedCloudMgrs = cs.managers.map(cm => {
                     if (cm && cm.account === 'Chu,Tsung-Shang' && !cs.bossInitChu610221Set && (cm.pin === '0000' || cm.pin === 'Chu61022')) {
                         return Object.assign({}, cm, { pin: 'Chu610221', mustChangePwd: false });
                     }
                     return cm;
                 });
+                if (!dirtySet.has('managers')) {
+                    appState.managers = normalizedCloudMgrs;
+                } else if (!cloudHydrated) {
+                    appState.managers = mergeUniqueByKey(appState.managers, normalizedCloudMgrs, 'account');
+                }
             }
             if (!dirtySet.has('categories')) {
                 if (Array.isArray(cs.categories)) appState.categories = cs.categories;
@@ -3551,6 +3683,11 @@
         }
 
         function switchTab(tabId) {
+            if (isMandatoryPwdLockActive) {
+                const modal = document.getElementById('force-change-pwd-modal');
+                if (modal) { modal.classList.remove('hidden'); modal.classList.add('flex'); }
+                return;
+            }
             if (!currentSessionUser) {
                 if (tabId !== 'pos') {
                     document.getElementById('auth-login-gate').classList.remove('hidden');
@@ -4215,30 +4352,77 @@
                 showToast('📥 已下載 UTF-8 網站主程式 index.html！');
             });
 
+            document.getElementById('role-pick-staff-btn').addEventListener('click', () => {
+                selectedNewAccountRole = 'staff';
+                syncNewAccountRolePickerUI();
+            });
+            document.getElementById('role-pick-manager-btn').addEventListener('click', () => {
+                if (!canCurrentUserAddManager()) {
+                    showToast('權限不足：除了總管理員、老闆與老闆娘外，其他一般管理員僅能新增普通銷售員！', 'error');
+                    return;
+                }
+                selectedNewAccountRole = 'manager';
+                syncNewAccountRolePickerUI();
+            });
+
             document.getElementById('add-staff-btn').addEventListener('click', () => {
+                if (!currentSessionUser || currentSessionUser.role === 'staff') {
+                    showToast('🔒 權限不足：普通銷售員無法新增任何帳號！', 'error');
+                    return;
+                }
+                const targetRole = (selectedNewAccountRole === 'manager' && canCurrentUserAddManager()) ? 'manager' : 'staff';
+                if (selectedNewAccountRole === 'manager' && !canCurrentUserAddManager()) {
+                    showToast('🔒 權限不足：除了總管理員、老闆與老闆娘外，其他一般管理員只能新增普通銷售員！', 'error');
+                    return;
+                }
+
                 const accRaw = document.getElementById('new-staff-account-input').value.trim();
                 const nameRaw = document.getElementById('new-staff-email').value.trim();
-                const email = accRaw || nameRaw;
-                const staffName = nameRaw || accRaw;
-                if (!email) { showToast('請輸入要新增的員工帳號或姓名', 'error'); return; }
-                if (email === '25508846' || appState.staff.some(s => s.email.toLowerCase() === email.toLowerCase())) {
-                    showToast('此員工帳號已經存在！', 'error'); return;
+                const accountId = accRaw || nameRaw;
+                const personName = nameRaw || accRaw;
+                if (!accountId) { showToast('請輸入要新增的登入帳號或姓名！', 'error'); return; }
+
+                const lowerId = accountId.toLowerCase();
+                const dupInStaff = (appState.staff || []).some(s => String(s.email || '').toLowerCase() === lowerId);
+                const dupInMgr = (appState.managers || []).some(m => String(m.account || '').toLowerCase() === lowerId);
+                if (accountId === '25508846' || lowerId === 'tw202501tw' || lowerId === 'tw202501tw@gmail.com' || dupInStaff || dupInMgr) {
+                    showToast('此登入帳號已經存在，請換一個帳號名稱！', 'error');
+                    return;
                 }
-                appState.staff.push({
-                    email,
-                    name: staffName,
-                    role: '一般銷售員',
-                    status: '啟用',
-                    pin: '0000',
-                    mustChangePwd: true,
-                    isFixedAccount: false
-                });
+
+                const nowStr = new Date().toLocaleString('zh-TW', { hour12: false });
+                if (targetRole === 'manager') {
+                    appState.managers.push({
+                        account: accountId,
+                        name: personName,
+                        title: '一般管理員',
+                        pin: '0000',
+                        mustChangePwd: true,
+                        createdAt: nowStr,
+                        pwdUpdatedAt: Date.now()
+                    });
+                    showToast(`👔 已新增一般管理員【${personName} (${accountId})】（初始密碼 0000，首次登入自動跳出改密碼畫面）`);
+                } else {
+                    appState.staff.push({
+                        email: accountId,
+                        name: personName,
+                        role: '普通銷售員',
+                        status: '啟用',
+                        pin: '0000',
+                        mustChangePwd: true,
+                        isFixedAccount: false,
+                        createdAt: nowStr,
+                        pwdUpdatedAt: Date.now()
+                    });
+                    showToast(`👤 已新增普通銷售員【${personName} (${accountId})】（初始密碼 0000，首次登入自動跳出改密碼畫面）`);
+                }
+
                 document.getElementById('new-staff-account-input').value = '';
                 document.getElementById('new-staff-email').value = '';
+                clearTimeout(cloudSyncTimer);
                 saveState();
                 renderStaff();
                 renderAttendance();
-                showToast(`已註冊銷售員【${staffName} (${email})】（初始密碼 0000，首次登入強制改 8 字以上密碼）`);
             });
 
             document.getElementById('header-cloud-status-btn').addEventListener('click', () => {
@@ -4281,41 +4465,9 @@
                 reader.readAsText(file);
             });
             document.getElementById('copy-gas-code-btn').addEventListener('click', () => {
-                const gasSnippet = [
-                    `var FOLDER_ID = '${CLOUD_DRIVE_FOLDER_ID}';`,
-                    `var SHEET_ID = '${CLOUD_SHEET_DB_ID}';`,
-                    `var JSON_FILE_ID = '${CLOUD_JSON_FILE_ID}';`,
-                    `function initAndTestCloudSync() { doPost({}); }`,
-                    `function writeSheetRows(ss, tabName, headers, rows) {`,
-                    `  if (!ss || typeof ss.getSheetByName !== 'function') return initAndTestCloudSync();`,
-                    `  let sh = ss.getSheetByName(tabName) || ss.insertSheet(tabName);`,
-                    `  sh.clearContents();`,
-                    `  const data = [headers, ...(rows || []).map(r => headers.map((_, i) => r[i] ?? ''))];`,
-                    `  sh.getRange(1, 1, data.length, headers.length).setValues(data);`,
-                    `}`,
-                    `function doPost(e) {`,
-                    `  const payload = (e && e.postData && e.postData.contents) ? JSON.parse(e.postData.contents) : { state: {} };`,
-                    `  const state = payload.state || {};`,
-                    `  const now = new Date().toLocaleString('zh-TW', { hour12: false });`,
-                    `  DriveApp.getFileById(JSON_FILE_ID).setContent(JSON.stringify(state, null, 2));`,
-                    `  const ss = SpreadsheetApp.openById(SHEET_ID);`,
-                    `  writeSheetRows(ss, '1_員工帳號密碼', ['員工編號', '員工登入帳號', '員工姓名', '職稱', '登入密碼', '需改密碼', '更新時間'], (state.staff || []).map((s, i) => [s.isFixedAccount ? 'STF-FIXED' : ('STF-' + (i + 1)), s.email, s.name || s.email, s.role || '一般銷售員', s.isFixedAccount ? '25508846' : String(s.pin || '0000'), s.isFixedAccount ? 'FALSE' : String(s.mustChangePwd !== false), now]));`,
-                    `  writeSheetRows(ss, '9_一般管理員帳號密碼', ['管理員編號 (ID)', '一般管理員登入帳號', '管理員姓名', '職稱', '登入密碼 (初始0000 / 修改後自動變更)', '需強制改密碼 (mustChangePwd)', '狀態', '最後更新時間'], (state.managers || []).map((m, i) => ['MGR-0' + (i + 1), m.account, m.name, m.title, String(m.pin || '0000'), (m.mustChangePwd !== false && (m.pin || '0000') === '0000') ? 'TRUE' : 'FALSE', '啟用', now]));`,
-                    `  const mSh = ss.getSheetByName('9_一般管理員帳號密碼'); if (mSh && mSh.getLastRow() >= 2) mSh.getRange(2, 5, mSh.getLastRow() - 1, 1).setNumberFormat('@');`,
-                    `  writeSheetRows(ss, '2_貨物資料與庫存', ['品號', '商品名稱', '分類', '進貨價', '市場價', '售價', '庫存', '更新時間'], (state.products || []).map(p => [p.code, p.name, p.category, p.cost || 0, p.marketPrice ?? p.price, p.price || 0, p.stock || 0, now]));`,
-                    `  writeSheetRows(ss, '3_每日銷售明細', ['單號', '時間', '收銀員', '客戶', '付款方式', '發票稅', '實收總額', '扣稅淨利'], (state.orders || []).map(o => [o.orderNo, o.time, o.cashier, o.memberName, o.payMethod, o.invoiceTax || 0, o.total || 0, o.profit || 0]));`,
-                    `  writeSheetRows(ss, '4_員工打卡紀錄', ['日期', '員工', '班別', '上班', '下班', '工時'], (state.attendance || []).map(a => [a.date, a.account, a.shift, a.clockIn, a.clockOut || '值勤中', a.hours || 0]));`,
-                    `  writeSheetRows(ss, '5_預購商品紀錄', ['預購單號', '客人', '電話', '商品', '數量', '進貨價', '市場價', '售價', '訂金', '尾款', '狀態'], (state.preorders || []).map(p => [p.preorderNo, p.customerName, p.phone, p.itemName, p.qty, p.unitCost || 0, p.marketPrice ?? p.unitPrice, p.unitPrice || 0, p.depositPaid || 0, p.balanceDue || 0, p.status]));`,
-                    `  writeSheetRows(ss, '6_同行調貨紀錄', ['調貨單號', '時間', '方向', '同行', '商品', '數量', '單價', '總額'], (state.transfers || []).map(t => [t.transferNo, t.time, t.direction, t.peerName, t.prodName, t.qty, t.unitPrice, t.total]));`,
-                    `  return ContentService.createTextOutput(JSON.stringify({ ok: true, syncedAt: now })).setMimeType(ContentService.MimeType.JSON);`,
-                    `}`,
-                    `function doGet() {`,
-                    `  const raw = DriveApp.getFileById(JSON_FILE_ID).getBlob().getDataAsString('UTF-8');`,
-                    `  return ContentService.createTextOutput(JSON.stringify({ ok: true, state: JSON.parse(raw) })).setMimeType(ContentService.MimeType.JSON);`,
-                    `}`
-                ].join('\n');
+                const gasSnippet = "/**\n * ============================================================================\n * 【檔案二：Google Apps Script 雙向防丟失雲端同步程式碼 (程式碼.gs / Code.gs)】\n * ⚠️ 注意：這個檔案「不是網頁」，請勿放到 SnapDeploy 或 GitHub 網站！\n * ✅ 正確放置位置：Google 試算表「PIPI結帳系統_雲端總資料庫」-> 頂部選單「擴充功能」->「Apps Script」\n *\n * ✨ 核心保護機制（資料永遠不遺失）：\n * 1. 【Google 試算表 9 大分頁可直接修改任何資料】：\n *    無論您在試算表直接新增／修改／刪除「員工帳號密碼、商品條碼與庫存、銷售明細、打卡紀錄、\n *    預購單、同行調貨、會員與同行名冊、系統設定與分類、一般管理員密碼」，系統都會雙向讀取並保留！\n * 2. 【按「▶ 執行」絕不清空試算表修改】：\n *    在試算表改完資料後進入 Apps Script 按「▶ 執行」(initAndTestCloudSync)，程式會以試算表最新修改為準，\n *    自動合併寫回雲端 JSON 資料庫，資料 100% 不會不見！\n * 3. 【GitHub / 網站更新程式碼後同步絕不洗掉資料】：\n *    即使在 GitHub 更新網頁程式碼或換新電腦開啟，後端設有防空值覆蓋鎖 (Anti-Wipe Guard)，\n *    未載入雲端資料前絕不允許空白狀態覆蓋試算表或雲端既有紀錄！\n *\n * ⚠️ 貼上程式碼並按儲存後，請務必執行一次更新部署：\n *    右上角「部署」->「管理部署作業」-> 點右上角鉛筆圖示「編輯」-> 版本選「建立新版本」->「部署」\n * ============================================================================\n */\n\nvar FOLDER_ID = '1-ZXsXnlhzm7YTg5gQG5bh4vMNmr6HO8C';\nvar SHEET_ID = '1Ma9LwRPU1uj3Bf_Qehz4PBcpr7CFbpa1aSXa8vhrWx0';\nvar JSON_FILE_ID = '13Y7BriAsKt3sOckPW0m5MCIGA1cptBEX';\nvar SCHEMA_VERSION = 12;\n\n/**\n * 試算表開啟時自動建立頂部快捷選單，讓您在 Google 試算表改完資料後也可一鍵同步\n */\nfunction onOpen() {\n  try {\n    SpreadsheetApp.getUi()\n      .createMenu('⚡ PIPI雲端同步')\n      .addItem('🔄 將試算表最新修改同步至網站雲端', 'initAndTestCloudSync')\n      .addToUi();\n  } catch (e) {}\n}\n\n/**\n * 1. 預設首選執行函式：在試算表修改任何資料後，於 Apps Script 點擊「▶ 執行」即執行此函式！\n *    以試算表 9 大分頁最新內容為主，安全合併雲端尚未寫入的紀錄並回存，資料絕不遺失！\n */\nfunction initAndTestCloudSync() {\n  var lock = LockService.getScriptLock();\n  lock.tryLock(15000);\n  try {\n    var ss = SpreadsheetApp.openById(SHEET_ID);\n    var prevJson = readCloudJsonState();\n    var sheetState = readFullStateFromSheets(ss, prevJson);\n    var merged = mergeForManualExec(sheetState, prevJson);\n    var res = writeAllTabsAndJson(ss, merged);\n    console.log('✅ 雙向同步完成！試算表 9 大分頁的修改已完整保留並同步至雲端資料庫 (' + res.syncedAt + ')。若剛更新程式碼，請記得點右上角「部署 -> 管理部署作業 -> 鉛筆編輯 -> 建立新版本 -> 部署」！');\n    return res;\n  } finally {\n    lock.releaseLock();\n  }\n}\n\n/* ========================= 基礎工具函式 ========================= */\n\nfunction isCompliantPassword8Plus(pwd) {\n  var s = String(pwd || '');\n  return s.length >= 8 && /[A-Z]/.test(s) && /[a-z]/.test(s) && /\\d/.test(s) && !/\\s/.test(s) && s !== '0000';\n}\n\nfunction cleanNum(val, fallback) {\n  if (val === '' || val === null || val === undefined) return fallback !== undefined ? fallback : 0;\n  if (typeof val === 'number') return isNaN(val) ? (fallback || 0) : val;\n  var cleaned = String(val).replace(/[$,NT\\s，]/gi, '');\n  var n = Number(cleaned);\n  return isNaN(n) ? (fallback !== undefined ? fallback : 0) : n;\n}\n\nfunction normalizeDateTimeStr(str, fallbackNow) {\n  var s = String(str || '').trim();\n  if (!s) return fallbackNow || new Date().toLocaleString('zh-TW', { hour12: false });\n  var m = s.match(/^(\\d{4})[\\/\\-](\\d{1,2})[\\/\\-](\\d{1,2})(.*)$/);\n  if (m) {\n    var yyyy = m[1];\n    var mm = ('0' + m[2]).slice(-2);\n    var dd = ('0' + m[3]).slice(-2);\n    var rest = m[4] || '';\n    return yyyy + '/' + mm + '/' + dd + rest;\n  }\n  return s;\n}\n\nfunction normalizeDateOnlyYMD(str) {\n  var s = String(str || '').trim();\n  var m = s.match(/(\\d{4})[\\/\\-](\\d{1,2})[\\/\\-](\\d{1,2})/);\n  if (m) {\n    return m[1] + '-' + ('0' + m[2]).slice(-2) + '-' + ('0' + m[3]).slice(-2);\n  }\n  return s;\n}\n\nfunction stableDigest(val) {\n  try {\n    return JSON.stringify(val === undefined ? null : val);\n  } catch (e) {\n    return '';\n  }\n}\n\nfunction computeStateDigests(st) {\n  var s = st || {};\n  return {\n    staff: stableDigest((s.staff || []).map(function(x) { return [x.email, x.name, x.role, x.pin, Boolean(x.mustChangePwd), x.status]; })),\n    products: stableDigest((s.products || []).map(function(x) { return [String(x.code), x.name, x.category, Number(x.cost)||0, Number(x.marketPrice !== undefined ? x.marketPrice : x.price)||0, Number(x.price)||0, Number(x.stock)||0]; })),\n    orders: stableDigest((s.orders || []).map(function(x) { return [x.orderNo, x.time, x.memberName, x.payMethod, Number(x.subtotal)||0, Number(x.discount)||0, Number(x.invoiceTax)||0, Number(x.total)||0, Number(x.totalCost)||0, Number(x.profit)||0, x.status]; })),\n    attendance: stableDigest((s.attendance || []).map(function(x) { return [x.id, x.date, x.clockIn, x.clockOut, x.account, x.shift, Number(x.hours)||0, x.note]; })),\n    preorders: stableDigest((s.preorders || []).map(function(x) { return [x.preorderNo, x.customerName, x.phone, x.itemName, x.category, Number(x.qty)||1, Number(x.unitCost)||0, Number(x.marketPrice)||0, Number(x.unitPrice)||0, Number(x.depositPaid)||0, Number(x.balanceDue)||0, x.arrivalDate, x.status, x.note]; })),\n    transfers: stableDigest((s.transfers || []).map(function(x) { return [x.transferNo, x.direction, x.peerName, String(x.prodCode), x.prodName, Number(x.qty)||1, Number(x.unitPrice)||0, Number(x.retailPrice)||0, Number(x.total)||0, Boolean(x.settled), x.note]; })),\n    members: stableDigest((s.members || []).map(function(x) { return [x.id, x.name, x.tier, x.phone, Number(x.spent)||0, Number(x.points)||0]; })),\n    peers: stableDigest((s.peers || []).map(function(x) { return [x.id, x.name, x.phone, x.contact, x.note]; })),\n    config: stableDigest([\n      s.config && s.config.systemName,\n      s.config && s.config.storeName,\n      s.config && s.config.taxId,\n      s.config && s.config.announcement,\n      s.config && s.config.receiptFooter\n    ]),\n    categories: stableDigest([s.categories || [], s.categoryTaxExempt || {}]),\n    managers: stableDigest((s.managers || []).map(function(x) { return [x.account, x.name, x.title, String(x.pin || '0000'), Boolean(x.mustChangePwd)]; }))\n  };\n}\n\nfunction readCloudJsonState() {\n  try {\n    var raw = DriveApp.getFileById(JSON_FILE_ID).getBlob().getDataAsString('UTF-8');\n    return JSON.parse(raw) || {};\n  } catch (err) {\n    return {};\n  }\n}\n\nfunction writeCloudJsonState(stateObj) {\n  var text = JSON.stringify(stateObj || {}, null, 2);\n  try {\n    DriveApp.getFileById(JSON_FILE_ID).setContent(text);\n  } catch (jsonErr) {\n    var folder = DriveApp.getFolderById(FOLDER_ID);\n    var files = folder.getFilesByName('PIPI_POS_Cloud_Database.json');\n    if (files.hasNext()) {\n      files.next().setContent(text);\n    } else {\n      folder.createFile('PIPI_POS_Cloud_Database.json', text, MimeType.PLAIN_TEXT);\n    }\n  }\n}\n\n/* ========================= 從 Google Sheet 9 大分頁完整讀取所有資料 ========================= */\n\nfunction getSheetDataPair(ss, tabName) {\n  var sh = ss.getSheetByName(tabName);\n  if (!sh) return { exists: false, headers: [], rawRows: [], dispRows: [] };\n  var lastRow = sh.getLastRow();\n  var lastCol = sh.getLastColumn();\n  if (lastRow < 1 || lastCol < 1) return { exists: true, headers: [], rawRows: [], dispRows: [] };\n  var range = sh.getRange(1, 1, lastRow, lastCol);\n  var raw = range.getValues();\n  var disp = range.getDisplayValues();\n  return {\n    exists: true,\n    headers: disp[0].map(function(h) { return String(h || '').trim(); }),\n    rawRows: raw.slice(1),\n    dispRows: disp.slice(1)\n  };\n}\n\nfunction parseOrderItemsSummary(summaryStr, fallbackTotal, fallbackCost) {\n  var s = String(summaryStr || '').trim();\n  if (!s) return [];\n  var parts = s.split(/\\s*;\\s*|\\s*、\\s*/).filter(Boolean);\n  var items = [];\n  parts.forEach(function(part, idx) {\n    var m = part.match(/^(.+?)\\(\\$([0-9.,]+)\\)x([0-9.]+)$/);\n    if (m) {\n      var nm = m[1].trim();\n      var pr = cleanNum(m[2], 0);\n      var qt = Math.max(1, cleanNum(m[3], 1));\n      items.push({\n        id: 'SH_ITEM_' + idx,\n        code: '',\n        name: nm,\n        price: pr,\n        cost: 0,\n        qty: qt,\n        lineTotal: pr * qt\n      });\n    } else {\n      items.push({\n        id: 'SH_ITEM_' + idx,\n        code: '',\n        name: part,\n        price: parts.length === 1 ? cleanNum(fallbackTotal, 0) : 0,\n        cost: parts.length === 1 ? cleanNum(fallbackCost, 0) : 0,\n        qty: 1,\n        lineTotal: parts.length === 1 ? cleanNum(fallbackTotal, 0) : 0\n      });\n    }\n  });\n  return items;\n}\n\nfunction readFullStateFromSheets(ss, baseJson) {\n  var prev = baseJson || {};\n  var prevCfg = prev.config || {};\n  var nowStr = new Date().toLocaleString('zh-TW', { hour12: false });\n\n  // 1. 讀取 1_員工帳號密碼\n  var t1 = getSheetDataPair(ss, '1_員工帳號密碼');\n  var prevStaffMap = {};\n  (prev.staff || []).forEach(function(s) { if (s && s.email) prevStaffMap[s.email] = s; });\n  var staffList = [];\n  t1.dispRows.forEach(function(dRow) {\n    var email = String(dRow[1] || '').trim();\n    var name = String(dRow[2] || '').trim();\n    if (!email && !name) return;\n    if (!email) email = name;\n    if (email === '25508846') {\n      staffList.push({\n        email: '25508846',\n        name: \"PIPI TOY’S\",\n        role: '一般銷售員',\n        status: '永久啟用 (不可刪除・密碼不可修改)',\n        pin: '25508846',\n        mustChangePwd: false,\n        isFixedAccount: true,\n        createdAt: dRow[7] || nowStr\n      });\n      return;\n    }\n    var rawPin = String(dRow[4] || '').trim();\n    if (!rawPin || rawPin === '0') rawPin = '0000';\n    var mustFlag = String(dRow[5] || '').trim().toUpperCase();\n    var oldStf = prevStaffMap[email];\n    var mustChange = (!isCompliantPassword8Plus(rawPin))\n      ? true\n      : (mustFlag === 'TRUE' && oldStf && String(oldStf.pin) === rawPin ? true : false);\n    staffList.push({\n      email: email,\n      name: name || email,\n      role: String(dRow[3] || '').trim() || '一般銷售員',\n      status: String(dRow[6] || '').trim() || '啟用',\n      pin: rawPin,\n      mustChangePwd: mustChange,\n      isFixedAccount: false,\n      createdAt: String(dRow[7] || '').trim() || (oldStf && oldStf.createdAt) || nowStr,\n      pwdUpdatedAt: (oldStf && String(oldStf.pin) === rawPin) ? (oldStf.pwdUpdatedAt || Date.now()) : Date.now()\n    });\n  });\n  if (!staffList.some(function(s) { return s.email === '25508846'; })) {\n    staffList.unshift({\n      email: '25508846',\n      name: \"PIPI TOY’S\",\n      role: '一般銷售員',\n      status: '永久啟用 (不可刪除・密碼不可修改)',\n      pin: '25508846',\n      mustChangePwd: false,\n      isFixedAccount: true,\n      createdAt: nowStr\n    });\n  }\n\n  // 2. 讀取 2_貨物資料與庫存（相容 10 欄新表頭與 9 欄舊表頭）\n  var t2 = getSheetDataPair(ss, '2_貨物資料與庫存');\n  var hasMarketCol = t2.headers.some(function(h) { return h.indexOf('市場價') !== -1; });\n  var prevProdByCode = {};\n  (prev.products || []).forEach(function(p) { if (p && p.code !== undefined) prevProdByCode[String(p.code).trim()] = p; });\n  var products = [];\n  t2.dispRows.forEach(function(dRow, idx) {\n    var rRow = t2.rawRows[idx] || [];\n    var codeStr = String(dRow[0] || '').trim();\n    var nameStr = String(dRow[1] || '').trim();\n    if (!codeStr && !nameStr) return;\n    if (!codeStr) codeStr = 'ITEM' + String(idx + 1).padStart(4, '0');\n    var catStr = String(dRow[2] || '').trim() || '未分類';\n    var costVal = cleanNum(rRow[4] !== '' ? rRow[4] : dRow[4], 0);\n    var mktVal, priceVal, stockVal;\n    if (hasMarketCol) {\n      priceVal = cleanNum(rRow[6] !== '' ? rRow[6] : dRow[6], 0);\n      mktVal = cleanNum(rRow[5] !== '' ? rRow[5] : dRow[5], priceVal);\n      stockVal = cleanNum(rRow[7] !== '' ? rRow[7] : dRow[7], 0);\n    } else {\n      priceVal = cleanNum(rRow[5] !== '' ? rRow[5] : dRow[5], 0);\n      mktVal = priceVal;\n      stockVal = cleanNum(rRow[6] !== '' ? rRow[6] : dRow[6], 0);\n    }\n    var existingP = prevProdByCode[codeStr];\n    products.push({\n      id: existingP ? existingP.id : ('P_SH_' + codeStr + '_' + idx),\n      code: codeStr,\n      name: nameStr || ('商品 ' + codeStr),\n      category: catStr,\n      cost: costVal,\n      marketPrice: mktVal || priceVal,\n      price: priceVal,\n      stock: stockVal,\n      icon: (existingP && existingP.icon) ? existingP.icon : '📦'\n    });\n  });\n\n  // 3. 讀取 3_每日銷售明細\n  var t3 = getSheetDataPair(ss, '3_每日銷售明細');\n  var prevOrderMap = {};\n  (prev.orders || []).forEach(function(o) { if (o && o.orderNo) prevOrderMap[String(o.orderNo).trim()] = o; });\n  var orders = [];\n  t3.dispRows.forEach(function(dRow, idx) {\n    var rRow = t3.rawRows[idx] || [];\n    var orderNo = String(dRow[0] || '').trim();\n    var summary = String(dRow[6] || '').trim();\n    var rawTotalCell = dRow[11];\n    if (!orderNo && !summary && !String(rawTotalCell || '').trim()) return;\n    if (!orderNo) orderNo = 'POS-SH-' + String(idx + 1).padStart(3, '0');\n\n    var prevOrd = prevOrderMap[orderNo];\n    var timeStr = normalizeDateTimeStr(dRow[1], (prevOrd && prevOrd.time) || nowStr);\n    var cashier = String(dRow[2] || dRow[3] || '').trim() || 'tw202501tw@gmail.com';\n    var memberName = String(dRow[4] || '').trim() || '一般散客';\n    var payMethod = String(dRow[5] || '').trim() || '現金';\n    var subtotal = cleanNum(rRow[7] !== '' ? rRow[7] : dRow[7], 0);\n    var discount = cleanNum(rRow[8] !== '' ? rRow[8] : dRow[8], 0);\n    var taxSwitchStr = String(dRow[9] || '').trim().toUpperCase();\n    var total = cleanNum(rRow[11] !== '' ? rRow[11] : dRow[11], Math.max(0, subtotal - discount));\n    if (!subtotal && total) subtotal = total + discount;\n    var taxOn = (taxSwitchStr === 'ON' || taxSwitchStr === 'TRUE' || taxSwitchStr === '是');\n    var taxAmt = String(dRow[10] || '').trim() !== ''\n      ? cleanNum(rRow[10] !== '' ? rRow[10] : dRow[10], 0)\n      : (taxOn ? Math.round(total * 0.05) : 0);\n    if (taxAmt > 0) taxOn = true;\n    var totalCost = cleanNum(rRow[12] !== '' ? rRow[12] : dRow[12], 0);\n    var grossProfit = total - totalCost;\n    var profit = grossProfit - taxAmt;\n    var status = String(dRow[15] || '').trim() || '已完成';\n\n    var prevSummary = prevOrd ? (prevOrd.items || []).map(function(x) { return x.name + '($' + x.price + ')x' + x.qty; }).join('; ') : '';\n    var parsedItems = (prevOrd && Array.isArray(prevOrd.items) && prevOrd.items.length > 0 && prevSummary === summary)\n      ? prevOrd.items\n      : parseOrderItemsSummary(summary, total, totalCost);\n\n    orders.push({\n      orderNo: orderNo,\n      time: timeStr,\n      cashier: cashier,\n      memberId: (prevOrd && prevOrd.memberId) || 'M00',\n      memberName: memberName,\n      payMethod: payMethod,\n      subtotal: subtotal,\n      discount: discount,\n      paymentFee: (prevOrd && prevOrd.paymentFee) || 0,\n      invoiceTax: taxAmt,\n      invoiceTaxEnabled: taxOn,\n      total: total,\n      totalCost: totalCost,\n      grossProfit: grossProfit,\n      profit: profit,\n      status: status,\n      items: parsedItems\n    });\n  });\n\n  // 4. 讀取 4_員工打卡紀錄\n  var t4 = getSheetDataPair(ss, '4_員工打卡紀錄');\n  var isNewAttLayout = t4.headers.some(function(h) { return h.indexOf('累積工時') !== -1 || h.indexOf('班別') !== -1; });\n  var prevAttMap = {};\n  (prev.attendance || []).forEach(function(a) { if (a && a.id) prevAttMap[String(a.id).trim()] = a; });\n  var attendance = [];\n  t4.dispRows.forEach(function(dRow, idx) {\n    var rRow = t4.rawRows[idx] || [];\n    var attId = String(dRow[0] || '').trim();\n    var dateRaw = String(dRow[1] || '').trim();\n    var account = String(dRow[3] || '').trim();\n    if (!attId && !dateRaw && !account) return;\n    if (!attId) attId = 'ATT_SH_' + (idx + 1);\n    var oldAtt = prevAttMap[attId];\n    var dateStr = normalizeDateOnlyYMD(dateRaw) || formatDateFallback();\n    var timeRange = String(dRow[2] || '').trim();\n    var clockIn = '', clockOut = '';\n    if (timeRange.indexOf('~') !== -1) {\n      var sp = timeRange.split('~');\n      clockIn = String(sp[0] || '').trim();\n      var outPart = String(sp[1] || '').trim();\n      clockOut = (outPart === '上班值勤中' || outPart === '值勤中') ? '' : outPart;\n    } else {\n      clockIn = timeRange;\n    }\n    var shift = isNewAttLayout ? (String(dRow[4] || '').trim() || '正常班') : '正常班';\n    var hours = isNewAttLayout ? cleanNum(rRow[5] !== '' ? rRow[5] : dRow[5], 0) : 0;\n    var note = String(dRow[7] || '').trim();\n    attendance.push({\n      id: attId,\n      date: dateStr,\n      account: account || '25508846',\n      shift: shift,\n      clockIn: clockIn || '09:00:00',\n      clockInTs: (oldAtt && oldAtt.clockInTs) || 0,\n      clockOut: clockOut,\n      hours: hours,\n      note: note\n    });\n  });\n\n  // 5. 讀取 5_預購商品紀錄（相容 19 欄含市場價 與 18 欄舊表頭）\n  var t5 = getSheetDataPair(ss, '5_預購商品紀錄');\n  var preHasMkt = t5.headers.some(function(h) { return h.indexOf('市場價') !== -1; });\n  var preorders = [];\n  t5.dispRows.forEach(function(dRow, idx) {\n    var rRow = t5.rawRows[idx] || [];\n    var preNo = String(dRow[0] || '').trim();\n    var custName = String(dRow[2] || '').trim();\n    var itemName = String(dRow[4] || '').trim();\n    if (!preNo && !custName && !itemName) return;\n    if (!preNo) preNo = 'PRE-SH-' + String(idx + 1).padStart(3, '0');\n    var qty = Math.max(1, cleanNum(rRow[6] !== '' ? rRow[6] : dRow[6], 1));\n    var unitCost, mktPrice, unitPrice, totalPrice, depositPaid, payMethod, balanceDue, arrivalDate, status, completedAt, handler, note;\n    if (preHasMkt) {\n      unitCost = cleanNum(rRow[7] !== '' ? rRow[7] : dRow[7], 0);\n      unitPrice = cleanNum(rRow[9] !== '' ? rRow[9] : dRow[9], 0);\n      mktPrice = cleanNum(rRow[8] !== '' ? rRow[8] : dRow[8], unitPrice);\n      totalPrice = cleanNum(rRow[10] !== '' ? rRow[10] : dRow[10], unitPrice * qty);\n      depositPaid = cleanNum(rRow[11] !== '' ? rRow[11] : dRow[11], 0);\n      payMethod = String(dRow[12] || '').trim() || '現金';\n      balanceDue = String(dRow[13] || '').trim() !== '' ? cleanNum(rRow[13] !== '' ? rRow[13] : dRow[13], 0) : Math.max(0, totalPrice - depositPaid);\n      arrivalDate = normalizeDateOnlyYMD(dRow[14]) || String(dRow[14] || '待定').trim();\n      status = String(dRow[15] || '').trim() || '待取貨';\n      completedAt = String(dRow[16] || '').trim();\n      handler = String(dRow[17] || '').trim() || 'tw202501tw@gmail.com';\n      note = String(dRow[18] || '').trim();\n    } else {\n      unitPrice = cleanNum(rRow[7] !== '' ? rRow[7] : dRow[7], 0);\n      unitCost = cleanNum(rRow[8] !== '' ? rRow[8] : dRow[8], 0);\n      mktPrice = unitPrice;\n      totalPrice = cleanNum(rRow[9] !== '' ? rRow[9] : dRow[9], unitPrice * qty);\n      depositPaid = cleanNum(rRow[10] !== '' ? rRow[10] : dRow[10], 0);\n      payMethod = String(dRow[11] || '').trim() || '現金';\n      balanceDue = String(dRow[12] || '').trim() !== '' ? cleanNum(rRow[12] !== '' ? rRow[12] : dRow[12], 0) : Math.max(0, totalPrice - depositPaid);\n      arrivalDate = normalizeDateOnlyYMD(dRow[13]) || String(dRow[13] || '待定').trim();\n      status = String(dRow[14] || '').trim() || '待取貨';\n      completedAt = String(dRow[15] || '').trim();\n      handler = String(dRow[16] || '').trim() || 'tw202501tw@gmail.com';\n      note = String(dRow[17] || '').trim();\n    }\n    preorders.push({\n      preorderNo: preNo,\n      createdAt: normalizeDateTimeStr(dRow[1], nowStr),\n      customerName: custName || '預購客人',\n      phone: String(dRow[3] || '').trim(),\n      itemName: itemName || '預購商品',\n      category: String(dRow[5] || '').trim() || '未分類',\n      qty: qty,\n      unitCost: unitCost,\n      marketPrice: mktPrice || unitPrice,\n      unitPrice: unitPrice,\n      totalPrice: totalPrice,\n      depositPaid: depositPaid,\n      payMethod: payMethod,\n      balanceDue: balanceDue,\n      arrivalDate: arrivalDate,\n      status: status,\n      completedAt: completedAt,\n      handler: handler,\n      note: note\n    });\n  });\n\n  // 6. 讀取 6_同行調貨紀錄（相容 14 欄新表頭與 17 欄舊表頭）\n  var t6 = getSheetDataPair(ss, '6_同行調貨紀錄');\n  var trfHasRetail = t6.headers.some(function(h) { return h.indexOf('市場/零售價') !== -1; });\n  var transfers = [];\n  t6.dispRows.forEach(function(dRow, idx) {\n    var rRow = t6.rawRows[idx] || [];\n    var trfNo = String(dRow[0] || '').trim();\n    var peerName = String(dRow[3] || '').trim();\n    var prodName = String(dRow[5] || '').trim();\n    if (!trfNo && !peerName && !prodName) return;\n    if (!trfNo) trfNo = 'TRF-SH-' + String(idx + 1).padStart(3, '0');\n    var dirRaw = String(dRow[2] || '').trim();\n    var direction = (dirRaw.indexOf('調入') !== -1 || dirRaw === 'in') ? 'in' : 'out';\n    var qty = Math.max(1, cleanNum(rRow[6] !== '' ? rRow[6] : dRow[6], 1));\n    var unitCost = cleanNum(rRow[7] !== '' ? rRow[7] : dRow[7], 0);\n    var unitPrice = cleanNum(rRow[8] !== '' ? rRow[8] : dRow[8], 0);\n    var retailPrice, total, settledStr, noteStr;\n    if (trfHasRetail) {\n      retailPrice = cleanNum(rRow[9] !== '' ? rRow[9] : dRow[9], unitPrice);\n      total = cleanNum(rRow[10] !== '' ? rRow[10] : dRow[10], unitPrice * qty);\n      settledStr = String(dRow[11] || '').trim();\n      noteStr = String(dRow[13] || '').trim();\n    } else {\n      retailPrice = unitPrice;\n      total = cleanNum(rRow[11] !== '' ? rRow[11] : dRow[11], unitPrice * qty);\n      settledStr = String(dRow[14] || '').trim();\n      noteStr = String(dRow[16] || '').trim();\n    }\n    transfers.push({\n      transferNo: trfNo,\n      time: normalizeDateTimeStr(dRow[1], nowStr),\n      direction: direction,\n      peerName: peerName || '合作同行',\n      prodCode: String(dRow[4] || '').trim(),\n      prodName: prodName || '調貨商品',\n      qty: qty,\n      unitCost: unitCost,\n      unitPrice: unitPrice,\n      retailPrice: retailPrice,\n      total: total,\n      settled: settledStr === '已結清' || settledStr.toUpperCase() === 'TRUE',\n      note: noteStr\n    });\n  });\n\n  // 7. 讀取 7_會員與同行名冊\n  var t7 = getSheetDataPair(ss, '7_會員與同行名冊');\n  var members = [];\n  var peers = [];\n  t7.dispRows.forEach(function(dRow, idx) {\n    var rRow = t7.rawRows[idx] || [];\n    var idStr = String(dRow[0] || '').trim();\n    var nameStr = String(dRow[1] || '').trim();\n    if (!idStr && !nameStr) return;\n    var tierStr = String(dRow[2] || '').trim() || '一般會員';\n    var phoneStr = String(dRow[3] || '').trim();\n    var contactStr = String(dRow[4] || '').trim();\n    var spentVal = cleanNum(rRow[5] !== '' ? rRow[5] : dRow[5], 0);\n    var pointsVal = cleanNum(rRow[6] !== '' ? rRow[6] : dRow[6], 0);\n    var noteStr = String(dRow[7] || '').trim();\n\n    if (tierStr.indexOf('同行') !== -1 || idStr.indexOf('PEER') === 0) {\n      peers.push({\n        id: idStr || ('PEER_SH_' + (idx + 1)),\n        name: nameStr || '合作同行',\n        phone: phoneStr,\n        contact: contactStr,\n        note: noteStr\n      });\n    } else {\n      members.push({\n        id: idStr || ('M_SH_' + (idx + 1)),\n        name: nameStr || '門市會員',\n        tier: tierStr,\n        phone: phoneStr || '0900-000-000',\n        spent: spentVal,\n        points: pointsVal\n      });\n    }\n  });\n\n  // 8. 讀取 8_系統設定（含自訂分類與是否開啟發票稅規則）\n  var t8 = getSheetDataPair(ss, '8_系統設定');\n  var cfg = {\n    systemName: prevCfg.systemName || 'PIPI結帳系統',\n    adminEmail: 'tw202501tw@gmail.com',\n    storeName: prevCfg.storeName || 'PIPI 旗艦零售門市',\n    taxId: prevCfg.taxId || '統編 48676299 / 02-2550-8846',\n    announcement: prevCfg.announcement !== undefined ? prevCfg.announcement : 'PIPI結帳系統 — 全雲端、全模組、使用人數無上限、終身 0 元免月租費！',\n    receiptFooter: prevCfg.receiptFooter !== undefined ? prevCfg.receiptFooter : '感謝您的光臨！本收據由【PIPI結帳系統】免費雲端POS開立',\n    driveFolderId: FOLDER_ID,\n    cloudSheetId: SHEET_ID,\n    cloudJsonFileId: JSON_FILE_ID,\n    cloudWebhookUrl: prevCfg.cloudWebhookUrl || '',\n    autoCloudSync: prevCfg.autoCloudSync !== false,\n    lastCloudSync: prevCfg.lastCloudSync || nowStr\n  };\n  var categories = [];\n  var categoryTaxExempt = {};\n  var foundCatSettingRow = false;\n\n  t8.dispRows.forEach(function(dRow) {\n    var key = String(dRow[0] || '').trim();\n    var val = String(dRow[2] || '').trim();\n    if (!key) return;\n    if (key === 'systemName' && val) cfg.systemName = val;\n    else if (key === 'storeName' && val) cfg.storeName = val;\n    else if (key === 'taxId' && val) cfg.taxId = val;\n    else if (key === 'announcement') cfg.announcement = val;\n    else if (key === 'receiptFooter') cfg.receiptFooter = val;\n    else if (key === 'categories') {\n      foundCatSettingRow = true;\n      if (val && val !== '尚未新增分類') {\n        val.split(/\\s*,\\s*|\\s*，\\s*/).forEach(function(tok) {\n          var t = String(tok || '').trim();\n          if (!t) return;\n          var m = t.match(/^(.+?)\\(開啟發票稅\\s*[:：]\\s*(是|否|ON|OFF)\\)$/i);\n          var catName = m ? m[1].trim() : t;\n          if (!catName) return;\n          if (categories.indexOf(catName) === -1) categories.push(catName);\n          if (m) {\n            var flag = m[2].toUpperCase();\n            categoryTaxExempt[catName] = (flag === '否' || flag === 'OFF');\n          } else if (prev.categoryTaxExempt && prev.categoryTaxExempt[catName] !== undefined) {\n            categoryTaxExempt[catName] = Boolean(prev.categoryTaxExempt[catName]);\n          }\n        });\n      }\n    }\n  });\n  if (!foundCatSettingRow && Array.isArray(prev.categories)) {\n    categories = prev.categories.slice();\n    categoryTaxExempt = prev.categoryTaxExempt || {};\n  }\n  // 若試算表「2_貨物資料與庫存」有填入新分類名稱，自動補進分類清單\n  products.forEach(function(p) {\n    if (p.category && p.category !== '未分類' && categories.indexOf(p.category) === -1) {\n      categories.push(p.category);\n    }\n  });\n\n  // 9. 讀取 9_一般管理員帳號密碼\n  var t9 = getSheetDataPair(ss, '9_一般管理員帳號密碼');\n  var prevMgrMap = {};\n  (prev.managers || []).forEach(function(m) { if (m && m.account) prevMgrMap[m.account] = m; });\n  var managers = [];\n  t9.dispRows.forEach(function(dRow) {\n    var acc = String(dRow[1] || '').trim();\n    var nm = String(dRow[2] || '').trim();\n    if (!acc && !nm) return;\n    if (!acc) acc = nm;\n    var title = String(dRow[3] || '').trim() || '一般管理員';\n    var pin = String(dRow[4] || '').trim();\n    if (!pin || pin === '0') pin = '0000';\n    var mustFlag = String(dRow[5] || '').trim().toUpperCase();\n    var oldM = prevMgrMap[acc];\n    if (acc === 'Chu,Tsung-Shang' && !prev.bossInitChu610221Set && (pin === '0000' || pin === 'Chu61022')) {\n      pin = 'Chu610221';\n    }\n    var mustChange = (!isCompliantPassword8Plus(pin))\n      ? true\n      : (mustFlag === 'TRUE' && oldM && String(oldM.pin) === pin ? true : false);\n    managers.push({\n      account: acc,\n      name: nm || acc,\n      title: title,\n      pin: pin,\n      mustChangePwd: mustChange,\n      pwdUpdatedAt: (oldM && String(oldM.pin) === pin) ? (oldM.pwdUpdatedAt || Date.now()) : Date.now()\n    });\n  });\n\n  var defaultManagers = [\n    { account: 'Chu,Tsung-Shang', name: '朱宗上', title: '老闆 (一般管理員)', pin: 'Chu610221', mustChangePwd: false },\n    { account: 'Lin,Ya-Ting', name: '林雅婷', title: '老闆娘 (一般管理員)', pin: '0000', mustChangePwd: true }\n  ];\n  defaultManagers.forEach(function(dm) {\n    if (!managers.some(function(m) { return m.account === dm.account; })) {\n      var fallbackM = prevMgrMap[dm.account];\n      managers.push(fallbackM ? fallbackM : dm);\n    }\n  });\n\n  return {\n    config: cfg,\n    categories: categories,\n    categoryTaxExempt: categoryTaxExempt,\n    userCustomizedCategories: true,\n    purgedLegacyPokemonYugioh: true,\n    fixedPipiToys25508846Locked: true,\n    specialSales25508846Applied: true,\n    bossInitChu610221Set: true,\n    products: products,\n    members: members,\n    orders: orders,\n    preorders: preorders,\n    managers: managers,\n    staff: staffList,\n    memos: prev.memos || {},\n    peers: peers,\n    transfers: transfers,\n    attendance: attendance\n  };\n}\n\nfunction formatDateFallback() {\n  var d = new Date();\n  return d.getFullYear() + '-' + ('0' + (d.getMonth() + 1)).slice(-2) + '-' + ('0' + d.getDate()).slice(-2);\n}\n\n/* ========================= 雙向合併引擎（絕不覆蓋遺失） ========================= */\n\nfunction mergeArrayByKey(primaryArr, secondaryArr, keyField) {\n  var out = Array.isArray(primaryArr) ? primaryArr.slice() : [];\n  var seen = {};\n  out.forEach(function(item) {\n    if (item && item[keyField] !== undefined) seen[String(item[keyField]).trim()] = true;\n  });\n  (secondaryArr || []).forEach(function(item) {\n    if (!item) return;\n    var k = item[keyField] !== undefined ? String(item[keyField]).trim() : '';\n    if (k && !seen[k]) {\n      seen[k] = true;\n      out.push(item);\n    }\n  });\n  return out;\n}\n\n/**\n * 當使用者在試算表改完資料並按 Apps Script「▶ 執行」(initAndTestCloudSync) 時：\n * - 若該分頁在試算表有修改（與上次寫入快照不同）或有資料 -> 100% 採用試算表最新修改！\n * - 若是第一次初始化快照（尚未有 _sheetDigests），則將試算表與雲端 JSON 兩邊資料無損聯集合併！\n */\nfunction mergeForManualExec(sheetState, prevJson) {\n  var prev = prevJson || {};\n  var prevDigests = prev._sheetDigests || null;\n  var curSheetDigests = computeStateDigests(sheetState);\n\n  if (!prevDigests) {\n    // 首次啟用雙向快照：無損合併試算表與雲端 JSON 兩端所有既有紀錄\n    var mergedCats = (sheetState.categories || []).slice();\n    (prev.categories || []).forEach(function(c) {\n      if (c && c !== '寶可夢' && c !== '遊戲王' && mergedCats.indexOf(c) === -1) mergedCats.push(c);\n    });\n    var mergedTaxMap = Object.assign({}, prev.categoryTaxExempt || {}, sheetState.categoryTaxExempt || {});\n    return Object.assign({}, sheetState, {\n      categories: mergedCats,\n      categoryTaxExempt: mergedTaxMap,\n      staff: mergeArrayByKey(sheetState.staff, prev.staff, 'email'),\n      products: mergeArrayByKey(sheetState.products, prev.products, 'code'),\n      orders: mergeArrayByKey(sheetState.orders, prev.orders, 'orderNo'),\n      attendance: mergeArrayByKey(sheetState.attendance, prev.attendance, 'id'),\n      preorders: mergeArrayByKey(sheetState.preorders, prev.preorders, 'preorderNo'),\n      transfers: mergeArrayByKey(sheetState.transfers, prev.transfers, 'transferNo'),\n      members: mergeArrayByKey(sheetState.members, prev.members, 'id'),\n      peers: mergeArrayByKey(sheetState.peers, prev.peers, 'id'),\n      managers: mergeArrayByKey(sheetState.managers, prev.managers, 'account'),\n      memos: prev.memos || {}\n    });\n  }\n\n  // 已有 _sheetDigests：只要試算表某分頁被手動修改過（含新增、修改、刪除），一律以試算表為準！\n  var pickCol = function(colName) {\n    var shChanged = curSheetDigests[colName] !== prevDigests[colName];\n    if (shChanged) return sheetState[colName];\n    return (Array.isArray(prev[colName]) && prev[colName].length > 0 && (!sheetState[colName] || sheetState[colName].length === 0))\n      ? prev[colName]\n      : sheetState[colName];\n  };\n\n  var catChanged = curSheetDigests.categories !== prevDigests.categories;\n  var cfgChanged = curSheetDigests.config !== prevDigests.config;\n\n  return Object.assign({}, sheetState, {\n    config: cfgChanged ? sheetState.config : Object.assign({}, sheetState.config, prev.config || {}, { cloudSheetId: SHEET_ID, driveFolderId: FOLDER_ID, cloudJsonFileId: JSON_FILE_ID }),\n    categories: catChanged ? sheetState.categories : (sheetState.categories.length ? sheetState.categories : (prev.categories || [])),\n    categoryTaxExempt: catChanged ? sheetState.categoryTaxExempt : Object.assign({}, prev.categoryTaxExempt || {}, sheetState.categoryTaxExempt || {}),\n    staff: pickCol('staff'),\n    products: pickCol('products'),\n    orders: pickCol('orders'),\n    attendance: pickCol('attendance'),\n    preorders: pickCol('preorders'),\n    transfers: pickCol('transfers'),\n    members: pickCol('members'),\n    peers: pickCol('peers'),\n    managers: pickCol('managers'),\n    memos: prev.memos || {}\n  });\n}\n\n/**\n * 當網站 (含 GitHub 更新程式碼後) 發送 POST 同步時的三方安全合併：\n * 1. 保護試算表手動修改：若試算表某分頁被使用者手動改過，而網站這次並未修改該分頁，保留試算表修改！\n * 2. 防空值覆蓋鎖 (Anti-Wipe Guard)：若網站剛在 GitHub 更新或未完成雲端載入 (!clientHydrated)，絕不允許用空陣列洗掉既有資料！\n */\nfunction mergeForWebPost(incomingState, payloadMeta, ss, prevJson) {\n  var inc = incomingState || {};\n  var prev = prevJson || {};\n  var sheetState = readFullStateFromSheets(ss, prev);\n  var prevSheetDigests = prev._sheetDigests || null;\n  var curSheetDigests = computeStateDigests(sheetState);\n\n  var clientHydrated = Boolean(payloadMeta && payloadMeta.clientHydrated);\n  var allowEmptyOverwrite = Boolean(payloadMeta && payloadMeta.allowEmptyOverwrite);\n  var mutatedList = (payloadMeta && Array.isArray(payloadMeta.mutatedCollections)) ? payloadMeta.mutatedCollections : null;\n\n  var isMutatedOnWeb = function(col) {\n    if (allowEmptyOverwrite) return true;\n    if (mutatedList) return mutatedList.indexOf(col) !== -1;\n    return stableDigest(inc[col]) !== stableDigest(prev[col]);\n  };\n\n  var isEditedOnSheet = function(col) {\n    if (!prevSheetDigests) return Array.isArray(sheetState[col]) ? sheetState[col].length > 0 : false;\n    return curSheetDigests[col] !== prevSheetDigests[col];\n  };\n\n  var resolveArrayCol = function(col, keyField) {\n    var webArr = Array.isArray(inc[col]) ? inc[col] : [];\n    var shArr = Array.isArray(sheetState[col]) ? sheetState[col] : [];\n    var prevArr = Array.isArray(prev[col]) ? prev[col] : [];\n    var baseExisting = isEditedOnSheet(col) ? shArr : (shArr.length >= prevArr.length ? shArr : prevArr);\n\n    // 若客戶端主動按了雙重確認「清空重置全站資料」\n    if (allowEmptyOverwrite) return webArr;\n\n    // 防空值洗白鎖：若網頁未完成雲端載入 (!clientHydrated)，禁止把非空資料洗成空白，改為無損聯集\n    if (!clientHydrated) {\n      if (webArr.length === 0 && baseExisting.length > 0) return baseExisting;\n      return mergeArrayByKey(webArr, baseExisting, keyField);\n    }\n\n    var webMut = isMutatedOnWeb(col);\n    var shMut = isEditedOnSheet(col);\n\n    if (shMut && !webMut) {\n      return shArr;\n    }\n    if (webMut && !shMut) {\n      // 額外保護：若此模組並非使用者主動修改 (mutatedList 無此項)，且 webArr 為空但既有資料非空，保留既有資料\n      if (mutatedList && mutatedList.indexOf(col) === -1 && webArr.length === 0 && baseExisting.length > 0) {\n        return baseExisting;\n      }\n      return webArr;\n    }\n    if (webMut && shMut) {\n      return mergeArrayByKey(webArr, shArr, keyField);\n    }\n    return webArr.length > 0 ? webArr : baseExisting;\n  };\n\n  // 處理分類與免稅規則\n  var finalCategories = inc.categories || [];\n  var finalTaxExempt = inc.categoryTaxExempt || {};\n  if (!allowEmptyOverwrite) {\n    if (isEditedOnSheet('categories') && !isMutatedOnWeb('categories')) {\n      finalCategories = sheetState.categories;\n      finalTaxExempt = sheetState.categoryTaxExempt;\n    } else if (!clientHydrated && finalCategories.length === 0 && sheetState.categories.length > 0) {\n      finalCategories = sheetState.categories;\n      finalTaxExempt = sheetState.categoryTaxExempt;\n    }\n  }\n\n  // 處理系統設定\n  var finalConfig = Object.assign(\n    {},\n    sheetState.config || {},\n    prev.config || {},\n    inc.config || {}\n  );\n  if (isEditedOnSheet('config') && !isMutatedOnWeb('config')) {\n    finalConfig.systemName = sheetState.config.systemName;\n    finalConfig.storeName = sheetState.config.storeName;\n    finalConfig.taxId = sheetState.config.taxId;\n    finalConfig.announcement = sheetState.config.announcement;\n    finalConfig.receiptFooter = sheetState.config.receiptFooter;\n  }\n\n  // 處理一般管理員帳號密碼（支援新增多位一般管理員、老闆初始密碼 Chu610221 可修改、以及試算表與網頁雙向同步）\n  var finalManagers = resolveArrayCol('managers', 'account');\n\n  return {\n    config: finalConfig,\n    categories: finalCategories,\n    categoryTaxExempt: finalTaxExempt,\n    userCustomizedCategories: true,\n    purgedLegacyPokemonYugioh: true,\n    fixedPipiToys25508846Locked: true,\n    specialSales25508846Applied: true,\n    bossInitChu610221Set: true,\n    staff: resolveArrayCol('staff', 'email'),\n    products: resolveArrayCol('products', 'code'),\n    orders: resolveArrayCol('orders', 'orderNo'),\n    attendance: resolveArrayCol('attendance', 'id'),\n    preorders: resolveArrayCol('preorders', 'preorderNo'),\n    transfers: resolveArrayCol('transfers', 'transferNo'),\n    members: resolveArrayCol('members', 'id'),\n    peers: resolveArrayCol('peers', 'id'),\n    managers: finalManagers,\n    memos: Object.assign({}, prev.memos || {}, inc.memos || {})\n  };\n}\n\n/* ========================= 寫入 Google Sheet 9 大分頁與雲端 JSON ========================= */\n\nfunction writeSheetRows(ss, tabName, headers, rows) {\n  if (!ss || typeof ss.getSheetByName !== 'function') {\n    return initAndTestCloudSync();\n  }\n  var sh = ss.getSheetByName(tabName);\n  if (!sh) {\n    sh = ss.insertSheet(tabName);\n  }\n  sh.clearContents();\n  var safeRows = (rows && rows.length > 0)\n    ? rows.map(function(r) {\n        return headers.map(function(_, idx) {\n          return (r[idx] !== undefined && r[idx] !== null) ? r[idx] : '';\n        });\n      })\n    : [];\n  var data = [headers].concat(safeRows);\n  sh.getRange(1, 1, data.length, headers.length).setValues(data);\n  return sh;\n}\n\nfunction writeAllTabsAndJson(ss, state) {\n  var safeState = state || {};\n  var now = new Date().toLocaleString('zh-TW', { hour12: false });\n\n  // 確保固定銷售員 PIPI TOY’S (25508846) 永遠存在且密碼鎖定\n  var rawStaff = Array.isArray(safeState.staff) ? safeState.staff : [];\n  var otherStaff = rawStaff.filter(function(s) { return s && s.email !== '25508846' && !s.isFixedAccount; });\n  safeState.staff = [{\n    email: '25508846',\n    name: \"PIPI TOY’S\",\n    role: '一般銷售員',\n    status: '永久啟用 (不可刪除・密碼不可修改)',\n    pin: '25508846',\n    mustChangePwd: false,\n    isFixedAccount: true\n  }].concat(otherStaff);\n\n  // 確保一般管理員帳號存在\n  var defaultMgrs = [\n    { account: 'Chu,Tsung-Shang', name: '朱宗上', title: '老闆 (一般管理員)', pin: 'Chu610221', mustChangePwd: false },\n    { account: 'Lin,Ya-Ting', name: '林雅婷', title: '老闆娘 (一般管理員)', pin: '0000', mustChangePwd: true }\n  ];\n  if (!Array.isArray(safeState.managers)) safeState.managers = [];\n  defaultMgrs.forEach(function(dm) {\n    if (!safeState.managers.some(function(m) { return m && m.account === dm.account; })) {\n      safeState.managers.push(dm);\n    }\n  });\n\n  if (!safeState.config) safeState.config = {};\n  safeState.config.lastCloudSync = now;\n  safeState.config.driveFolderId = FOLDER_ID;\n  safeState.config.cloudSheetId = SHEET_ID;\n  safeState.config.cloudJsonFileId = JSON_FILE_ID;\n\n  // 分頁 1：1_員工帳號密碼\n  var staffRows = safeState.staff.map(function(s, i) {\n    var isFixed = s.email === '25508846' || Boolean(s.isFixedAccount);\n    return [\n      isFixed ? 'STF-FIXED' : ('STF-' + String(i + 1).padStart(3, '0')),\n      isFixed ? '25508846' : (s.email || ''),\n      isFixed ? \"PIPI TOY’S\" : (s.name || s.email || ''),\n      isFixed ? '普通銷售員 (永久固定帳號)' : (s.role || '普通銷售員'),\n      isFixed ? '25508846' : String(s.pin || '0000'),\n      isFixed ? 'FALSE' : ((!isCompliantPassword8Plus(s.pin || '0000') || Boolean(s.mustChangePwd)) ? 'TRUE' : 'FALSE'),\n      isFixed ? '永久啟用 (不可刪除・密碼不可修改)' : (s.status || '啟用'),\n      s.createdAt || now,\n      now\n    ];\n  });\n  var stfSh = ss.getSheetByName('1_員工帳號密碼') || ss.insertSheet('1_員工帳號密碼');\n  stfSh.getRange(1, 5, Math.max(2, staffRows.length + 2), 1).setNumberFormat('@');\n  writeSheetRows(\n    ss,\n    '1_員工帳號密碼',\n    ['員工編號 (ID)', '員工登入帳號', '員工姓名', '職稱', '登入密碼 (8字以上含大小寫英數/初始0000)', '需強制改密碼 (mustChangePwd)', '狀態', '建立時間', '最後更新時間'],\n    staffRows\n  );\n  stfSh.getRange(2, 5, Math.max(1, staffRows.length), 1).setNumberFormat('@');\n\n  // 分頁 2：2_貨物資料與庫存\n  var prodSh = writeSheetRows(\n    ss,\n    '2_貨物資料與庫存',\n    ['商品條碼 (8位數字)', '商品名稱', '分類', '單位', '進貨價 ($)', '市場價 ($)', '售價 ($)', '目前庫存數量', '安全庫存警示量', '最後異動時間'],\n    (safeState.products || []).map(function(p) {\n      return [\n        /^\\d+$/.test(String(p.code || '')) ? Number(p.code) : (p.code || ''),\n        p.name || '',\n        p.category || '未分類',\n        '件',\n        Number(p.cost) || 0,\n        Number(p.marketPrice !== undefined ? p.marketPrice : p.price) || 0,\n        Number(p.price) || 0,\n        Number(p.stock) || 0,\n        10,\n        now\n      ];\n    })\n  );\n  if (prodSh) {\n    prodSh.setColumnWidth(1, 115);\n    prodSh.setColumnWidth(2, 150);\n    prodSh.setColumnWidth(3, 110);\n    prodSh.setColumnWidth(4, 70);\n    prodSh.setColumnWidth(5, 95);\n    prodSh.setColumnWidth(6, 95);\n    prodSh.setColumnWidth(7, 95);\n    prodSh.setColumnWidth(8, 110);\n    prodSh.setColumnWidth(9, 115);\n    prodSh.setColumnWidth(10, 155);\n    if (prodSh.getLastRow() >= 2) {\n      prodSh.getRange(2, 1, prodSh.getLastRow() - 1, 1).setNumberFormat('00000000');\n    }\n  }\n\n  // 分頁 3：3_每日銷售明細\n  writeSheetRows(\n    ss,\n    '3_每日銷售明細',\n    ['交易單號', '交易日期時間', '收銀員帳號', '收銀員姓名', '客戶/會員名稱', '付款方式', '商品明細摘要', '商品小計 ($)', '折扣金額 ($)', '發票稅開關 (ON/OFF)', '5%發票稅額 ($)', '實收總額 ($)', '商品總進貨成本 ($)', '單筆毛利 ($)', '扣除發票稅後淨利 ($)', '狀態'],\n    (safeState.orders || []).map(function(o) {\n      var taxAmt = (typeof o.invoiceTax === 'number') ? o.invoiceTax : (typeof o.taxIncluded === 'number' ? o.taxIncluded : 0);\n      var taxOn = (o.invoiceTaxEnabled !== undefined) ? o.invoiceTaxEnabled : (taxAmt > 0);\n      var totalVal = Number(o.total) || 0;\n      var costVal = Number(o.totalCost) || 0;\n      var grossVal = totalVal - costVal;\n      var netVal = grossVal - taxAmt;\n      return [\n        o.orderNo || '',\n        o.time || '',\n        o.cashier || 'tw202501tw@gmail.com',\n        o.cashier || '管理員',\n        o.memberName || '一般散客',\n        o.payMethod || '現金',\n        (o.items || []).map(function(x) { return x.name + '($' + x.price + ')x' + x.qty; }).join('; '),\n        Number(o.subtotal) || totalVal,\n        Number(o.discount) || 0,\n        taxOn ? 'ON' : 'OFF',\n        taxAmt,\n        totalVal,\n        costVal,\n        grossVal,\n        netVal,\n        o.status || '已完成'\n      ];\n    })\n  );\n\n  // 分頁 4：4_員工打卡紀錄\n  writeSheetRows(\n    ss,\n    '4_員工打卡紀錄',\n    ['打卡紀錄編號', '日期', '時間 (上班~下班)', '員工帳號', '班別', '累積工時 (小時)', '打卡狀態', '備註說明'],\n    (safeState.attendance || []).map(function(a) {\n      return [\n        a.id || '',\n        a.date || '',\n        (a.clockIn || '') + ' ~ ' + (a.clockOut || '上班值勤中'),\n        a.account || '',\n        a.shift || '正常班',\n        Number(a.hours) || 0,\n        a.clockOut ? '已下班退勤' : '上班值勤中',\n        a.note || ''\n      ];\n    })\n  );\n\n  // 分頁 5：5_預購商品紀錄\n  writeSheetRows(\n    ss,\n    '5_預購商品紀錄',\n    ['預購單號', '建立時間', '預購客人姓名', '聯絡電話', '預購商品名稱', '分類', '數量', '預估進貨價 ($)', '市場價 ($)', '預購售價 ($)', '商品總價 ($)', '已收訂金 ($)', '訂金付款方式', '待補尾款 ($)', '預計到貨日', '取貨狀態', '尾款結清時間', '經手員工', '備註'],\n    (safeState.preorders || []).map(function(p) {\n      return [\n        p.preorderNo || '',\n        p.createdAt || '',\n        p.customerName || '',\n        p.phone || '',\n        p.itemName || '',\n        p.category || '未分類',\n        Number(p.qty) || 1,\n        Number(p.unitCost) || 0,\n        Number(p.marketPrice !== undefined ? p.marketPrice : p.unitPrice) || 0,\n        Number(p.unitPrice) || 0,\n        Number(p.totalPrice) || 0,\n        Number(p.depositPaid) || 0,\n        p.payMethod || '現金',\n        Number(p.balanceDue) || 0,\n        p.arrivalDate || '待定',\n        p.status || '待取貨',\n        p.completedAt || '',\n        p.handler || '',\n        p.note || ''\n      ];\n    })\n  );\n\n  // 分頁 6：6_同行調貨紀錄\n  writeSheetRows(\n    ss,\n    '6_同行調貨紀錄',\n    ['調貨單號', '日期時間', '調貨類型', '同行店名', '商品代碼 (SKU)', '商品名稱', '數量', '進貨價 ($)', '同行調貨單價 ($)', '市場/零售價 ($)', '調貨總金額 ($)', '結算狀態', '經手人', '備註'],\n    (safeState.transfers || []).map(function(t) {\n      return [\n        t.transferNo || '',\n        t.time || '',\n        t.direction === 'in' ? '從同行調入' : '調出給同行',\n        t.peerName || '',\n        t.prodCode || t.sku || '',\n        t.prodName || t.productName || '',\n        Number(t.qty) || 1,\n        Number(t.unitCost || t.unitPrice) || 0,\n        Number(t.unitPrice || t.peerUnitPrice) || 0,\n        Number(t.retailPrice || t.unitPrice) || 0,\n        Number(t.total || t.totalAmount) || 0,\n        t.settled ? '已結清' : '未結清',\n        '管理員/員工',\n        t.note || ''\n      ];\n    })\n  );\n\n  // 分頁 7：7_會員與同行名冊\n  var crmRows = (safeState.members || []).map(function(m) {\n    return [m.id || '', m.name || '', m.tier || '一般會員', m.phone || '', '', Number(m.spent) || 0, Number(m.points) || 0, '門市會員'];\n  }).concat((safeState.peers || []).map(function(p) {\n    return [p.id || '', p.name || '', '合作同行', p.phone || '', p.contact || '', 0, 0, p.note || '同行店家'];\n  }));\n  writeSheetRows(\n    ss,\n    '7_會員與同行名冊',\n    ['編號', '名稱/店名', '身份類別 (一般會員/VIP會員/合作同行)', '聯絡電話', '聯絡人/LINE', '累積消費或調貨額 ($)', '目前點數', '備註'],\n    crmRows\n  );\n\n  // 分頁 8：8_系統設定\n  var cfg = safeState.config || {};\n  writeSheetRows(\n    ss,\n    '8_系統設定',\n    ['設定項目代碼', '設定項目名稱', '目前設定值', '說明'],\n    [\n      ['systemName', '結帳系統名稱', cfg.systemName || 'PIPI結帳系統', '可直接修改此格並同步至網站標題'],\n      ['storeName', '店鋪名稱', cfg.storeName || 'PIPI 旗艦零售門市', '可直接修改此格並同步至雙聯收據表頭'],\n      ['taxId', '統編與電話', cfg.taxId || '統編 48676299 / 02-2550-8846', '可直接修改此格並同步至雙聯收據'],\n      ['announcement', '系統跑馬燈公告', cfg.announcement || '', '可直接修改頂部公告文字'],\n      ['receiptFooter', '收據底部感謝詞', cfg.receiptFooter || '', '可直接修改雙聯明細單頁尾文字'],\n      ['taxRate', '發票稅率 (%)', '5', '開啟發票稅時自動計算 5% 營業稅並從每日淨利扣除'],\n      ['parkingFee', '每月公司停車場固定費用 ($)', '5500', '每月淨利潤固定扣除 $5,500 停車場費用'],\n      ['categories', '自訂商品分類與免稅規則', (safeState.categories || []).map(function(c) { return c + ((safeState.categoryTaxExempt && safeState.categoryTaxExempt[c]) ? '(開啟發票稅:否)' : '(開啟發票稅:是)'); }).join(', ') || '尚未新增分類', '可直接修改分類名稱與(開啟發票稅:是/否)'],\n      ['lastCloudSync', '最後雲端同步時間', now, '試算表與網站雙向即時同步']\n    ]\n  );\n\n  // 分頁 9：9_一般管理員帳號密碼\n  var mgrSh = ss.getSheetByName('9_一般管理員帳號密碼') || ss.insertSheet('9_一般管理員帳號密碼');\n  mgrSh.getRange(1, 5, Math.max(3, safeState.managers.length + 2), 1).setNumberFormat('@');\n  var managerSheetRows = safeState.managers.map(function(m, i) {\n    var isBoss = (m.account === 'Chu,Tsung-Shang');\n    var pinStr = String(m.pin || (isBoss ? 'Chu610221' : '0000'));\n    var mustChg = !isCompliantPassword8Plus(pinStr) ? true : Boolean(m.mustChangePwd);\n    return [\n      'MGR-' + String(i + 1).padStart(2, '0'),\n      m.account,\n      m.name,\n      m.title || '一般管理員',\n      pinStr,\n      mustChg ? 'TRUE' : 'FALSE',\n      mustChg ? '啟用 (初始密碼0000，首次登入強制修改為≥8位英數密碼)' : (isBoss ? '啟用 (老闆初始Chu610221・可修改並自動同步)' : '啟用 (已設定≥8位專屬密碼並自動同步)'),\n      m.createdAt || now,\n      now\n    ];\n  });\n  writeSheetRows(\n    ss,\n    '9_一般管理員帳號密碼',\n    ['管理員編號 (ID)', '一般管理員登入帳號', '管理員姓名', '職稱', '登入密碼 (初始0000 / 修改後自動變更)', '需強制改密碼 (mustChangePwd)', '狀態', '建立時間', '最後更新時間'],\n    managerSheetRows\n  );\n  mgrSh.getRange(2, 5, Math.max(1, managerSheetRows.length), 1).setNumberFormat('@');\n\n  // 重新讀取寫入後的試算表計算最新快照指紋，存入雲端 JSON 作為下次雙向比對基準\n  var writtenSheetState = readFullStateFromSheets(ss, safeState);\n  safeState._sheetDigests = computeStateDigests(writtenSheetState);\n  writeCloudJsonState(safeState);\n\n  return { syncedAt: now, state: safeState };\n}\n\n/* ========================= Web App API 端點 (doPost / doGet) ========================= */\n\nfunction doPost(e) {\n  var lock = LockService.getScriptLock();\n  lock.tryLock(15000);\n  try {\n    if (!e || !e.postData || !e.postData.contents) {\n      var initRes = initAndTestCloudSync();\n      return ContentService\n        .createTextOutput(JSON.stringify({ ok: true, schemaVersion: SCHEMA_VERSION, syncedAt: initRes.syncedAt, state: initRes.state }))\n        .setMimeType(ContentService.MimeType.JSON);\n    }\n    var payload = JSON.parse(e.postData.contents);\n    var ss = SpreadsheetApp.openById(SHEET_ID);\n    var prevJson = readCloudJsonState();\n    var merged = mergeForWebPost(payload.state || {}, payload, ss, prevJson);\n    var res = writeAllTabsAndJson(ss, merged);\n    return ContentService\n      .createTextOutput(JSON.stringify({ ok: true, schemaVersion: SCHEMA_VERSION, syncedAt: res.syncedAt, state: res.state }))\n      .setMimeType(ContentService.MimeType.JSON);\n  } catch (err) {\n    return ContentService\n      .createTextOutput(JSON.stringify({ ok: false, error: String(err) }))\n      .setMimeType(ContentService.MimeType.JSON);\n  } finally {\n    lock.releaseLock();\n  }\n}\n\nfunction doGet(e) {\n  var lock = LockService.getScriptLock();\n  lock.tryLock(10000);\n  try {\n    var ss = SpreadsheetApp.openById(SHEET_ID);\n    var prevJson = readCloudJsonState();\n    var sheetState = readFullStateFromSheets(ss, prevJson);\n    var merged = mergeForManualExec(sheetState, prevJson);\n\n    // 若偵測到使用者剛在 Google 試算表直接修改過任何分頁，自動回存至雲端 JSON 並回傳最新狀態給網站\n    var prevDigests = prevJson._sheetDigests || null;\n    var curDigests = computeStateDigests(sheetState);\n    if (!prevDigests || stableDigest(curDigests) !== stableDigest(prevDigests)) {\n      merged._sheetDigests = curDigests;\n      writeCloudJsonState(merged);\n    }\n\n    return ContentService\n      .createTextOutput(JSON.stringify({ ok: true, schemaVersion: SCHEMA_VERSION, state: merged }))\n      .setMimeType(ContentService.MimeType.JSON);\n  } catch (err) {\n    return ContentService\n      .createTextOutput(JSON.stringify({ ok: false, error: String(err) }))\n      .setMimeType(ContentService.MimeType.JSON);\n  } finally {\n    lock.releaseLock();\n  }\n}";
                 copyTextSafe(gasSnippet);
-                showToast('⚡ 已複製 Apps Script 程式碼.gs！請貼到 Google 試算表的 Apps Script 中');
+                showToast('⚡ 已複製完整雙向防丟失版 Code.gs！請貼到 Google 試算表的 Apps Script 中並建立新版本部署');
             });
 
             // ==================== AUTH GATE & STRICT ENGLISH PASSWORD LOCK ====================
@@ -4343,47 +4495,57 @@
                     return;
                 }
 
-                const expected = staffObj.pin || '0000';
-                const isFirst = (staffObj.mustChangePwd !== false || expected === '0000');
-                if (isFirst && pin !== '0000') { showToast('剛註冊員工首次登入請輸入預設密碼 0000', 'error'); return; }
-                if (!isFirst && pin !== expected) { showToast('員工密碼輸入錯誤（請確認英文大小寫）！', 'error'); return; }
+                const expected = String(staffObj.pin || '0000');
+                if (pin !== expected) {
+                    if (expected === '0000') {
+                        showToast('首次登入請先輸入初始密碼 0000，進入後系統會自動跳出修改密碼畫面！', 'error');
+                    } else {
+                        showToast('銷售員密碼輸入錯誤（請確認英文大小寫）！', 'error');
+                    }
+                    return;
+                }
 
+                const needsForceChange = Boolean(staffObj.mustChangePwd) || expected === '0000' || !validateStaffPassword8(expected).valid;
                 currentSessionUser = { role: 'staff', account: staffObj.email, name: staffObj.name || staffObj.email, isFixedAccount: false };
                 document.getElementById('staff-login-pin').value = '';
                 document.getElementById('auth-login-gate').classList.add('hidden');
                 updateSessionUI();
-                switchTab('pos');
-                if (isFirst) openForcePasswordModal(staffObj, true, 'staff');
-                else showToast(`歡迎回來，${staffObj.name || staffObj.email}！`);
+                if (needsForceChange) {
+                    openForcePasswordModal(staffObj, true, 'staff', false);
+                    showToast('🔐 您的密碼為初始 0000 或未符合規範，請立即設定新密碼！', 'info');
+                } else {
+                    switchTab('pos');
+                    showToast(`歡迎回來，${staffObj.name || staffObj.email}！`);
+                }
             });
 
-            // 一般管理員登入 (老闆 Chu,Tsung-Shang 朱宗上 / 老闆娘 Lin,Ya-Ting 林雅婷)
+            // 一般管理員登入 (老闆 Chu,Tsung-Shang / 老闆娘 Lin,Ya-Ting / 新增之一般管理員)
             document.getElementById('manager-login-submit-btn').addEventListener('click', () => {
                 ensureManagersList();
                 const acc = document.getElementById('manager-login-select').value;
                 const pin = document.getElementById('manager-login-pin').value.trim();
                 const mgrObj = appState.managers.find(m => m.account === acc);
                 if (!mgrObj) return;
-                const expected = mgrObj.pin || '0000';
-                const isFirst = (mgrObj.mustChangePwd !== false || expected === '0000');
-                if (isFirst && pin !== '0000') {
-                    showToast('首次登入請輸入初始密碼 0000，進入後再設定 8 個字以上的專屬密碼！', 'error');
-                    return;
-                }
-                if (!isFirst && pin !== expected) {
-                    showToast('一般管理員密碼輸入錯誤（請注意英文大小寫）！', 'error');
+                const expected = String(mgrObj.pin || (mgrObj.account === 'Chu,Tsung-Shang' ? 'Chu610221' : '0000'));
+                if (pin !== expected) {
+                    if (expected === '0000') {
+                        showToast('首次登入請先輸入初始密碼 0000，進入後系統會自動跳出修改密碼畫面！', 'error');
+                    } else {
+                        showToast('一般管理員密碼輸入錯誤（請注意英文大小寫）！', 'error');
+                    }
                     return;
                 }
 
-                currentSessionUser = { role: 'manager', account: mgrObj.account, name: mgrObj.name, title: mgrObj.title };
+                const needsForceChange = Boolean(mgrObj.mustChangePwd) || expected === '0000' || !validateStaffPassword8(expected).valid;
+                currentSessionUser = { role: 'manager', account: mgrObj.account, name: mgrObj.name, title: mgrObj.title || '一般管理員' };
                 document.getElementById('manager-login-pin').value = '';
                 document.getElementById('auth-login-gate').classList.add('hidden');
                 updateSessionUI();
-                switchTab('pos');
-                if (isFirst) {
-                    openForcePasswordModal(mgrObj, true, 'manager');
-                    showToast(`歡迎 ${mgrObj.name} (${mgrObj.title})！首次登入請立即設定 8 個字以上的專屬密碼`, 'info');
+                if (needsForceChange) {
+                    openForcePasswordModal(mgrObj, true, 'manager', false);
+                    showToast(`歡迎 ${mgrObj.name}！目前密碼未符合規範或為初始 0000，請立即修改密碼`, 'info');
                 } else {
+                    switchTab('pos');
                     showToast(`👔 歡迎回來，${mgrObj.name} (${mgrObj.account})！`);
                 }
             });
@@ -4433,66 +4595,83 @@
                     }
                 }
                 if (p1.length < 8) {
-                    showToast(`密碼長度須為 8 個字或以上（目前僅輸入 ${p1.length} 個字）！`, 'error');
+                    showToast(`密碼總長度須大於等於 8 位數（目前僅輸入 ${p1.length} 位數）！`, 'error');
                     return;
                 }
                 const chk = validateStaffPassword8(p1);
-                if (!chk.valid) { showToast('密碼須至少 8 個字，且含英文大寫、英文小寫與數字各至少 1 個！', 'error'); return; }
+                if (!chk.valid) { showToast('密碼總長度須大於等於 8 位數，且含英文大寫、英文小寫與數字各至少 1 個！', 'error'); return; }
                 if (p1 !== p2) { showToast('兩次輸入的新密碼不一致，可點右上角「👁️ 顯示密碼文字」檢查！', 'error'); return; }
 
                 if (pendingPwdTarget && pendingPwdTarget.type === 'manager') {
                     const mgr = appState.managers.find(m => m.account === pendingPwdTarget.key);
                     if (!mgr) return;
+                    const wasMandatory = Boolean(pendingPwdTarget.isMandatory);
                     mgr.pin = p1;
                     mgr.mustChangePwd = false;
                     mgr.pwdUpdatedAt = Date.now();
                     appState.bossInitChu610221Set = true;
+                    isMandatoryPwdLockActive = false;
                     clearTimeout(cloudSyncTimer);
                     try { localStorage.setItem(STORAGE_KEY, JSON.stringify(appState)); } catch (e) {}
                     pushToGoogleDriveCloud(true, true);
                     renderStaff();
                     document.getElementById('force-change-pwd-modal').classList.add('hidden');
                     document.getElementById('force-change-pwd-modal').classList.remove('flex');
-                    showToast(`✅ 【${mgr.name} (${mgr.account})】新密碼已儲存並同步雲端！`);
+                    if (wasMandatory) switchTab('pos');
+                    showToast(`✅ 【${mgr.name} (${mgr.account})】新密碼已設定完成並同步雲端！`);
                 } else {
                     const key = pendingPwdTarget ? pendingPwdTarget.key : document.getElementById('force-pwd-account').value;
                     if (key === '25508846') {
-                        showToast('🔒 【PIPI TOY’S (25508846)】密碼永遠不可修改！', 'error');
+                        showToast('🔒 【25508846 (PIPI TOY’S)】此帳號永久不能改密碼！', 'error');
                         return;
                     }
                     const st = appState.staff.find(s => s.email === key);
                     if (!st || st.isFixedAccount) return;
+                    const wasMandatory = Boolean(pendingPwdTarget && pendingPwdTarget.isMandatory);
                     st.pin = p1;
                     st.mustChangePwd = false;
                     st.pwdUpdatedAt = Date.now();
+                    isMandatoryPwdLockActive = false;
                     clearTimeout(cloudSyncTimer);
                     saveState();
                     renderStaff();
                     document.getElementById('force-change-pwd-modal').classList.add('hidden');
                     document.getElementById('force-change-pwd-modal').classList.remove('flex');
-                    showToast(`✅ 帳號【${st.email}】的新密碼已設定完成！`);
+                    if (wasMandatory) switchTab('pos');
+                    showToast(`✅ 帳號【${st.email}】的新密碼已設定完成並同步雲端！`);
                 }
             });
             document.getElementById('voluntary-change-pwd-btn').addEventListener('click', () => {
                 if (!currentSessionUser) return;
                 if (currentSessionUser.role === 'manager') {
                     const mgr = appState.managers.find(m => m.account === currentSessionUser.account);
-                    // 必須先輸入目前舊密碼驗證 (requireOldPin = true)，不可直接無驗證改密碼
-                    if (mgr) openForcePasswordModal(mgr, false, 'manager', true, false);
+                    if (mgr) openForcePasswordModal(mgr, false, 'manager', true);
                 } else if (currentSessionUser.role === 'staff') {
                     if (currentSessionUser.account === '25508846' || currentSessionUser.isFixedAccount) {
-                        showToast('🔒 【PIPI TOY’S (25508846)】密碼永遠不可修改！', 'error');
+                        showToast('🔒 【25508846 (PIPI TOY’S)】此帳號永久不能改密碼！', 'error');
                         return;
                     }
                     const st = appState.staff.find(s => s.email === currentSessionUser.account);
-                    if (st) openForcePasswordModal(st, false, 'staff', true, false);
+                    if (st) openForcePasswordModal(st, false, 'staff', true);
                 }
             });
             document.getElementById('cancel-voluntary-pwd-btn').addEventListener('click', () => {
+                if (isMandatoryPwdLockActive) return;
                 document.getElementById('force-change-pwd-modal').classList.add('hidden');
                 document.getElementById('force-change-pwd-modal').classList.remove('flex');
             });
+            document.getElementById('abort-mandatory-logout-btn').addEventListener('click', () => {
+                isMandatoryPwdLockActive = false;
+                currentSessionUser = null;
+                document.getElementById('force-change-pwd-modal').classList.add('hidden');
+                document.getElementById('force-change-pwd-modal').classList.remove('flex');
+                document.getElementById('staff-login-pin').value = '';
+                document.getElementById('manager-login-pin').value = '';
+                renderStaffLoginDropdown();
+                document.getElementById('auth-login-gate').classList.remove('hidden');
+            });
             document.getElementById('logout-switch-user-btn').addEventListener('click', () => {
+                isMandatoryPwdLockActive = false;
                 currentSessionUser = null;
                 document.getElementById('staff-login-keyword').value = '';
                 document.getElementById('staff-login-pin').value = '';
