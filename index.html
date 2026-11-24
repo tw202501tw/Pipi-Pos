@@ -894,9 +894,9 @@
                     <div class="pt-3 border-t border-slate-100 space-y-2">
                         <div class="flex items-center justify-between">
                             <label class="block text-xs font-bold text-slate-800">➕ 註冊新員工帳號 (初始密碼 0000)</label>
-                            <span class="text-[11px] text-amber-700 bg-amber-50 border border-amber-200 px-2 py-0.5 rounded font-semibold">首登強制改 8 碼英數密碼</span>
+                            <span class="text-[11px] text-amber-700 bg-amber-50 border border-amber-200 px-2 py-0.5 rounded font-semibold">首登強制改 8 字以上英數密碼</span>
                         </div>
-                        <p class="text-[11px] text-slate-500">本系統禁止外部自行註冊。員工首次使用 <strong>0000</strong> 登入時，會強制要求改為 <strong>8 位數密碼（含英文大寫、小寫、數字至少各一，可含符號）</strong>。</p>
+                        <p class="text-[11px] text-slate-500">本系統禁止外部自行註冊。員工首次使用 <strong>0000</strong> 登入時，會強制要求改為 <strong>8 個字以上密碼（含英文大寫、小寫、數字至少各一，可含符號）</strong>。</p>
                         <div class="flex flex-col sm:flex-row gap-2">
                             <input id="new-staff-account-input" type="text" placeholder="新增員工帳號 (如：staff01)..." class="flex-1 px-3 py-2 rounded-xl border border-slate-300 text-xs outline-none focus:border-blue-500">
                             <input id="new-staff-email" type="text" placeholder="員工姓名 (如：王小美)..." class="flex-1 px-3 py-2 rounded-xl border border-slate-300 text-xs outline-none focus:border-blue-500">
@@ -917,11 +917,11 @@
                             <span>☁️ Google Drive 雲端硬碟資料庫已綁定（1 秒內自動同步）</span>
                         </div>
                         <h3 class="text-lg font-extrabold text-slate-900">📂 PIPI結帳系統 — Google 雲端硬碟儲存庫與自動同步中心</h3>
-                        <p class="text-xs text-slate-500">已綁定您的專屬資料夾，自動同步員工帳號與 8 位密碼、貨物三價與庫存、每日銷售、打卡紀錄、預購、同行調貨與設定。</p>
+                        <p class="text-xs text-slate-500">已綁定您的專屬資料夾，自動同步管理員與員工帳號密碼、貨物三價與庫存、每日銷售、打卡紀錄、預購、同行調貨與設定。</p>
                     </div>
                     <div class="flex flex-wrap items-center gap-2">
                         <a href="https://drive.google.com/drive/folders/1-ZXsXnlhzm7YTg5gQG5bh4vMNmr6HO8C" target="_blank" rel="noopener noreferrer" class="px-3.5 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-xs font-bold transition">📁 開啟雲端硬碟資料夾</a>
-                        <a href="https://docs.google.com/spreadsheets/d/1Ma9LwRPU1uj3Bf_Qehz4PBcpr7CFbpa1aSXa8vhrWx0/edit" target="_blank" rel="noopener noreferrer" class="px-3.5 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold transition">📊 開啟 8 分頁雲端總資料庫</a>
+                        <a href="https://docs.google.com/spreadsheets/d/1Ma9LwRPU1uj3Bf_Qehz4PBcpr7CFbpa1aSXa8vhrWx0/edit" target="_blank" rel="noopener noreferrer" class="px-3.5 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold transition">📊 開啟 9 分頁雲端總資料庫</a>
                         <a href="https://drive.google.com/file/d/13Y7BriAsKt3sOckPW0m5MCIGA1cptBEX/view" target="_blank" rel="noopener noreferrer" class="px-3 py-2 bg-slate-800 hover:bg-slate-900 text-white rounded-xl text-xs font-bold transition">🗄️ 雲端 JSON 狀態檔</a>
                     </div>
                 </div>
@@ -1390,10 +1390,10 @@
                 <div class="p-4 sm:p-5 space-y-3 bg-slate-900/90">
                     <label for="staff-login-pin" class="block text-xs sm:text-sm font-bold text-slate-200">
                         🔐 這邊是打員工專屬密碼（點入自動鎖定英文輸入）
-                        <span class="block text-[11px] font-normal text-slate-400 mt-0.5">（剛註冊預設為 <strong class="text-amber-300 font-mono">0000</strong>；首次登入後強制改為 <strong class="text-emerald-300">8 位數含大小寫英文與數字密碼</strong>）</span>
+                        <span class="block text-[11px] font-normal text-slate-400 mt-0.5">（剛註冊預設為 <strong class="text-amber-300 font-mono">0000</strong>；首次登入後強制改為 <strong class="text-emerald-300">8 個字以上含大小寫英文與數字密碼</strong>）</span>
                     </label>
                     <div class="flex flex-col sm:flex-row gap-2.5">
-                        <input id="staff-login-pin" type="password" lang="en" inputmode="latin" autocapitalize="off" autocomplete="off" autocorrect="off" spellcheck="false" maxlength="8" placeholder="請輸入 8 位密碼 (預設 0000)" class="strict-en-pwd flex-1 px-3.5 py-2.5 rounded-xl bg-slate-800 border border-slate-600 text-white font-mono tracking-normal text-center text-sm sm:text-base outline-none focus:border-emerald-400">
+                        <input id="staff-login-pin" type="password" lang="en" inputmode="latin" autocapitalize="off" autocomplete="off" autocorrect="off" spellcheck="false" maxlength="64" placeholder="請輸入密碼 (預設 0000 / 8字以上)" class="strict-en-pwd flex-1 px-3.5 py-2.5 rounded-xl bg-slate-800 border border-slate-600 text-white font-mono tracking-normal text-center text-sm sm:text-base outline-none focus:border-emerald-400">
                         <button id="staff-login-submit-btn" type="button" class="bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold px-6 py-2.5 rounded-xl text-sm shadow-lg transition whitespace-nowrap">
                             👤 員工登入系統
                         </button>
@@ -1403,7 +1403,7 @@
                 <!-- 一般管理員專屬登錄的地方 (老闆 / 老闆娘) -->
                 <div class="p-4 sm:p-5 bg-indigo-950/85 border-t-2 border-indigo-500/40 flex items-center justify-between gap-2">
                     <h2 class="text-sm sm:text-base font-extrabold text-indigo-300">👔 這裡是一般管理員專屬登錄的地方（老闆 / 老闆娘）</h2>
-                    <span class="text-[11px] bg-indigo-500/20 text-indigo-200 border border-indigo-400/30 px-2 py-0.5 rounded font-semibold whitespace-nowrap shrink-0">初始密碼：0000</span>
+                    <span class="text-[11px] bg-indigo-500/20 text-indigo-200 border border-indigo-400/30 px-2 py-0.5 rounded font-semibold whitespace-nowrap shrink-0">專屬權限登入</span>
                 </div>
 
                 <div class="p-4 sm:p-5 space-y-2 bg-slate-900/90">
@@ -1416,21 +1416,16 @@
                 <div class="p-4 sm:p-5 space-y-3 bg-slate-900/90">
                     <label for="manager-login-pin" class="block text-xs sm:text-sm font-bold text-slate-200">
                         🔐 這邊是打一般管理員密碼（點入自動鎖定英文輸入）
-                        <span class="block text-[11px] font-normal text-slate-400 mt-0.5">（初始密碼為 <strong class="text-amber-300 font-mono">0000</strong>；首次登入強制修改為 <strong class="text-indigo-300">8 位數含英文大寫、小寫與數字各至少 1 個</strong>）</span>
+                        <span class="block text-[11px] font-normal text-slate-400 mt-0.5">（老闆已預設專屬密碼；初始 <strong class="text-amber-300 font-mono">0000</strong> 之帳號首次登入請改為 <strong class="text-indigo-300">8 個字以上含英文大寫、小寫與數字各至少 1 個</strong>）</span>
                     </label>
-                    <div class="flex flex-col sm:flex-row gap-2">
+                    <div class="flex flex-col sm:flex-row gap-2.5">
                         <div class="relative flex-1 flex items-center">
-                            <input id="manager-login-pin" type="password" lang="en" inputmode="latin" autocapitalize="off" autocomplete="off" autocorrect="off" spellcheck="false" maxlength="16" placeholder="請輸入 8 位密碼 (初始 0000)" class="strict-en-pwd w-full pl-3.5 pr-10 py-2.5 rounded-xl bg-slate-800 border border-slate-600 text-white font-mono tracking-normal text-center text-sm sm:text-base outline-none focus:border-indigo-400">
+                            <input id="manager-login-pin" type="password" lang="en" inputmode="latin" autocapitalize="off" autocomplete="off" autocorrect="off" spellcheck="false" maxlength="64" placeholder="請輸入一般管理員密碼..." class="strict-en-pwd w-full pl-3.5 pr-10 py-2.5 rounded-xl bg-slate-800 border border-slate-600 text-white font-mono tracking-normal text-center text-sm sm:text-base outline-none focus:border-indigo-400">
                             <button id="toggle-mgr-login-pwd-vis" type="button" class="absolute right-2.5 text-slate-400 hover:text-white text-xs px-1.5 py-1 rounded" title="顯示或隱藏密碼">👁️</button>
                         </div>
-                        <div class="flex gap-2">
-                            <button id="manager-login-submit-btn" type="button" class="flex-1 sm:flex-none bg-indigo-600 hover:bg-indigo-500 text-white font-extrabold px-5 py-2.5 rounded-xl text-sm shadow-lg transition whitespace-nowrap">
-                                👔 一般管理員登入
-                            </button>
-                            <button id="manager-gate-change-pwd-btn" type="button" class="bg-slate-800 hover:bg-slate-700 text-indigo-200 border border-indigo-400/50 font-bold px-3.5 py-2.5 rounded-xl text-xs sm:text-sm transition whitespace-nowrap" title="直接修改上方所選一般管理員的密碼">
-                                🔑 修改密碼
-                            </button>
-                        </div>
+                        <button id="manager-login-submit-btn" type="button" class="bg-indigo-600 hover:bg-indigo-500 text-white font-extrabold px-6 py-2.5 rounded-xl text-sm shadow-lg transition whitespace-nowrap">
+                            👔 一般管理員登入
+                        </button>
                     </div>
                 </div>
 
@@ -1465,10 +1460,10 @@
     <div id="force-change-pwd-modal" class="fixed inset-0 bg-slate-950/90 backdrop-blur-md z-50 hidden items-center justify-center p-4">
         <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl border-2 border-amber-400 space-y-4">
             <div class="space-y-1 border-b border-slate-100 pb-3">
-                <div class="inline-flex items-center gap-1.5 bg-amber-100 text-amber-800 text-xs font-extrabold px-2.5 py-0.5 rounded-full">🔐 帳號 8 位數安全密碼設定（一般管理員 / 員工）</div>
-                <h3 id="force-pwd-title" class="font-extrabold text-slate-900 text-lg">首次登入！請立即設定您的 8 位數專屬密碼</h3>
+                <div class="inline-flex items-center gap-1.5 bg-amber-100 text-amber-800 text-xs font-extrabold px-2.5 py-0.5 rounded-full">🔐 帳號安全密碼設定（8 個字或以上）</div>
+                <h3 id="force-pwd-title" class="font-extrabold text-slate-900 text-lg">首次登入！請立即設定您的專屬密碼</h3>
                 <p id="force-pwd-desc" class="text-xs text-rose-600 font-semibold">
-                    您的帳號目前使用的是剛註冊預設密碼 (0000)，必須修改為新的 8 位數密碼（須含英文大寫、英文小寫、數字至少各一，可含符號，總長剛好 8 碼）才能進入系統！
+                    您的帳號目前使用的是初始密碼 (0000)，請修改為 8 個字以上的密碼（須含英文大寫、英文小寫、數字各至少 1 個，可含符號）才能進入系統！
                 </p>
             </div>
             <div class="space-y-3 text-xs sm:text-sm">
@@ -1478,25 +1473,25 @@
                 </div>
                 <input id="force-pwd-account" type="text" readonly class="w-full px-3 py-2 rounded-xl border border-slate-200 bg-slate-100 text-slate-700 font-mono font-bold">
                 <div id="force-pwd-old-wrap" class="hidden">
-                    <label class="block font-semibold text-slate-700 mb-1">請輸入目前密碼（若尚未改過請輸入 0000）</label>
-                    <input id="force-pwd-old" type="password" lang="en" inputmode="latin" autocapitalize="off" autocomplete="off" autocorrect="off" spellcheck="false" maxlength="16" placeholder="請輸入目前密碼或初始 0000" class="strict-en-pwd w-full px-3 py-2 rounded-xl border border-slate-300 font-mono text-center text-base tracking-wider outline-none focus:border-indigo-500">
+                    <label class="block font-semibold text-slate-700 mb-1">請先輸入目前舊密碼進行驗證</label>
+                    <input id="force-pwd-old" type="password" lang="en" inputmode="latin" autocapitalize="off" autocomplete="off" autocorrect="off" spellcheck="false" maxlength="64" placeholder="請輸入目前的舊密碼" class="strict-en-pwd w-full px-3 py-2 rounded-xl border border-slate-300 font-mono text-center text-base tracking-wider outline-none focus:border-indigo-500">
                 </div>
                 <div>
                     <div class="flex items-center justify-between mb-1">
-                        <label class="font-semibold text-slate-700">請輸入新的 8 位數密碼（鎖定英文輸入）</label>
-                        <span id="pwd-len-counter" class="text-[11px] font-mono font-bold text-slate-500">目前 0 / 8 碼</span>
+                        <label class="font-semibold text-slate-700">請輸入新密碼（8 個字或以上・鎖定英文輸入）</label>
+                        <span id="pwd-len-counter" class="text-[11px] font-mono font-bold text-slate-500">目前 0 個字（至少 8 字）</span>
                     </div>
-                    <input id="force-pwd-new1" type="password" lang="en" inputmode="latin" autocapitalize="off" autocomplete="off" autocorrect="off" spellcheck="false" maxlength="16" placeholder="剛好 8 碼，例如：Chu61022 或 Pipi#888" class="strict-en-pwd w-full px-3 py-2.5 rounded-xl border border-slate-300 font-mono text-center text-base tracking-wider outline-none focus:border-blue-500">
+                    <input id="force-pwd-new1" type="password" lang="en" inputmode="latin" autocapitalize="off" autocomplete="off" autocorrect="off" spellcheck="false" maxlength="64" placeholder="8 個字或以上，如：Chu610221" class="strict-en-pwd w-full px-3 py-2.5 rounded-xl border border-slate-300 font-mono text-center text-base tracking-wider outline-none focus:border-blue-500">
                 </div>
                 <div class="p-3 rounded-xl bg-slate-50 border border-slate-200 grid grid-cols-2 gap-1.5 text-[11px]">
-                    <div id="pwd-rule-len" class="text-slate-500 font-semibold">○ 總長度剛好 8 位數</div>
+                    <div id="pwd-rule-len" class="text-slate-500 font-semibold">○ 長度 8 個字或以上</div>
                     <div id="pwd-rule-upper" class="text-slate-500 font-semibold">○ 含至少 1 個英文大寫 (A-Z)</div>
                     <div id="pwd-rule-lower" class="text-slate-500 font-semibold">○ 含至少 1 個英文小寫 (a-z)</div>
                     <div id="pwd-rule-digit" class="text-slate-500 font-semibold">○ 含至少 1 個數字 (0-9)</div>
                 </div>
                 <div>
-                    <label class="block font-semibold text-slate-700 mb-1">再次確認新的 8 位數密碼</label>
-                    <input id="force-pwd-new2" type="password" lang="en" inputmode="latin" autocapitalize="off" autocomplete="off" autocorrect="off" spellcheck="false" maxlength="16" placeholder="請再次輸入相同的 8 位數密碼" class="strict-en-pwd w-full px-3 py-2.5 rounded-xl border border-slate-300 font-mono text-center text-base tracking-wider outline-none focus:border-blue-500">
+                    <label class="block font-semibold text-slate-700 mb-1">再次確認新密碼</label>
+                    <input id="force-pwd-new2" type="password" lang="en" inputmode="latin" autocapitalize="off" autocomplete="off" autocorrect="off" spellcheck="false" maxlength="64" placeholder="請再次輸入相同的新密碼" class="strict-en-pwd w-full px-3 py-2.5 rounded-xl border border-slate-300 font-mono text-center text-base tracking-wider outline-none focus:border-blue-500">
                 </div>
             </div>
             <div class="flex gap-2 pt-2">
@@ -1546,8 +1541,9 @@
             members: [],
             orders: [],
             preorders: [],
+            bossInitChu610221Set: true,
             managers: [
-                { account: 'Chu,Tsung-Shang', name: '朱宗上', title: '老闆 (一般管理員)', pin: '0000', mustChangePwd: true },
+                { account: 'Chu,Tsung-Shang', name: '朱宗上', title: '老闆 (一般管理員)', pin: 'Chu610221', mustChangePwd: false },
                 { account: 'Lin,Ya-Ting', name: '林雅婷', title: '老闆娘 (一般管理員)', pin: '0000', mustChangePwd: true }
             ],
             staff: [
@@ -1684,7 +1680,7 @@
                             fixedSales.isFixedAccount = true;
                         }
                         const defMgrs = [
-                            { account: 'Chu,Tsung-Shang', name: '朱宗上', title: '老闆 (一般管理員)', pin: '0000', mustChangePwd: true },
+                            { account: 'Chu,Tsung-Shang', name: '朱宗上', title: '老闆 (一般管理員)', pin: 'Chu610221', mustChangePwd: false },
                             { account: 'Lin,Ya-Ting', name: '林雅婷', title: '老闆娘 (一般管理員)', pin: '0000', mustChangePwd: true }
                         ];
                         if (!Array.isArray(parsed.managers)) {
@@ -1693,9 +1689,18 @@
                             defMgrs.forEach(dm => {
                                 const ex = parsed.managers.find(m => m.account === dm.account);
                                 if (!ex) parsed.managers.push(dm);
-                                else { ex.name = dm.name; ex.title = dm.title; }
+                                else {
+                                    ex.name = dm.name;
+                                    ex.title = dm.title;
+                                    if (dm.account === 'Chu,Tsung-Shang' && !parsed.bossInitChu610221Set && (ex.pin === '0000' || ex.pin === 'Chu61022' || !ex.pin)) {
+                                        ex.pin = 'Chu610221';
+                                        ex.mustChangePwd = false;
+                                        ex.pwdUpdatedAt = Date.now();
+                                    }
+                                }
                             });
                         }
+                        parsed.bossInitChu610221Set = true;
                         if (!Array.isArray(parsed.peers)) parsed.peers = [];
                         if (!Array.isArray(parsed.transfers)) parsed.transfers = [];
                         if (!Array.isArray(parsed.attendance)) parsed.attendance = [];
@@ -2915,7 +2920,7 @@
 
         function validateStaffPassword8(pwd) {
             const s = String(pwd || '');
-            const hasLen8 = s.length === 8;
+            const hasLen8 = s.length >= 8;
             const hasUpper = /[A-Z]/.test(s);
             const hasLower = /[a-z]/.test(s);
             const hasDigit = /\d/.test(s);
@@ -2935,32 +2940,36 @@
                 el.className = ok ? 'text-emerald-600 font-extrabold' : 'text-slate-500 font-semibold';
             };
             const len = String(val || '').length;
-            setItem('pwd-rule-len', res.hasLen8, len > 8 ? `總長度須剛好 8 碼 (目前已打 ${len} 碼，多了 ${len - 8} 碼)` : '總長度剛好 8 位數');
+            setItem('pwd-rule-len', res.hasLen8, '長度 8 個字或以上');
             setItem('pwd-rule-upper', res.hasUpper, '含至少 1 個英文大寫 (A-Z)');
             setItem('pwd-rule-lower', res.hasLower, '含至少 1 個英文小寫 (a-z)');
             setItem('pwd-rule-digit', res.hasDigit, '含至少 1 個數字 (0-9)');
             const cntEl = document.getElementById('pwd-len-counter');
             if (cntEl) {
-                cntEl.textContent = len > 8 ? `⚠️ 已輸入 ${len} 碼（超過 8 碼！）` : `目前 ${len} / 8 碼`;
-                cntEl.className = len === 8
+                cntEl.textContent = `目前 ${len} 個字（至少 8 字）`;
+                cntEl.className = len >= 8
                     ? 'text-[11px] font-mono font-extrabold text-emerald-600'
-                    : (len > 8 ? 'text-[11px] font-mono font-extrabold text-rose-600' : 'text-[11px] font-mono font-bold text-slate-500');
+                    : 'text-[11px] font-mono font-bold text-slate-500';
             }
         }
 
         function ensureManagersList() {
             if (!Array.isArray(appState.managers)) appState.managers = [];
             const required = [
-                { account: 'Chu,Tsung-Shang', name: '朱宗上', title: '老闆 (一般管理員)' },
-                { account: 'Lin,Ya-Ting', name: '林雅婷', title: '老闆娘 (一般管理員)' }
+                { account: 'Chu,Tsung-Shang', name: '朱宗上', title: '老闆 (一般管理員)', defaultPin: 'Chu610221', defaultMustChange: false },
+                { account: 'Lin,Ya-Ting', name: '林雅婷', title: '老闆娘 (一般管理員)', defaultPin: '0000', defaultMustChange: true }
             ];
             required.forEach(req => {
                 const found = appState.managers.find(m => m.account === req.account);
                 if (!found) {
-                    appState.managers.push({ ...req, pin: '0000', mustChangePwd: true });
+                    appState.managers.push({ account: req.account, name: req.name, title: req.title, pin: req.defaultPin, mustChangePwd: req.defaultMustChange });
                 } else {
                     found.name = req.name;
                     found.title = req.title;
+                    if (req.account === 'Chu,Tsung-Shang' && (!found.pin || found.pin === '0000')) {
+                        found.pin = 'Chu610221';
+                        found.mustChangePwd = false;
+                    }
                 }
             });
         }
@@ -2975,7 +2984,7 @@
                 const opt = document.createElement('option');
                 opt.value = m.account;
                 const isInit = (m.mustChangePwd !== false && (m.pin || '0000') === '0000');
-                opt.textContent = `${m.account} — ${m.name}（${m.title} · ${isInit ? '初始密碼:0000' : '已設8位專屬密碼'}）`;
+                opt.textContent = `${m.account} — ${m.name}（${m.title} · ${isInit ? '初始密碼:0000' : '已設專屬密碼'}）`;
                 sel.appendChild(opt);
             });
             if (cur && appState.managers.some(m => m.account === cur)) sel.value = cur;
@@ -3010,7 +3019,7 @@
                     opt.textContent = `${dispName}（一般銷售員 · 固定密碼不可修改）`;
                 } else {
                     const isInit = (s.mustChangePwd !== false && (s.pin || '0000') === '0000');
-                    opt.textContent = `${dispName}（${isInit ? '初始密碼:0000 待改密碼' : '已設8位專屬密碼'}）`;
+                    opt.textContent = `${dispName}（${isInit ? '初始密碼:0000 待改密碼' : '已設專屬密碼'}）`;
                 }
                 sel.appendChild(opt);
             });
@@ -3088,21 +3097,21 @@
             setPasswordModalInputsVisible(false);
             updatePasswordChecklistUI('');
             document.getElementById('force-pwd-title').textContent = isMandatory
-                ? '首次登入！請立即設定您的 8 位數專屬密碼'
-                : (targetType === 'manager' ? '🔑 修改一般管理員 8 位數專屬密碼' : '🔑 修改個人專屬 8 位數安全密碼');
+                ? '首次登入！請立即設定您的專屬密碼'
+                : (targetType === 'manager' ? '🔑 驗證舊密碼並修改一般管理員密碼' : '🔑 驗證舊密碼並修改個人密碼');
             const descEl = document.getElementById('force-pwd-desc');
             if (descEl) {
                 if (isMandatory) {
                     descEl.className = 'text-xs text-rose-600 font-semibold';
-                    descEl.textContent = '您的帳號目前使用的是初始密碼 (0000)，請設定新的 8 位數密碼（須含英文大寫、英文小寫、數字各至少 1 個，總長剛好 8 碼）！';
+                    descEl.textContent = '您的帳號目前使用的是初始密碼 (0000)，請設定 8 個字以上的新密碼（須含英文大寫、英文小寫、數字各至少 1 個，可含符號）！';
                 } else {
                     descEl.className = 'text-xs text-indigo-700 font-semibold';
-                    descEl.textContent = '請輸入新的 8 位數密碼（須含英文大寫、英文小寫、數字各至少 1 個，可含符號，總長剛好 8 碼），儲存後自動同步至雲端試算表！';
+                    descEl.textContent = '請先輸入目前的舊密碼，再輸入 8 個字以上的新密碼（須含英文大寫、英文小寫、數字各至少 1 個，可含符號），儲存後自動同步至雲端試算表！';
                 }
             }
             document.getElementById('save-force-pwd-btn').textContent = (isMandatory || loginAfterSave)
                 ? '✅ 確認儲存新密碼並進入系統'
-                : '✅ 確認修改密碼並同步雲端';
+                : '✅ 驗證並儲存新密碼';
             document.getElementById('cancel-voluntary-pwd-btn').classList.toggle('hidden', isMandatory);
             const modal = document.getElementById('force-change-pwd-modal');
             modal.classList.remove('hidden');
@@ -3119,44 +3128,49 @@
             box.innerHTML = '';
 
             appState.managers.forEach((m, mIdx) => {
-                const isInit = (m.mustChangePwd !== false && (m.pin || '0000') === '0000');
+                const isBoss = m.account === 'Chu,Tsung-Shang';
+                const isInit = !isBoss && (m.mustChangePwd !== false && (m.pin || '0000') === '0000');
                 const mDiv = document.createElement('div');
                 mDiv.className = 'p-3 rounded-xl bg-indigo-50/70 border border-indigo-200 flex flex-wrap items-center justify-between gap-2 text-xs';
-                mDiv.innerHTML = `
+                mDiv.innerHTML = isBoss ? `
                     <div>
                         <div class="font-bold text-slate-900 flex flex-wrap items-center gap-1.5">
                             <span>👔 ${m.name} (${m.account})</span>
                             <span class="bg-indigo-600 text-white text-[10px] px-1.5 py-0.5 rounded">${m.title}</span>
-                            <span class="text-[10px] px-2 py-0.5 rounded font-bold ${isInit ? 'bg-amber-100 text-amber-800' : 'bg-emerald-100 text-emerald-700'}">${isInit ? '初始 0000' : '已設 8 碼密碼'}</span>
+                            <span class="text-[10px] px-2 py-0.5 rounded font-bold bg-emerald-100 text-emerald-700">已設專屬密碼</span>
+                        </div>
+                        <div class="text-[11px] text-indigo-800 font-semibold mt-0.5">🛡️ 老闆帳號受保護：不可於後台直接修改或重置密碼（僅限本人登入後驗證舊密碼修改）</div>
+                    </div>
+                    <span class="px-2.5 py-1 bg-white text-indigo-700 border border-indigo-300 rounded-lg text-[11px] font-extrabold shrink-0">🛡️ 密碼受保護</span>
+                ` : `
+                    <div>
+                        <div class="font-bold text-slate-900 flex flex-wrap items-center gap-1.5">
+                            <span>👔 ${m.name} (${m.account})</span>
+                            <span class="bg-indigo-600 text-white text-[10px] px-1.5 py-0.5 rounded">${m.title}</span>
+                            <span class="text-[10px] px-2 py-0.5 rounded font-bold ${isInit ? 'bg-amber-100 text-amber-800' : 'bg-emerald-100 text-emerald-700'}">${isInit ? '初始 0000' : '已設專屬密碼'}</span>
                         </div>
                     </div>
                     <div class="flex items-center gap-1.5 shrink-0">
-                        <button type="button" data-edit-mgr="${mIdx}" class="px-2.5 py-1 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg text-[11px] font-bold shadow-2xs transition">🔑 修改密碼</button>
                         <button type="button" data-reset-mgr="${mIdx}" class="px-2 py-1 bg-amber-50 hover:bg-amber-100 text-amber-700 border border-amber-200 rounded-lg text-[11px] font-semibold transition">重置0000</button>
                     </div>
                 `;
                 box.appendChild(mDiv);
             });
 
-            box.querySelectorAll('button[data-edit-mgr]').forEach(btn => {
-                btn.addEventListener('click', () => {
-                    const mgr = appState.managers[parseInt(btn.getAttribute('data-edit-mgr'), 10)];
-                    if (mgr) openForcePasswordModal(mgr, false, 'manager', false, false);
-                });
-            });
-
             box.querySelectorAll('button[data-reset-mgr]').forEach(btn => {
                 btn.addEventListener('click', () => {
                     const mgr = appState.managers[parseInt(btn.getAttribute('data-reset-mgr'), 10)];
-                    if (mgr) {
-                        mgr.pin = '0000';
-                        mgr.mustChangePwd = true;
-                        mgr.pwdUpdatedAt = Date.now();
-                        clearTimeout(cloudSyncTimer);
-                        saveState();
-                        renderStaff();
-                        showToast(`已將【${mgr.name} (${mgr.account})】密碼重置為初始 0000`);
+                    if (!mgr || mgr.account === 'Chu,Tsung-Shang') {
+                        showToast('🛡️ 老闆帳號受保護，不可直接重置或修改密碼！', 'error');
+                        return;
                     }
+                    mgr.pin = '0000';
+                    mgr.mustChangePwd = true;
+                    mgr.pwdUpdatedAt = Date.now();
+                    clearTimeout(cloudSyncTimer);
+                    saveState();
+                    renderStaff();
+                    showToast(`已將【${mgr.name} (${mgr.account})】密碼重置為初始 0000`);
                 });
             });
             if (appState.staff.length === 0) {
@@ -3189,26 +3203,15 @@
                     <div>
                         <div class="font-bold text-slate-900 flex flex-wrap items-center gap-1.5">
                             <span>👤 ${dispTitle}</span>
-                            <span class="text-[10px] px-2 py-0.5 rounded font-bold ${isInit ? 'bg-amber-100 text-amber-800' : 'bg-emerald-100 text-emerald-700'}">${isInit ? '初始 0000' : '已設 8 碼密碼'}</span>
+                            <span class="text-[10px] px-2 py-0.5 rounded font-bold ${isInit ? 'bg-amber-100 text-amber-800' : 'bg-emerald-100 text-emerald-700'}">${isInit ? '初始 0000' : '已設專屬密碼'}</span>
                         </div>
                     </div>
                     <div class="flex gap-1.5 shrink-0">
-                        <button type="button" data-edit-staff="${idx}" class="px-2.5 py-1 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-[11px] font-bold">🔑 修改密碼</button>
                         <button type="button" data-reset-staff="${idx}" class="px-2 py-1 bg-amber-50 hover:bg-amber-100 text-amber-700 border border-amber-200 rounded-lg text-[11px] font-semibold">重置0000</button>
                         <button type="button" data-del-staff="${idx}" class="px-2 py-1 bg-rose-50 hover:bg-rose-100 text-rose-600 rounded-lg text-[11px] font-semibold">移除</button>
                     </div>
                 `;
                 box.appendChild(div);
-            });
-            box.querySelectorAll('button[data-edit-staff]').forEach(btn => {
-                btn.addEventListener('click', () => {
-                    const st = appState.staff[parseInt(btn.getAttribute('data-edit-staff'), 10)];
-                    if (!st || st.email === '25508846' || st.isFixedAccount) {
-                        showToast('🔒 【PIPI TOY’S (25508846)】密碼永遠不可修改！', 'error');
-                        return;
-                    }
-                    openForcePasswordModal(st, false, 'staff', false, false);
-                });
             });
             box.querySelectorAll('button[data-reset-staff]').forEach(btn => {
                 btn.addEventListener('click', () => {
@@ -3386,7 +3389,12 @@
             syncArrayField('peers', 'id');
 
             if (Array.isArray(cs.managers) && !dirtySet.has('managers')) {
-                appState.managers = cs.managers;
+                appState.managers = cs.managers.map(cm => {
+                    if (cm && cm.account === 'Chu,Tsung-Shang' && !cs.bossInitChu610221Set && (cm.pin === '0000' || cm.pin === 'Chu61022')) {
+                        return Object.assign({}, cm, { pin: 'Chu610221', mustChangePwd: false });
+                    }
+                    return cm;
+                });
             }
             if (!dirtySet.has('categories')) {
                 if (Array.isArray(cs.categories)) appState.categories = cs.categories;
@@ -4230,7 +4238,7 @@
                 saveState();
                 renderStaff();
                 renderAttendance();
-                showToast(`已註冊銷售員【${staffName} (${email})】（初始密碼 0000，首次登入強制改 8 碼密碼）`);
+                showToast(`已註冊銷售員【${staffName} (${email})】（初始密碼 0000，首次登入強制改 8 字以上密碼）`);
             });
 
             document.getElementById('header-cloud-status-btn').addEventListener('click', () => {
@@ -4338,7 +4346,7 @@
                 const expected = staffObj.pin || '0000';
                 const isFirst = (staffObj.mustChangePwd !== false || expected === '0000');
                 if (isFirst && pin !== '0000') { showToast('剛註冊員工首次登入請輸入預設密碼 0000', 'error'); return; }
-                if (!isFirst && pin !== expected) { showToast('員工 8 位密碼輸入錯誤（請確認英文大小寫）！', 'error'); return; }
+                if (!isFirst && pin !== expected) { showToast('員工密碼輸入錯誤（請確認英文大小寫）！', 'error'); return; }
 
                 currentSessionUser = { role: 'staff', account: staffObj.email, name: staffObj.name || staffObj.email, isFixedAccount: false };
                 document.getElementById('staff-login-pin').value = '';
@@ -4359,11 +4367,11 @@
                 const expected = mgrObj.pin || '0000';
                 const isFirst = (mgrObj.mustChangePwd !== false || expected === '0000');
                 if (isFirst && pin !== '0000') {
-                    showToast('首次登入請輸入初始密碼 0000，進入後再設定 8 位專屬密碼！', 'error');
+                    showToast('首次登入請輸入初始密碼 0000，進入後再設定 8 個字以上的專屬密碼！', 'error');
                     return;
                 }
                 if (!isFirst && pin !== expected) {
-                    showToast('一般管理員 8 位密碼輸入錯誤（請注意英文大小寫）！', 'error');
+                    showToast('一般管理員密碼輸入錯誤（請注意英文大小寫）！', 'error');
                     return;
                 }
 
@@ -4374,7 +4382,7 @@
                 switchTab('pos');
                 if (isFirst) {
                     openForcePasswordModal(mgrObj, true, 'manager');
-                    showToast(`歡迎 ${mgrObj.name} (${mgrObj.title})！首次登入請立即修改您的 8 位數密碼`, 'info');
+                    showToast(`歡迎 ${mgrObj.name} (${mgrObj.title})！首次登入請立即設定 8 個字以上的專屬密碼`, 'info');
                 } else {
                     showToast(`👔 歡迎回來，${mgrObj.name} (${mgrObj.account})！`);
                 }
@@ -4403,19 +4411,6 @@
                 setPasswordModalInputsVisible(isHidden);
             });
 
-            document.getElementById('manager-gate-change-pwd-btn').addEventListener('click', () => {
-                ensureManagersList();
-                const acc = document.getElementById('manager-login-select').value;
-                const mgrObj = appState.managers.find(m => m.account === acc);
-                if (!mgrObj) return;
-                const typedPin = document.getElementById('manager-login-pin').value.trim();
-                openForcePasswordModal(mgrObj, false, 'manager', true, true);
-                if (typedPin) {
-                    const oldInp = document.getElementById('force-pwd-old');
-                    if (oldInp) oldInp.value = typedPin;
-                }
-            });
-
             document.getElementById('save-force-pwd-btn').addEventListener('click', () => {
                 const p1 = document.getElementById('force-pwd-new1').value.trim();
                 const p2 = document.getElementById('force-pwd-new2').value.trim();
@@ -4423,20 +4418,27 @@
                     const oldVal = (document.getElementById('force-pwd-old').value || '').trim();
                     if (pendingPwdTarget.type === 'manager') {
                         const mgrCheck = appState.managers.find(m => m.account === pendingPwdTarget.key);
-                        const expectedOld = (mgrCheck && mgrCheck.mustChangePwd === false && mgrCheck.pin) ? mgrCheck.pin : '0000';
+                        const expectedOld = (mgrCheck && mgrCheck.pin) ? mgrCheck.pin : '0000';
                         if (oldVal !== expectedOld) {
-                            showToast('目前密碼輸入錯誤（若未改過請輸入 0000，已改過請輸入舊的 8 位密碼）！', 'error');
+                            showToast('目前舊密碼驗證錯誤，無法修改密碼！', 'error');
+                            return;
+                        }
+                    } else if (pendingPwdTarget.type === 'staff') {
+                        const stCheck = appState.staff.find(s => s.email === pendingPwdTarget.key);
+                        const expectedOld = (stCheck && stCheck.pin) ? stCheck.pin : '0000';
+                        if (oldVal !== expectedOld) {
+                            showToast('目前舊密碼驗證錯誤，無法修改密碼！', 'error');
                             return;
                         }
                     }
                 }
-                if (p1.length !== 8) {
-                    showToast(`密碼總長度必須「剛好 8 位數」（目前輸入了 ${p1.length} 位數）！`, 'error');
+                if (p1.length < 8) {
+                    showToast(`密碼長度須為 8 個字或以上（目前僅輸入 ${p1.length} 個字）！`, 'error');
                     return;
                 }
                 const chk = validateStaffPassword8(p1);
-                if (!chk.valid) { showToast('密碼須剛好 8 位數，且含英文大寫、英文小寫與數字各至少 1 個！', 'error'); return; }
-                if (p1 !== p2) { showToast('兩次輸入的 8 位數密碼不一致，可點右上角「👁️ 顯示密碼文字」檢查！', 'error'); return; }
+                if (!chk.valid) { showToast('密碼須至少 8 個字，且含英文大寫、英文小寫與數字各至少 1 個！', 'error'); return; }
+                if (p1 !== p2) { showToast('兩次輸入的新密碼不一致，可點右上角「👁️ 顯示密碼文字」檢查！', 'error'); return; }
 
                 if (pendingPwdTarget && pendingPwdTarget.type === 'manager') {
                     const mgr = appState.managers.find(m => m.account === pendingPwdTarget.key);
@@ -4444,20 +4446,14 @@
                     mgr.pin = p1;
                     mgr.mustChangePwd = false;
                     mgr.pwdUpdatedAt = Date.now();
+                    appState.bossInitChu610221Set = true;
                     clearTimeout(cloudSyncTimer);
                     try { localStorage.setItem(STORAGE_KEY, JSON.stringify(appState)); } catch (e) {}
                     pushToGoogleDriveCloud(true, true);
                     renderStaff();
                     document.getElementById('force-change-pwd-modal').classList.add('hidden');
                     document.getElementById('force-change-pwd-modal').classList.remove('flex');
-                    if (pendingPwdTarget.loginAfterSave) {
-                        currentSessionUser = { role: 'manager', account: mgr.account, name: mgr.name, title: mgr.title };
-                        document.getElementById('manager-login-pin').value = '';
-                        document.getElementById('auth-login-gate').classList.add('hidden');
-                        updateSessionUI();
-                        switchTab('pos');
-                    }
-                    showToast(`✅ 【${mgr.name} (${mgr.account})】8 位數新密碼已儲存並同步雲端！`);
+                    showToast(`✅ 【${mgr.name} (${mgr.account})】新密碼已儲存並同步雲端！`);
                 } else {
                     const key = pendingPwdTarget ? pendingPwdTarget.key : document.getElementById('force-pwd-account').value;
                     if (key === '25508846') {
@@ -4474,21 +4470,22 @@
                     renderStaff();
                     document.getElementById('force-change-pwd-modal').classList.add('hidden');
                     document.getElementById('force-change-pwd-modal').classList.remove('flex');
-                    showToast(`✅ 帳號【${st.email}】的 8 位數密碼已設定完成！`);
+                    showToast(`✅ 帳號【${st.email}】的新密碼已設定完成！`);
                 }
             });
             document.getElementById('voluntary-change-pwd-btn').addEventListener('click', () => {
                 if (!currentSessionUser) return;
                 if (currentSessionUser.role === 'manager') {
                     const mgr = appState.managers.find(m => m.account === currentSessionUser.account);
-                    if (mgr) openForcePasswordModal(mgr, false, 'manager');
+                    // 必須先輸入目前舊密碼驗證 (requireOldPin = true)，不可直接無驗證改密碼
+                    if (mgr) openForcePasswordModal(mgr, false, 'manager', true, false);
                 } else if (currentSessionUser.role === 'staff') {
                     if (currentSessionUser.account === '25508846' || currentSessionUser.isFixedAccount) {
                         showToast('🔒 【PIPI TOY’S (25508846)】密碼永遠不可修改！', 'error');
                         return;
                     }
                     const st = appState.staff.find(s => s.email === currentSessionUser.account);
-                    if (st) openForcePasswordModal(st, false, 'staff');
+                    if (st) openForcePasswordModal(st, false, 'staff', true, false);
                 }
             });
             document.getElementById('cancel-voluntary-pwd-btn').addEventListener('click', () => {
